@@ -1,6 +1,6 @@
 
 import { useState, useEffect } from "react";
-
+import nylaLogo from "./assets/nyla-logo.png";
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -15,6 +15,16 @@ const styles = `
   .nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 22px; background: var(--dark); position: sticky; top: 0; z-index: 100; }
   .logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--white); letter-spacing: 1px; }
   .logo em { font-style: italic; color: var(--blush); }
+  .welcome-logo{
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: 40px;
+  margin-top: 40px;
+  opacity: 0.98;
+  filter: drop-shadow(0 0 25px rgba(255,180,210,0.18));
+  background: transparent;
+}
   .nav-right { display: flex; gap: 8px; align-items: center; }
   .week-badge { background: transparent; color: var(--blush); font-size: 12px; font-weight: 500; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--blush); cursor: pointer; }
   .cycle-btn { background: var(--cycle); color: white; font-size: 11px; font-weight: 500; padding: 5px 11px; border-radius: 20px; border: none; cursor: pointer; }
@@ -341,7 +351,95 @@ const styles = `
   .nav-item.active { color: var(--rose); }
   .nav-item.cycle-active { color: var(--cycle); }
   .nav-item-icon { font-size: 18px; }
-`;
+
+  .setup-screen{
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(120,20,60,0.35), transparent 45%),
+    linear-gradient(180deg,#160812 0%,#1d0b17 45%,#12060f 100%);
+
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+
+  padding:80px 24px 40px;
+  text-align:center;
+}
+
+.welcome-logo{
+  width: 140px;
+  height: 140px;
+  object-fit: contain;
+  margin-bottom: 40px;
+  opacity: 0.98;
+  filter: drop-shadow(0 0 25px rgba(255,180,210,0.18));
+  background: transparent;
+}
+
+.setup-title{
+  font-family:'Cormorant Garamond', serif;
+  font-size:68px;
+  line-height:1.05;
+  color:#FFF7F2;
+  max-width:900px;
+  margin-bottom:28px;
+  font-weight:600;
+}
+
+.setup-sub{
+  font-size:20px;
+  line-height:1.8;
+  color:rgba(255,245,240,0.88);
+  max-width:760px;
+  margin-bottom:34px;
+}
+
+.setup-input{
+  width:100%;
+  max-width:980px;
+  height:78px;
+
+  border-radius:22px;
+  border:1px solid rgba(255,190,220,0.35);
+
+  background:rgba(255,255,255,0.04);
+
+  color:white;
+  font-size:36px;
+  text-align:center;
+
+  backdrop-filter:blur(10px);
+
+  margin-top:20px;
+}
+
+.setup-button{
+  width:100%;
+  max-width:980px;
+  height:72px;
+
+  border:none;
+  border-radius:20px;
+
+  background:linear-gradient(90deg,#ff5f98,#ff82b2);
+
+  color:white;
+  font-size:24px;
+  font-weight:700;
+
+  margin-top:24px;
+
+  cursor:pointer;
+
+  transition:0.3s;
+}
+
+.setup-button:hover{
+  transform:translateY(-2px);
+  box-shadow:0 10px 30px rgba(255,105,160,0.35);
+}
+
 
 const getSeriesForWeek = (w) => w === 1 ? 2 : w === 2 ? 3 : 4;
 const getCardioForWeek = (w) => w <= 2 ? 25 : w <= 4 ? 30 : w <= 6 ? 35 : 40;
@@ -496,7 +594,49 @@ const supplements = [
   { icon:"🌿", name:"Magnesio glicinato", timing:"Noche", desc:"300–400mg antes de dormir. Mejora el sueño, reduce calambres.", benefit:"✓ Sueño · Calambres · Recuperación" },
   { icon:"🫐", name:"Colágeno hidrolizado", timing:"En ayunas", desc:"10–15g en agua tibia en ayunas, idealmente con vitamina C.", benefit:"✓ Articulaciones · Piel · Tendones" },
 ];
+const glutePlan = [
+  {
+    id: 0,
+    short: "GL1",
+    label: "Día 1",
+    focus: "Glúteos Fuerza",
+    exercises: [
+      { name: "Abducciones en máquina" },
+      { name: "Hip Thrust pesado" },
+      { name: "Peso muerto con mancuernas" },
+      { name: "Step Up" },
+      { name: "Patada de glúteos" }
+    ]
+  },
 
+  {
+    id: 1,
+    short: "GL2",
+    label: "Día 2",
+    focus: "Glúteos Volumen",
+    exercises: [
+      { name: "Aducciones en máquina" },
+      { name: "Hip Thrust moderado" },
+      { name: "Buenos días" },
+      { name: "Sentadilla búlgara" },
+      { name: "Patada de glúteos" }
+    ]
+  },
+
+  {
+    id: 2,
+    short: "GL3",
+    label: "Día 3",
+    focus: "Glúteos Técnica",
+    exercises: [
+      { name: "Abducciones en máquina" },
+      { name: "Puente de glúteos" },
+      { name: "Peso muerto a una pierna" },
+      { name: "Step Up" },
+      { name: "Patada de glúteos" }
+    ]
+  }
+];
 const trainingDays = [
   { id:0, short:"LUN", label:"Lunes", focus:"Cuádriceps & Glúteos", emoji:"🍑", color:"linear-gradient(135deg, #C8506A 0%, #E8A0AF 100%)",
     activation:{ color:"linear-gradient(135deg, #F9BFCA 0%, #FDE0E6 100%)", textColor:"#1E1218", subColor:"#7A5F68", dotColor:"#E8A0AF", repsColor:"#C8506A", repsBg:"#F9BFCA50", title:"Activación de glúteos", sub:"8 min · Sin peso · Conexión mente-músculo",
@@ -630,13 +770,24 @@ function WeightTracker({ exId, weights, setWeights, bodyweight }) {
     </div>
   );
   const val = weights[exId] ?? 10;
-  const prev = weights[`prev_${exId}`] ?? null;
-  const isPR = prev !== null && val > prev;
-  const change = (delta) => setWeights(w => {
+const prevKey = "prev_" + exId;
+const prev = weights[prevKey] ?? null;
+const isPR = prev !== null && val > prev;
+
+const change = (delta) => {
+  setWeights(w => {
     const cur = w[exId] ?? 10;
     const next = Math.max(0, Math.round((cur + delta) * 10) / 10);
-    return { ...w, [`prev_${exId}`]: cur, [exId]: next };
+
+    return {
+      ...w,
+      [prevKey]: cur,
+      [exId]: next
+    };
   });
+};
+  
+  
   return (
     <div className="weight-tracker">
       <div className="wt-label">
@@ -660,10 +811,16 @@ function NameSetup({ onSave }) {
 
   return (
     <div className="name-setup">
-      <div className="ns-logo">Nyla <em>Method</em></div>
-      <div className="ns-emoji">🌸</div>
+     <div className="logo">
+  <img
+    src={nylaLogo}
+    alt="Nyla Logo"
+    className="nyla-logo"
+  />
+</div>
+      
       <div className="ns-title">Si ya estás aquí,<br/>es porque quieres un <em>cambio real.</em></div>
-      <p className="ns-sub">Un compromiso contigo misma. La puerta hacia una autoestima fuerte y un amor propio inquebrantable.<br/><br/>Bienvenida.</p>
+      <p className="ns-sub">Un compromiso contigo misma, que es la puerta hacia una autoestima fuerte y un amor propio inquebrantable.<br/><br/>Bienvenida.</p>
       <div className="ns-divider" />
       <input
         className="ns-input"
@@ -716,10 +873,21 @@ function RestTimer({ onClose, exerciseName }) {
           <div style={{ display:"flex", gap:8, justifyContent:"center", marginBottom:20 }}>
             {REST_OPTIONS.map(d => (
               <button key={d} onClick={() => setDuration(d)} style={{
-                padding:"7px 12px", borderRadius:12, border:`1.5px solid ${duration===d?"var(--rose)":"rgba(255,255,255,0.15)"}`,
-                background: duration===d ? "var(--rose)" : "transparent",
-                color: duration===d ? "white" : "rgba(255,255,255,0.5)",
-                fontSize:12, fontWeight:600, cursor:"pointer", fontFamily:"'DM Sans', sans-serif"
+                padding:"7px 12px",
+borderRadius:12,
+border: duration === d
+  ? "1.5px solid var(--rose)"
+  : "1.5px solid rgba(255,255,255,0.15)",
+background: duration === d
+  ? "var(--rose)"
+  : "transparent",
+color: duration === d
+  ? "white"
+  : "rgba(255,255,255,0.5)",
+fontSize:12,
+fontWeight:600,
+cursor:"pointer",
+fontFamily:"DM Sans, sans-serif"
               }}>{d}s</button>
             ))}
           </div>
@@ -775,13 +943,15 @@ function RestTimer({ onClose, exerciseName }) {
 }
 
 // ── GOAL BANNER ───────────────────────────────────────────
-const GOAL_SUGGESTIONS = [
-  "Completar las 8 semanas sin faltar 💪",
-  "Subir el peso en Hip Thrust a 60kg 🏆",
-  "Ser constante y aparecer por mí misma 🌸",
-  "Sentirme fuerte y con energía cada día ⚡",
-  "Mejorar mi postura y core 🧘‍♀️",
-  "Terminar cada semana con 5/5 días ✅",
+
+const suggestions = [
+  "Abdomen y cintura más definidos",
+  "Glúteos con más forma y firmeza",
+  "Piernas más tonificadas y menos celulitis",
+  "Brazos más definidos sin flacidez",
+  "Reducir grasa e hinchazón",
+  "Mejorar postura y verse más elegante",
+  "Verse fit, femenina y saludable"
 ];
 
 function GoalBanner({ goal, onEdit, activeWeek }) {
@@ -800,7 +970,7 @@ function GoalBanner({ goal, onEdit, activeWeek }) {
               <span>Semana 8</span>
             </div>
             <div className="gb-bar-track">
-              <div className="gb-bar-fill" style={{ width:`${pct}%` }} />
+              <div className="gb-bar-fill" style={{ width: `${pct}%` }} />
             </div>
           </div>
         )}
@@ -830,7 +1000,7 @@ function GoalModal({ goal, onSave, onClose }) {
           </div>
           <div className="goal-input-label" style={{ marginBottom:8 }}>💡 Sugerencias:</div>
           <div className="goal-suggestions">
-            {GOAL_SUGGESTIONS.map(s => (
+            {suggestions.map(s => (
               <button key={s} className="goal-sug" onClick={() => setText(s)}>{s}</button>
             ))}
           </div>
@@ -1200,6 +1370,188 @@ function NutritionTab() {
     </div>
   );
 }
+function GluteTab({ activeWeek, weights, setWeights }) {
+
+  const series = activeWeek === 1 ? 2 : activeWeek === 2 ? 3 : 4;
+
+  const [activeGluteDay, setActiveGluteDay] = useState(0);
+  const [timer, setTimer] = useState(null);
+
+  const gluteDays = [
+      {
+  label: "Día 1",
+  focus: "Glúteos Fuerza",
+
+  activation: [
+    "Abducción con banda",
+    "Puente de glúteo con banda"
+  ],
+
+  core: [
+    "Dead Bug",
+    "Plancha 30 segundos"
+  ],
+
+  exercises: [
+        "Abducciones en máquina",
+        "Hip Thrust pesado",
+        "Peso muerto con mancuernas",
+        "Step Up",
+        "Patada de glúteos"
+      ]
+    },
+   {
+  label: "Día 2",
+  focus: "Glúteos Fuerza",
+
+  activation: [
+    "Abducción con banda",
+    "Puente de glúteo con banda"
+  ],
+
+  core: [
+    "Dead Bug",
+    "Plancha 30 segundos"
+  ],
+
+  exercises: [
+        "Aducciones en máquina",
+        "Hip Thrust peso moderado",
+        "Buenos días",
+        "Sentadilla búlgara",
+        "Patada de glúteos"
+      ]
+    },
+    {
+  label: "Día 3",
+  focus: "Glúteos Fuerza",
+
+  activation: [
+    "Abducción con banda",
+    "Puente de glúteo con banda"
+  ],
+
+  core: [
+    "Dead Bug",
+    "Plancha 30 segundos"
+  ],
+
+  exercises: [
+        "Abducciones en máquina",
+        "Puente de glúteos",
+        "Peso muerto a una pierna",
+        "Step Up",
+        "Patada de glúteos"
+      ]
+    }
+  ];
+
+  return (
+    <>
+    {timer && (
+      <RestTimer
+        exerciseName={timer.exerciseName}
+        onClose={() => setTimer(null)}
+      />
+    )}
+
+    <div style={{ padding: "20px" }}>
+      <h2 style={{ color: "#1E1218", marginBottom: "10px" }}>
+        🍑 Plan Glúteos · Semana {activeWeek}
+      </h2>
+
+      <p style={{ color: "#7A5F68", marginBottom: "18px" }}>
+        Progresión automática: {series} series por ejercicio.
+      </p>
+
+      {gluteDays.map((day, index) => (
+        <div
+          key={index}
+          style={{
+            background: "#FFFFFF",
+            borderRadius: "20px",
+            padding: "18px",
+            marginBottom: "16px",
+            border: "1px solid #EDE0D8"
+          }}
+        >
+          <h3 style={{ color: "#C8506A", marginBottom: "4px" }}>
+            {day.label}
+          </h3>
+
+          <p style={{ color: "#7A5F68", marginBottom: "12px" }}>
+            {day.focus}
+          </p>
+{/* ACTIVACIÓN */}
+<div style={{ marginBottom: "18px" }}>
+  <h4 style={{ color: "#E38AAE" }}>Activación</h4>
+
+  {day.activation?.map((item, i) => (
+    <p key={i} style={{ margin: "6px 0", color: "#7A5F68" }}>
+      🔥 {item}
+    </p>
+  ))}
+</div>
+
+{/* CORE */}
+<div style={{ marginBottom: "18px" }}>
+  <h4 style={{ color: "#E38AAE" }}>Core</h4>
+
+  {day.core?.map((item, i) => (
+    <p key={i} style={{ margin: "6px 0", color: "#7A5F68" }}>
+      ✨ {item}
+    </p>
+  ))}
+</div>
+          {day.exercises.map((exercise, i) => (
+            <div
+              key={i}
+              style={{
+                padding: "10px 0",
+                borderBottom: "1px solid #F5EDE8"
+              }}
+            >
+              <strong>{i + 1}. {exercise}</strong>
+              <p style={{ fontSize: "12px", color: "#7A5F68" }}>
+                {series} series · 6–10 reps
+              </p>
+              <WeightTracker
+  exId={`glute_w${activeWeek}_d${activeGluteDay}_e${i}`}
+  weights={weights}
+  setWeights={setWeights}
+  bodyweight={false}
+/>
+<button
+  onClick={() => setTimer({ exerciseName: exercise })}
+  style={{
+    marginTop: "8px",
+    padding: "8px 12px",
+    borderRadius: "10px",
+    border: "none",
+    background: "#F2E8E0",
+    color: "#7A5F68",
+    fontSize: "12px",
+    cursor: "pointer"
+  }}
+>
+  ⏱ Descanso
+</button>
+
+            </div>
+          ))}
+          <button
+  className="wod-btn"
+  onClick={() => alert("Día de glúteos completado 🍑✨")}
+>
+  ✅ Marcar Día {index + 1} como completado
+</button>
+        </div>
+      ))}
+    </div>
+</>
+);
+}
+
 
 // ── 3-DAY TAB ─────────────────────────────────────────────
 function ThreeDayTab({ activeWeek, completedDays, setCompletedDays, weights, setWeights }) {
@@ -1215,6 +1567,7 @@ function ThreeDayTab({ activeWeek, completedDays, setCompletedDays, weights, set
 
   return (
     <>
+
       {timer && <RestTimer exerciseName={timer.exerciseName} onClose={() => setTimer(null)} />}
       {/* DAY SELECTOR */}
       <div className="day3-pills-wrap">
@@ -1382,6 +1735,7 @@ function ThreeDayTab({ activeWeek, completedDays, setCompletedDays, weights, set
           </button>
         </div>
       )}
+    
     </>
   );
 }
@@ -1414,6 +1768,7 @@ export default function NylaMethod() {
       <div className="app">
 
         {/* FIRST-TIME NAME SETUP */}
+
         {!userName && <NameSetup onSave={setUserName} />}
 
         <nav className="nav">
@@ -1490,7 +1845,7 @@ export default function NylaMethod() {
             </div>
             <div className="tab-nav">
               <button className={`tab-btn ${mainTab==="training"?"active":""}`} onClick={() => setMainTab("training")}>💪 Entreno</button>
-              <button className={`tab-btn ${mainTab==="nutrition"?"active":""}`} onClick={() => setMainTab("nutrition")}>🥗 Nutrición</button>
+            
             </div>
             {mainTab === "training" ? (
               <>
@@ -1502,12 +1857,40 @@ export default function NylaMethod() {
                   <button className={`plan-btn ${activePlan==="3days"?"active":""}`} onClick={() => setActivePlan("3days")}>
                     ⚡ Plan 3 días<span className="plan-tag">nuevo</span>
                   </button>
+                  <button
+  className={`plan-btn ${activePlan==="glutes" ? "active" : ""}`}
+  onClick={() => setActivePlan("glutes")}
+>
+  🍑 Plan Glúteos
+</button>
                 </div>
-                {activePlan === "5days" ? (
-                  <TrainingTab activeDay={activeDay} setActiveDay={setActiveDay} activeWeek={activeWeek} completedDays={completedDays} setCompletedDays={setCompletedDays} weights={weights} setWeights={setWeights} />
-                ) : (
-                  <ThreeDayTab activeWeek={activeWeek} completedDays={completedDays} setCompletedDays={setCompletedDays} weights={weights} setWeights={setWeights} />
-                )}
+   {activePlan === "5days" ? (
+  <TrainingTab
+    activeDay={activeDay}
+    setActiveDay={setActiveDay}
+    activeWeek={activeWeek}
+    completedDays={completedDays}
+    setCompletedDays={setCompletedDays}
+    weights={weights}
+    setWeights={setWeights}
+  />
+) : activePlan === "3days" ? (
+  <ThreeDayTab
+    activeWeek={activeWeek}
+    completedDays={completedDays}
+    setCompletedDays={setCompletedDays}
+    weights={weights}
+    setWeights={setWeights}
+  />
+) : (
+  <GluteTab
+  activeWeek={activeWeek}
+  weights={weights}
+  setWeights={setWeights}
+/>
+)}
+
+   
               </>
             ) : (
               <NutritionTab />
