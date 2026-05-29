@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600&display=swap');
 * {
   box-sizing: border-box;
@@ -4451,4 +4452,118 @@ html,
 
   border: 1px solid rgba(243, 179, 199, 0.28) !important;
   box-shadow: none !important;
+}
+.welcome-page {
+  min-height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 28px;
+
+  background:
+    radial-gradient(
+      circle at top,
+      rgba(216,154,165,.18),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #2A0015 0%,
+      #1A0610 100%
+    );
+}
+
+.welcome-card {
+  width: 100%;
+
+  padding: 42px 28px;
+
+  border-radius: 30px;
+
+  background: rgba(255,255,255,.05);
+
+  backdrop-filter: blur(16px);
+
+  border: 1px solid rgba(216,154,165,.18);
+
+  text-align: center;
+
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.35);
+}
+
+.welcome-logo {
+  font-family: "Cormorant Garamond", serif;
+  font-size: 58px;
+  font-weight: 600;
+  letter-spacing: 10px;
+  color: #fff;
+}
+
+.welcome-mini {
+  color: #D89AA5;
+  letter-spacing: 4px;
+  font-size: 11px;
+  margin-bottom: 16px;
+}
+
+.welcome-line {
+  width: 60px;
+  height: 1px;
+  margin: 22px auto;
+  background: #D89AA5;
+}
+
+.welcome-title {
+  font-size: 28px;
+  line-height: 1.3;
+  margin-bottom: 18px;
+}
+
+.welcome-text {
+  color: rgba(247,240,235,.75);
+  line-height: 1.7;
+  margin-bottom: 32px;
+}
+
+.welcome-input {
+  width: 100%;
+  height: 58px;
+
+  border-radius: 16px;
+
+  background: rgba(255,255,255,.08);
+
+  border: 1px solid rgba(216,154,165,.20);
+
+  padding: 0 18px;
+}
+
+.welcome-btn {
+  width: 100%;
+  height: 58px;
+
+  margin-top: 24px;
+
+  border: none;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #E8B8C0,
+      #D89AA5
+    );
+
+  color: #2A0015;
+
+  font-weight: 800;
+
+  letter-spacing: 3px;
+
+  box-shadow:
+    0 12px 30px rgba(216,154,165,.28);
 }
