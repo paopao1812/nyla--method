@@ -33,7 +33,7 @@ export default function Welcome() {
 
   return (
 
-    <div className="welcome-page">
+    <div className="welcome-page" style={{ minHeight: '100dvh' }}>
 
       <div className="welcome-card">
 
@@ -45,7 +45,8 @@ export default function Welcome() {
           NYLA
         </h1>
 
-        <div className="welcome-line"></div>
+       
+       
 
         <h2 className="welcome-title">
           Si ya estás aquí,
