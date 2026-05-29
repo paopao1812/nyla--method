@@ -1,7 +1,9 @@
 
+
+
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./Cycle.css";
+import "../styles/Cycle.css";
 
 export default function Cycle() {
   const navigate = useNavigate();
