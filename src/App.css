@@ -1,0 +1,136 @@
+
+:root {
+  --color-bg:        #1a0610;
+  --color-bg2:       #2a0615;
+  --color-bg3:       #3d0e25;
+  --color-rose:      #c9607a;
+  --color-rose-l:    #f4afc8;
+  --color-cream:     #f5ede6;
+  --color-muted:     rgba(244, 175, 200, 0.45);
+  --color-border:    rgba(244, 175, 200, 0.15);
+  --color-glass:     rgba(244, 175, 200, 0.05);
+  --color-gold:      #c9a96e;
+  --color-green:     #7ece9e;
+  --color-white:     #ffffff;
+
+  --font-serif:  'Cormorant Garamond', serif;
+  --font-sans:   'DM Sans', sans-serif;
+
+  --radius-sm:   10px;
+  --radius-md:   16px;
+  --radius-lg:   22px;
+
+  --transition:  all 0.2s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-cream);
+  font-family: var(--font-sans);
+  font-weight: 300;
+  min-height: 100vh;
+  max-width: 430px;
+  margin: 0 auto;
+  overflow-x: hidden;
+}
+.cycle-training-btn {
+  width: fit-content !important;
+
+  margin: 20px auto 24px !important;
+
+  padding: 16px 28px !important;
+
+  border-radius: 999px !important;
+  border: none !important;
+
+  background: #f3b3c7 !important;
+  color: #2a0017 !important;
+
+  font-size: 12px !important;
+  font-weight: 700 !important;
+  letter-spacing: 4px !important;
+  text-transform: uppercase !important;
+}
+.cycle-training-btn {
+  margin: 24px auto 12px !important;
+}
+
+.restart-btn {
+  margin: 0 auto 24px !important;
+}
+/* =========================
+   GOAL SELECTED
+========================= */
+
+.goal-card.selected {
+  background: linear-gradient(
+    180deg,
+    rgba(243, 199, 214, 0.18),
+    rgba(217, 122, 156, 0.08)
+  );
+
+  border: 2px solid #f3c7d6;
+
+  box-shadow:
+    0 0 25px rgba(243, 199, 214, 0.18);
+
+  transform: scale(1.01);
+
+  transition: all 0.25s ease;
+}
+
+.goal-card.selected h4 {
+  color: #ffffff;
+}
+
+.goal-card.selected p {
+  color: #f6d7e1;
+}
+
+.goal-card.selected .goal-check {
+  background: #f3c7d6;
+  border-color: #f3c7d6;
+}
+.goal-check {
+  width: 32px;
+  height: 32px;
+
+  border-radius: 50%;
+
+  border: 2px solid rgba(255,255,255,0.18);
+
+  transition: all .25s ease;
+}
+
+.goal-card.selected {
+  background: linear-gradient(
+    180deg,
+    rgba(243, 199, 214, 0.18),
+    rgba(217, 122, 156, 0.08)
+  );
+
+  border: 2px solid #f3c7d6;
+
+  box-shadow:
+    0 0 25px rgba(243, 199, 214, 0.18);
+
+  transform: scale(1.01);
+}
+
+.goal-card.selected .goal-check {
+  background: #f3c7d6;
+  border-color: #f3c7d6;
+}
+.goal-card {
+  min-height: 100px;
+}
+.goal-grid {
+  gap: 18px;
+}
