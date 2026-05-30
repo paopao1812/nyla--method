@@ -1,0 +1,144 @@
+/* src/styles/RestTimer.css */
+
+.rest-timer-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* PICKER */
+.rest-picker {
+  background: rgba(244,175,200,0.05);
+  border: 1px solid rgba(244,175,200,0.15);
+  border-radius: 16px;
+  padding: 14px 16px;
+  animation: fadeUp 0.2s ease both;
+}
+.rest-picker-label {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: rgba(244,175,200,0.5);
+  margin-bottom: 10px;
+}
+.rest-picker-opts {
+  display: flex;
+  gap: 8px;
+}
+.rest-opt {
+  flex: 1;
+  padding: 9px 0;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  border: 1px solid rgba(244,175,200,0.2);
+  color: rgba(244,175,200,0.6);
+  background: rgba(244,175,200,0.04);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.rest-opt.active,
+.rest-opt:active {
+  background: rgba(201,96,122,0.22);
+  border-color: #c9607a;
+  color: #f4afc8;
+}
+
+/* DISPLAY */
+.rest-display {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(201,96,122,0.07);
+  border: 1px solid rgba(201,96,122,0.2);
+  border-radius: 16px;
+  padding: 14px 16px;
+  animation: fadeUp 0.2s ease both;
+}
+
+.rest-ring-wrap {
+  position: relative;
+  width: 52px;
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.rest-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.rest-ring-bg {
+  fill: none;
+  stroke: rgba(244,175,200,0.1);
+  stroke-width: 3;
+}
+
+.rest-ring-fill {
+  fill: none;
+  stroke: #c9607a;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 1s linear;
+}
+
+.rest-time {
+  position: relative;
+  z-index: 1;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: #f4afc8;
+  line-height: 1;
+}
+
+.rest-status {
+  font-size: 12px;
+  color: rgba(244,175,200,0.65);
+  line-height: 1.45;
+  flex: 1;
+}
+
+/* MAIN BUTTON */
+.rest-btn {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  border: 1px solid rgba(244,175,200,0.25);
+  color: rgba(244,175,200,0.7);
+  background: rgba(244,175,200,0.05);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.rest-btn:hover {
+  border-color: rgba(244,175,200,0.4);
+  color: #f4afc8;
+}
+.rest-btn.running {
+  background: rgba(201,96,122,0.12);
+  border-color: rgba(201,96,122,0.4);
+  color: #f4afc8;
+}
+.rest-btn.done {
+  background: rgba(126,206,158,0.1);
+  border-color: rgba(126,206,158,0.3);
+  color: #7ece9e;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -194,3 +194,47 @@
 .nav-label { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(244,175,200,0.45); font-family: 'DM Sans', sans-serif; }
 .nav-btn.active .nav-icon { opacity: 1; filter: drop-shadow(0 0 8px rgba(244,175,200,0.5)); }
 .nav-btn.active .nav-label { color: #f4afc8; }
+
+/* ── EXERCISE ACTIONS (completar + descanso) ── */
+.wk-ex-body { flex: 1; }
+.wk-ex-body h3 { font-size: 14px; font-weight: 500; color: #f5ede6; margin-bottom: 3px; }
+.wk-ex-body p { font-size: 11px; color: rgba(244,175,200,0.5); margin-bottom: 6px; line-height: 1.45; }
+.wk-ex-body strong { font-size: 11px; color: #f4afc8; display: block; margin-bottom: 8px; }
+
+.wk-ex-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.wk-ex-done-btn {
+  width: 100%;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  border: 1px solid rgba(244,175,200,0.2);
+  color: rgba(244,175,200,0.6);
+  background: rgba(244,175,200,0.04);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.wk-ex-done-btn.active {
+  background: rgba(126,206,158,0.12);
+  border-color: rgba(126,206,158,0.3);
+  color: #7ece9e;
+}
+
+.wk-ex.done {
+  background: rgba(126,206,158,0.04);
+  border-color: rgba(126,206,158,0.18);
+}
+.wk-ex.done .wk-ex-num {
+  background: rgba(126,206,158,0.15);
+  border-color: rgba(126,206,158,0.3);
+  color: #7ece9e;
+}
