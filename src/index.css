@@ -1056,6 +1056,39 @@ html, body, #root {
   --font-display: 'Playfair Display', Georgia, serif;
   --font-body:    'DM Sans', system-ui, sans-serif;
 }
+.cycle-card,
+.week-card,
+.phase-card,
+.progress-card,
+.cardio-card,
+.meal-card,
+.affirmation-item,
+.library-card {
+  background: rgba(244, 175, 200, 0.06);
+  border: 1px solid rgba(244, 175, 200, 0.15);
+  border-radius: 24px;
+  padding: 20px;
+  margin-bottom: 14px;
+}
 
+.plan-tabs button,
+.day-tabs button,
+.section-tabs button,
+.exercise-button {
+  border-radius: 999px;
+  border: 1px solid rgba(244, 175, 200, 0.18);
+  background: rgba(244, 175, 200, 0.06);
+  color: #f5ede6;
+  padding: 8px 14px;
+}
+
+.cycle-training-btn,
+.restart-btn,
+.complete-button {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 999px;
+  margin-top: 12px;
+}
 
 
