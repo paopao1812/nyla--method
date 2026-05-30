@@ -197,7 +197,7 @@ export default function Workout() {
                     <button className={`wk-ex-done-btn ${completedExercises[ex.name]?"active":""}`} onClick={()=>toggleExDone(ex.name)}>
                       {completedExercises[ex.name]?"✅ Completado":"Completar"}
                     </button>
-                    <RestTimer />
+                
                   </div>
                 </div>
               </div>
