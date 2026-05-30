@@ -1,1 +1,184 @@
 
+/* src/styles/Cycle.css */
+
+.cycle-screen {
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 52px 22px 110px;
+  background: #1a0610;
+  background-image: radial-gradient(ellipse 65% 25% at 50% 0%, rgba(90,20,55,0.55) 0%, transparent 62%);
+  font-family: 'DM Sans', sans-serif;
+  color: #f5ede6;
+  max-width: 430px;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+.cycle-screen * { box-sizing: border-box; }
+
+.cycle-eyebrow { display: none; }
+
+/* Hero */
+.cycle-hero { display: flex; flex-direction: column; gap: 4px; }
+.cycle-eyebrow-label {
+  font-size: 9px; letter-spacing: 0.44em; text-transform: uppercase;
+  color: #c9607a; font-weight: 500;
+}
+.cycle-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px; color: #f4afc8; line-height: 1.2;
+}
+.cycle-subtitle { font-size: 13px; color: rgba(244,175,200,0.55); line-height: 1.6; }
+
+/* Cards */
+.cycle-card {
+  background: rgba(244,175,200,0.05);
+  border: 1px solid rgba(244,175,200,0.15);
+  border-radius: 22px;
+  padding: 20px;
+}
+
+.cycle-label {
+  display: block;
+  font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase;
+  color: rgba(244,175,200,0.5); font-weight: 500; margin-bottom: 12px;
+}
+
+.cycle-input {
+  width: 100%; min-width: 0;
+  background: rgba(244,175,200,0.06);
+  border: 1.5px solid rgba(244,175,200,0.18);
+  border-radius: 12px;
+  padding: 14px 16px;
+  font-size: 16px;
+  font-family: 'Cormorant Garamond', serif;
+  color: #f5ede6;
+  color-scheme: dark;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  -webkit-appearance: none; appearance: none;
+}
+.cycle-input:focus {
+  border-color: #c9607a;
+  box-shadow: 0 0 0 3px rgba(201,96,122,0.12);
+}
+
+/* Result card */
+.cycle-result-card {
+  background: rgba(139,40,64,0.12);
+  border-color: rgba(201,96,122,0.28);
+  animation: fadeUp 0.3s ease both;
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.cycle-phase-header { display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+.cycle-phase-icon { font-size: 2.2rem; flex-shrink: 0; }
+.cycle-day {
+  font-size: 9px; letter-spacing: 0.2em; text-transform: uppercase;
+  color: #c9607a; margin-bottom: 4px;
+}
+.cycle-phase-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px; color: #f4afc8;
+}
+
+.cycle-info-box {
+  padding: 12px 14px;
+  background: rgba(244,175,200,0.04);
+  border: 1px solid rgba(244,175,200,0.1);
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+.cycle-info-box:last-of-type { margin-bottom: 0; }
+.cycle-info-box h3 {
+  font-size: 9px; letter-spacing: 0.25em; text-transform: uppercase;
+  color: #c9607a; font-weight: 500; margin-bottom: 6px;
+}
+.cycle-info-box p { font-size: 12px; color: rgba(244,175,200,0.6); line-height: 1.6; }
+
+/* Nutrition grid */
+.cycle-nutrition {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 12px; margin-top: 14px;
+}
+.cycle-nutrition h3 {
+  font-size: 9px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: #c9607a; font-weight: 500; margin-bottom: 8px;
+}
+.cycle-nutrition ul { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+.cycle-nutrition ul li {
+  font-size: 12px; color: rgba(244,175,200,0.6);
+  padding: 6px 10px;
+  background: rgba(244,175,200,0.04);
+  border: 1px solid rgba(244,175,200,0.08);
+  border-radius: 8px;
+}
+
+/* Note card */
+.cycle-note {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: rgba(26,6,16,0.5);
+  border-color: rgba(244,175,200,0.08);
+  padding: 16px 20px;
+}
+.cycle-note-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; opacity: 0.55; }
+.cycle-note p { font-size: 11px; color: rgba(244,175,200,0.5); line-height: 1.65; }
+
+/* Actions */
+.cycle-actions { display: flex; flex-direction: column; gap: 10px; }
+
+.cycle-training-btn {
+  width: 100%;
+  min-height: 54px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b2840, #c9607a);
+  color: #fff;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.28em; text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+  border: none; cursor: pointer;
+  box-shadow: 0 6px 20px rgba(201,96,122,0.35);
+  transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.cycle-training-btn:active { transform: scale(0.97); }
+
+.restart-btn {
+  width: 100%;
+  min-height: 52px;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(244,175,200,0.55);
+  font-size: 11px; font-weight: 400;
+  letter-spacing: 0.22em; text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+  border: 1px solid rgba(244,175,200,0.2);
+  cursor: pointer; transition: all 0.2s ease;
+  display: flex; align-items: center; justify-content: center;
+}
+.restart-btn:active { border-color: #f4afc8; color: #f4afc8; }
+
+/* Bottom nav */
+.bottom-nav {
+  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: rgba(16,3,10,0.97);
+  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+  border-top: 1px solid rgba(244,175,200,0.15);
+  padding: 10px 0 28px;
+  display: flex; justify-content: space-around; align-items: center;
+  z-index: 9999;
+}
+.nav-btn {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  padding: 6px 0; background: none; border: none; cursor: pointer;
+}
+.nav-icon { font-size: 20px; opacity: 0.3; display: block; line-height: 1; transition: all 0.2s; }
+.nav-label { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(244,175,200,0.45); font-family: 'DM Sans', sans-serif; }
+.nav-btn.active .nav-icon { opacity: 1; filter: drop-shadow(0 0 8px rgba(244,175,200,0.5)); }
+.nav-btn.active .nav-label { color: #f4afc8; }
