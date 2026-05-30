@@ -15,29 +15,23 @@ export default function Affirmations() {
   const navigate = useNavigate();
   const [selectedCategory, setSelectedCategory] = useState("Amor propio");
   const [favorite, setFavorite] = useState(() => localStorage.getItem("nylaFavoriteAffirmation") || "");
-
   useEffect(() => { if (favorite) localStorage.setItem("nylaFavoriteAffirmation", favorite); }, [favorite]);
 
-  const affirmations = affirmationCategories[selectedCategory];
-
   return (
-    <section className="affirmations-page">
+    <section className="aff-screen">
+      <p className="aff-eyebrow">HÁBLATE BONITO</p>
 
-      <p className="aff-section-label">Háblate bonito</p>
-
-      <div className="affirmation-categories">
-        {Object.keys(affirmationCategories).map((cat) => (
-          <button key={cat} className={selectedCategory === cat ? "active" : ""} onClick={() => setSelectedCategory(cat)}>
-            {cat}
-          </button>
+      <div className="aff-cats">
+        {Object.keys(affirmationCategories).map(cat => (
+          <button key={cat} className={`aff-cat ${selectedCategory === cat ? "active" : ""}`} onClick={() => setSelectedCategory(cat)}>{cat}</button>
         ))}
       </div>
 
-      <div className="affirmation-list">
-        {affirmations.map((text) => (
-          <div className="affirmation-item" key={text}>
+      <div className="aff-list">
+        {affirmationCategories[selectedCategory].map(text => (
+          <div className="aff-item" key={text}>
             <p>{text}</p>
-            <button onClick={() => setFavorite(text)}>{favorite === text ? "❤️" : "🤍"}</button>
+            <button className="aff-fav" onClick={() => setFavorite(text)}>{favorite === text ? "❤️" : "🤍"}</button>
           </div>
         ))}
       </div>

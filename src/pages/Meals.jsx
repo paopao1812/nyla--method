@@ -32,44 +32,36 @@ const supplements = [
 
 export default function Meals() {
   const navigate = useNavigate();
-
   return (
-    <section className="meals-screen">
+    <section className="ml-screen">
+      <p className="ml-eyebrow">IDEAS PARA NUTRIRTE</p>
+      <p className="ml-subtitle">La proteína es tu gran aliada para construir músculo, recuperarte mejor y sentirte saciada.</p>
 
-      <p className="meals-section-label">Ideas para nutrirte</p>
-
-      <p className="meals-subtitle">
-        La proteína es tu gran aliada para construir músculo, recuperarte mejor y sentirte saciada.
-      </p>
-
-      <div className="nutrition-note">
+      <div className="ml-note">
         <p>Estas ideas son educativas y generales. Si tienes una condición médica, necesidades específicas o quieres un plan personalizado, consulta con un profesional en nutrición o salud.</p>
         <p>Tu bienestar siempre es prioridad.</p>
       </div>
 
-      {Object.entries(meals).map(([category, list]) => (
-        <div className="meal-card" key={category}>
-          <h2>{category}</h2>
-          {list.map((meal) => (
-            <div className="meal-item" key={meal.title}>
+      {Object.entries(meals).map(([cat, list]) => (
+        <div className="ml-card" key={cat}>
+          <h2 className="ml-card-title">{cat}</h2>
+          {list.map(meal => (
+            <div className="ml-item" key={meal.title}>
               <h3>{meal.title}</h3>
-              <ul>{meal.items.map((item) => <li key={item}>{item}</li>)}</ul>
-              <div className="meal-macros">
-                <span>{meal.protein}</span>
-                <span>{meal.calories}</span>
-              </div>
+              <ul>{meal.items.map(i => <li key={i}>{i}</li>)}</ul>
+              <div className="ml-macros"><span>{meal.protein}</span><span>{meal.calories}</span></div>
             </div>
           ))}
         </div>
       ))}
 
-      <div className="meal-card">
-        <h2>Suplementación básica</h2>
-        {supplements.map((item) => (
-          <div className="meal-item" key={item.title}>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-            <div className="meal-macros"><span>{item.dose}</span></div>
+      <div className="ml-card">
+        <h2 className="ml-card-title">Suplementación básica</h2>
+        {supplements.map(s => (
+          <div className="ml-item" key={s.title}>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+            <div className="ml-macros"><span>{s.dose}</span></div>
           </div>
         ))}
       </div>

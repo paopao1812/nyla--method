@@ -1,84 +1,44 @@
-/* src/styles/Affirmations.css */
 
-.affirmations-page {
-  min-height: 100dvh;
-  display: flex; flex-direction: column; gap: 12px;
+/* src/styles/Affirmations.css */
+.aff-screen {
+  min-height: 100dvh; display: flex; flex-direction: column; gap: 14px;
   padding: 52px 22px 110px;
   background: #1a0610;
   background-image: radial-gradient(ellipse 55% 20% at 70% 0%, rgba(60,10,80,0.5) 0%, transparent 55%);
-  font-family: 'DM Sans', sans-serif;
-  color: #f5ede6;
-  max-width: 430px; margin: 0 auto;
-  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif; color: #f5ede6;
+  max-width: 430px; margin: 0 auto; box-sizing: border-box;
 }
-.affirmations-page * { box-sizing: border-box; }
-
-.affirmations-eyebrow { display: none; }
-
-.aff-section-label {
-  font-size: 9px; letter-spacing: 0.44em; text-transform: uppercase;
-  color: #c9607a; font-weight: 500; margin: 0;
+.aff-screen * { box-sizing: border-box; }
+.aff-eyebrow { font-size: 9px; letter-spacing: 0.44em; text-transform: uppercase; color: #c9607a; font-weight: 500; }
+.aff-cats {
+  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
+  -webkit-overflow-scrolling: touch; padding-bottom: 2px;
 }
-
-.affirmation-categories {
-  display: flex; gap: 8px;
-  overflow-x: auto; scrollbar-width: none;
-  -webkit-overflow-scrolling: touch;
-  padding-bottom: 2px;
-}
-.affirmation-categories::-webkit-scrollbar { display: none; }
-
-.affirmation-categories button {
-  flex-shrink: 0;
-  padding: 8px 16px; border-radius: 999px;
+.aff-cats::-webkit-scrollbar { display: none; }
+.aff-cat {
+  flex-shrink: 0; padding: 8px 16px; border-radius: 999px;
   font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
   font-weight: 500; font-family: 'DM Sans', sans-serif;
-  border: 1px solid rgba(244,175,200,0.15);
-  color: rgba(244,175,200,0.5);
-  background: rgba(244,175,200,0.05);
-  cursor: pointer; white-space: nowrap;
-  transition: all 0.2s ease;
+  border: 1px solid rgba(244,175,200,0.15); color: rgba(244,175,200,0.5);
+  background: rgba(244,175,200,0.05); cursor: pointer; white-space: nowrap; transition: all 0.2s;
 }
-.affirmation-categories button.active {
-  background: rgba(201,96,122,0.2);
-  border-color: #c9607a; color: #f4afc8;
+.aff-cat.active { background: rgba(201,96,122,0.22); border-color: #c9607a; color: #f4afc8; }
+.aff-list { display: flex; flex-direction: column; gap: 10px; }
+.aff-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 14px;
+  padding: 20px; background: rgba(244,175,200,0.05);
+  border: 1px solid rgba(244,175,200,0.13); border-radius: 22px; transition: all 0.2s;
 }
-
-.affirmation-list { display: flex; flex-direction: column; gap: 10px; }
-
-.affirmation-item {
-  display: flex; align-items: center;
-  justify-content: space-between; gap: 14px;
-  padding: 20px;
-  background: rgba(244,175,200,0.05);
-  border: 1px solid rgba(244,175,200,0.15);
-  border-radius: 22px;
-  transition: all 0.2s ease;
-}
-.affirmation-item:active { transform: scale(0.99); border-color: rgba(201,96,122,0.3); }
-
-.affirmation-item p {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 17px; font-style: italic;
-  color: #f5ede6; line-height: 1.6; flex: 1;
-}
-.affirmation-item button {
-  font-size: 22px; background: none; border: none;
-  cursor: pointer; flex-shrink: 0; padding: 4px;
-  transition: transform 0.15s; line-height: 1;
-}
-.affirmation-item button:active { transform: scale(0.85); }
-
-/* bottom nav */
+.aff-item:active { transform: scale(0.99); border-color: rgba(201,96,122,0.3); }
+.aff-item p { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: #f5ede6; line-height: 1.6; flex: 1; }
+.aff-fav { font-size: 22px; background: none; border: none; cursor: pointer; flex-shrink: 0; padding: 4px; transition: transform 0.15s; line-height: 1; }
+.aff-fav:active { transform: scale(0.85); }
 .bottom-nav {
   position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 430px;
-  background: rgba(16,3,10,0.97);
+  width: 100%; max-width: 430px; background: rgba(16,3,10,0.97);
   backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
   border-top: 1px solid rgba(244,175,200,0.15);
-  padding: 10px 0 28px;
-  display: flex; justify-content: space-around; align-items: center;
-  z-index: 9999;
+  padding: 10px 0 28px; display: flex; justify-content: space-around; align-items: center; z-index: 9999;
 }
 .nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 0; background: none; border: none; cursor: pointer; }
 .nav-icon { font-size: 20px; opacity: 0.3; display: block; line-height: 1; transition: all 0.2s; }

@@ -11,21 +11,18 @@ const exerciseCategories = [
 
 export default function Library() {
   const navigate = useNavigate();
-
   return (
-    <section className="library-screen">
+    <section className="lib-screen">
+      <p className="lib-eyebrow">BIBLIOTECA DE EJERCICIOS</p>
+      <p className="lib-subtitle">Cada ejercicio tendrá vídeo, técnica y explicación paso a paso.</p>
 
-      <p className="lib-section-label">Biblioteca de ejercicios</p>
-
-      <p className="library-subtitle">Cada ejercicio tendrá vídeo, técnica y explicación paso a paso.</p>
-
-      <div className="library-grid">
+      <div className="lib-grid">
         {exerciseCategories.map((cat, i) => (
-          <div className="library-card" key={i}>
-            <h2>{cat.title}</h2>
-            <div className="exercise-list">
+          <div className="lib-card" key={i}>
+            <h2 className="lib-card-title">{cat.title}</h2>
+            <div className="lib-ex-list">
               {cat.exercises.map((ex, j) => (
-                <button key={j} className="exercise-button">{ex}</button>
+                <button key={j} className="lib-ex-btn">{ex}</button>
               ))}
             </div>
           </div>
