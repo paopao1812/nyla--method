@@ -1,12 +1,12 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 
-const REST_OPTIONS = [60, 90, 120];
+const REST_OPTIONS = [30, 60, 90];
 
 export default function RestTimer() {
   const [duration, setDuration] = useState(() => {
-    const saved = localStorage.getItem("nylaRestDuration");
-    return saved ? parseInt(saved) : 90;
+  const saved = localStorage.getItem("nylaRestDuration");
+  return saved ? parseInt(saved) : 30;
   });
   const [timeLeft, setTimeLeft] = useState(null);
   const [running, setRunning] = useState(false);
