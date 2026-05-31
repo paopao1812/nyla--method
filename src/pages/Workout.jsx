@@ -328,11 +328,8 @@ export default function Workout() {
                     value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}
                     onChange={e => updateWeight(ex.name, e.target.value)} />
                   <div className="wk-ex-actions">
-                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`} onClick={() => toggleExDone(ex.name)}>
-                      {completedExercises[ex.name] ? "✅ Completado" : "Completar"}
-                    </button>
-                    <RestTimer />
-                  </div>
+  <RestTimer />
+</div>
                 </div>
               </div>
             ))}
@@ -352,11 +349,8 @@ export default function Workout() {
                   <h3>{ex.name}</h3>
                   <p>{ex.reps}</p>
                   <div className="wk-ex-actions">
-                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`} onClick={() => toggleExDone(ex.name)}>
-                      {completedExercises[ex.name] ? "✅ Completado" : "Completar"}
-                    </button>
-                    <RestTimer />
-                  </div>
+  <RestTimer />
+</div>
                 </div>
               </div>
             ))}
