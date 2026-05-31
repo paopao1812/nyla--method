@@ -38,23 +38,18 @@
 .wk-hero-meta { display: flex; gap: 14px; flex-wrap: wrap; }
 .wk-hero-meta span { font-size: 11px; color: rgba(244,175,200,0.65); }
 .wk-hero-preview {
-  background: rgba(0,0,0,0.25);
-  border-radius: 14px;
-  padding: 13px 14px;
-}
-.wk-hero-exs {
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-}
-.wk-hero-exs span {
-  font-size: 12px;
-  color: rgba(244,175,200,0.65);
+  background: rgba(0,0,0,0.25); border-radius: 14px;
+  padding: 13px 14px; display: flex; align-items: center; gap: 12px;
 }
 .wk-hero-exs { flex: 1; display: flex; flex-direction: column; gap: 3px; }
 .wk-hero-exs span { font-size: 11px; color: rgba(244,175,200,0.6); }
-
-
+.wk-play {
+  width: 46px; height: 46px; border-radius: 13px;
+  background: #c9607a; border: none; color: #fff; font-size: 16px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(201,96,122,0.45); transition: all 0.2s;
+}
 .wk-play:active { transform: scale(0.92); }
 
 /* STATS */
@@ -415,4 +410,121 @@
   font-style: italic;
   color: rgba(244,175,200,0.75);
   line-height: 1.6;
+}
+
+/* ── PLAN SEGMENTED CONTROL ── */
+.wk-segment {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  background: rgba(244,175,200,0.04);
+  border: 1px solid rgba(244,175,200,0.12);
+  border-radius: 14px;
+  padding: 4px;
+}
+
+.wk-segment-btn {
+  padding: 9px 4px;
+  border-radius: 10px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  border: none;
+  color: rgba(244,175,200,0.45);
+  background: transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.wk-segment-btn.active {
+  background: rgba(201,96,122,0.25);
+  color: #f4afc8;
+  box-shadow: 0 2px 8px rgba(201,96,122,0.2);
+}
+
+/* ── DAY GRID ── */
+.wk-day-grid {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+}
+
+.wk-day-chip {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 8px 4px;
+  border-radius: 12px;
+  border: 1px solid rgba(244,175,200,0.12);
+  background: rgba(244,175,200,0.04);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-width: 0;
+}
+
+.wk-day-chip.active {
+  background: rgba(201,96,122,0.22);
+  border-color: #c9607a;
+  box-shadow: 0 0 10px rgba(201,96,122,0.18);
+}
+
+.wk-day-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  color: rgba(244,175,200,0.5);
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.wk-day-chip.active .wk-day-num {
+  color: #f4afc8;
+}
+
+.wk-day-name {
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  color: rgba(244,175,200,0.35);
+  text-align: center;
+  line-height: 1.2;
+  word-break: break-word;
+  transition: color 0.2s;
+}
+
+.wk-day-chip.active .wk-day-name {
+  color: rgba(244,175,200,0.75);
+}
+
+/* ── SECTION GRID ── */
+.wk-section-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.wk-section-btn {
+  padding: 10px 0;
+  border-radius: 12px;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  border: 1px solid rgba(244,175,200,0.12);
+  color: rgba(244,175,200,0.45);
+  background: rgba(244,175,200,0.04);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.wk-section-btn.active {
+  background: linear-gradient(135deg, #8b2840, #c9607a);
+  border-color: transparent;
+  color: #fff;
+  box-shadow: 0 4px 12px rgba(201,96,122,0.3);
 }

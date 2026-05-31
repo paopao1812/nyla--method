@@ -8,16 +8,31 @@ import "../styles/RestTimer.css";
 const plans = {
   fiveDays: {
     label: "Plan 5 días",
+    shortLabel: "5 días",
     days: ["Día 1 · Glúteos","Día 2 · Espalda","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros / Bíceps / Tríceps","Día 5 · Glúteos unilaterales"],
   },
   threeDays: {
     label: "Plan 3 días",
+    shortLabel: "3 días",
     days: ["Día 1 · Glúteos","Día 2 · Espalda","Día 3 · Pierna + Glúteos"],
   },
   glutesOnly: {
     label: "Solo glúteos",
+    shortLabel: "Glúteos",
     days: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
   },
+};
+
+// Nombre corto para cada día
+const getDayShort = (day) => {
+  if (day.includes("Glúteos unilaterales")) return { num: day.split("·")[0].trim(), name: "Unilateral" };
+  if (day.includes("Glúteos + Femoral")) return { num: day.split("·")[0].trim(), name: "Glút+Fem" };
+  if (day.includes("Glúteos")) return { num: day.split("·")[0].trim(), name: "Glúteos" };
+  if (day.includes("Espalda")) return { num: day.split("·")[0].trim(), name: "Espalda" };
+  if (day.includes("Cuádriceps")) return { num: day.split("·")[0].trim(), name: "Cuádriceps" };
+  if (day.includes("Hombros")) return { num: day.split("·")[0].trim(), name: "Torso" };
+  if (day.includes("Pierna")) return { num: day.split("·")[0].trim(), name: "Pierna" };
+  return { num: day.split("·")[0].trim(), name: day.split("·")[1]?.trim() || "" };
 };
 
 const activationPlan = [
@@ -49,14 +64,12 @@ const getCardio = (w) => ({
   incline: Math.min(5 + Math.floor((w - 1) / 2), 9),
   speed: Math.min(3.5 + (w - 1) * 0.15, 5.5).toFixed(1),
 });
-
 const getBlockLabel = (w) => {
   if (w <= 4) return "Construyendo tu base";
   if (w <= 8) return "Ganando fuerza";
   if (w <= 12) return "Potencia en progreso";
   return "Tu mejor versión";
 };
-
 const getMotivation = (w) => {
   if (w <= 4) return "Estás sentando las bases. Cada repetición cuenta.";
   if (w <= 8) return "Tu cuerpo ya nota el cambio. Sigue construyendo.";
@@ -66,13 +79,10 @@ const getMotivation = (w) => {
 
 export default function Workout() {
   const navigate = useNavigate();
-
-  // Semana interna — controlada por la usuaria, oculta visualmente
   const [internalWeek, setInternalWeek] = useState(() => {
     const saved = localStorage.getItem("nylaInternalWeek");
     return saved ? parseInt(saved) : 1;
   });
-
   const [selectedPlan, setSelectedPlan] = useState("fiveDays");
   const [selectedDay, setSelectedDay] = useState("Día 1 · Glúteos");
   const [activeSection, setActiveSection] = useState("activation");
@@ -105,13 +115,8 @@ export default function Workout() {
   const sets = getSets(internalWeek);
   const cardio = getCardio(internalWeek);
   const exercises = weeklyPlan[selectedDay] || [];
-
-  const dayKey = useMemo(() =>
-    `${selectedPlan}-${internalWeek}-${selectedDay}`,
-    [selectedPlan, internalWeek, selectedDay]
-  );
+  const dayKey = useMemo(() => `${selectedPlan}-${internalWeek}-${selectedDay}`, [selectedPlan, internalWeek, selectedDay]);
   const isCompleted = completedDays.includes(dayKey);
-
   const totalCompleted = completedDays.length;
   const weeklyCompleted = plans[selectedPlan].days.filter(d =>
     completedDays.includes(`${selectedPlan}-${internalWeek}-${d}`)
@@ -120,13 +125,10 @@ export default function Workout() {
   const blockComplete = weeklyCompleted >= plans[selectedPlan].days.length;
   const isLastBlock = internalWeek >= 16;
 
-  const toggleCompleted = () => {
-    setCompletedDays(isCompleted
-      ? completedDays.filter(i => i !== dayKey)
-      : [...completedDays, dayKey]
-    );
-  };
-
+  const toggleCompleted = () => setCompletedDays(isCompleted
+    ? completedDays.filter(i => i !== dayKey)
+    : [...completedDays, dayKey]
+  );
   const handleAdvance = () => {
     if (internalWeek < 16) {
       setInternalWeek(w => w + 1);
@@ -136,21 +138,22 @@ export default function Workout() {
     }
     setShowAdvanceModal(false);
   };
-
   const updateWeight = (name, value) => setExerciseWeights({
     ...exerciseWeights,
     [`${selectedPlan}-${internalWeek}-${selectedDay}-${name}`]: value,
   });
-
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
-
   const isLower = selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps");
   const isUpper = selectedDay.includes("Espalda") || selectedDay.includes("Hombros");
+
+  const sectionLabels = { activation: "Activación", exercises: "Ejercicios", core: "Core", cardio: "Cardio" };
+  const lowerSections = ["activation", "exercises", "cardio"];
+  const upperSections = ["exercises", "core", "cardio"];
 
   return (
     <section className="wk-screen">
 
-      {/* MODAL DE AVANCE */}
+      {/* MODAL */}
       {showAdvanceModal && (
         <div className="wk-modal-overlay">
           <div className="wk-modal">
@@ -178,27 +181,18 @@ export default function Workout() {
           <span>💪 {sets} series</span>
         </div>
         <div className="wk-hero-preview">
-  <div className="wk-hero-exs">
-    {exercises.slice(0, 3).map((e, i) => <span key={i}>· {e.name}</span>)}
-    {exercises.length > 3 && <span>+{exercises.length - 3} más...</span>}
-  </div>
+          <div className="wk-hero-exs">
+            {exercises.slice(0, 3).map((e, i) => <span key={i}>· {e.name}</span>)}
+            {exercises.length > 3 && <span>+{exercises.length - 3} más...</span>}
+          </div>
         </div>
       </div>
 
       {/* STATS */}
       <div className="wk-stats">
-        <div className="wk-stat">
-          <span className="wk-stat-n">{totalCompleted}</span>
-          <span className="wk-stat-l">SESIONES</span>
-        </div>
-        <div className="wk-stat">
-          <span className="wk-stat-n">{weeklyCompleted}</span>
-          <span className="wk-stat-l">ESTA SEMANA</span>
-        </div>
-        <div className="wk-stat">
-          <span className="wk-stat-n">🔥</span>
-          <span className="wk-stat-l">RACHA ACTIVA</span>
-        </div>
+        <div className="wk-stat"><span className="wk-stat-n">{totalCompleted}</span><span className="wk-stat-l">SESIONES</span></div>
+        <div className="wk-stat"><span className="wk-stat-n">{weeklyCompleted}</span><span className="wk-stat-l">ESTA SEMANA</span></div>
+        <div className="wk-stat"><span className="wk-stat-n">🔥</span><span className="wk-stat-l">RACHA ACTIVA</span></div>
       </div>
 
       {/* CYCLE */}
@@ -221,21 +215,12 @@ export default function Workout() {
           <span>Tu avance</span>
           <strong>{weeklyCompleted}/{plans[selectedPlan].days.length} entrenamientos</strong>
         </div>
-        <div className="wk-bar">
-          <div className="wk-bar-fill" style={{ width: `${progressPercent}%` }} />
-        </div>
-        <p className="wk-progress-msg">
-          {blockComplete
-            ? "Bloque completado. Estoy orgullosa de ti ✨"
-            : "Cada entrenamiento te acerca más a ti."}
-        </p>
+        <div className="wk-bar"><div className="wk-bar-fill" style={{ width: `${progressPercent}%` }} /></div>
+        <p className="wk-progress-msg">{blockComplete ? "Bloque completado. Estoy orgullosa de ti ✨" : "Cada entrenamiento te acerca más a ti."}</p>
       </div>
 
-      {/* BOTÓN AVANZAR — solo si el bloque está completo */}
       {blockComplete && !isLastBlock && (
-        <button className="wk-advance-btn" onClick={() => setShowAdvanceModal(true)}>
-          ✨ Siguiente nivel
-        </button>
+        <button className="wk-advance-btn" onClick={() => setShowAdvanceModal(true)}>✨ Siguiente nivel</button>
       )}
       {blockComplete && isLastBlock && (
         <div className="wk-final-card">
@@ -245,47 +230,58 @@ export default function Workout() {
         </div>
       )}
 
-      {/* PLAN TABS */}
-      <div className="wk-pills-row">
+      {/* ── PLAN SELECTOR — segmented control ── */}
+      <div className="wk-segment">
         {Object.entries(plans).map(([k, p]) => (
-          <button key={k} className={`wk-pill ${selectedPlan === k ? "active" : ""}`}
-            onClick={() => { setSelectedPlan(k); setSelectedDay(p.days[0]); setActiveSection("activation"); }}>
-            {p.label}
+          <button
+            key={k}
+            className={`wk-segment-btn ${selectedPlan === k ? "active" : ""}`}
+            onClick={() => { setSelectedPlan(k); setSelectedDay(p.days[0]); setActiveSection("activation"); }}
+          >
+            {p.shortLabel}
           </button>
         ))}
       </div>
 
-      {/* DAY TABS */}
-      <div className="wk-pills-row">
-        {plans[selectedPlan].days.map(day => (
-          <button key={day} className={`wk-pill ${selectedDay === day ? "active" : ""}`}
-            onClick={() => {
-              setSelectedDay(day);
-              setActiveSection(
-                day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps")
-                  ? "activation" : "exercises"
-              );
-            }}>
-            {day}
-          </button>
-        ))}
+      {/* ── DAY SELECTOR — grid compacto ── */}
+      <div className="wk-day-grid">
+        {plans[selectedPlan].days.map(day => {
+          const { num, name } = getDayShort(day);
+          const dayNum = num.replace("Día ", "D");
+          return (
+            <button
+              key={day}
+              className={`wk-day-chip ${selectedDay === day ? "active" : ""}`}
+              onClick={() => {
+                setSelectedDay(day);
+                setActiveSection(
+                  day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps")
+                    ? "activation" : "exercises"
+                );
+              }}
+            >
+              <span className="wk-day-num">{dayNum}</span>
+              <span className="wk-day-name">{name}</span>
+            </button>
+          );
+        })}
       </div>
 
-      {/* SECTION TABS */}
+      {/* ── SECTION TABS — 3 columnas ── */}
       {isLower && (
-        <div className="wk-section-pills">
-          {["activation", "exercises", "cardio"].map(s => (
-            <button key={s} className={activeSection === s ? "active" : ""} onClick={() => setActiveSection(s)}>
-              {s === "activation" ? "Activación" : s === "exercises" ? "Ejercicios" : "Cardio"}
+        <div className="wk-section-grid">
+          {lowerSections.map(s => (
+            <button key={s} className={`wk-section-btn ${activeSection === s ? "active" : ""}`} onClick={() => setActiveSection(s)}>
+              {sectionLabels[s]}
             </button>
           ))}
         </div>
       )}
       {isUpper && (
-        <div className="wk-section-pills">
-          {["exercises", "core", "cardio"].map(s => (
-            <button key={s} className={activeSection === s ? "active" : ""} onClick={() => setActiveSection(s)}>
-              {s === "exercises" ? "Ejercicios" : s === "core" ? "Core" : "Cardio"}
+        <div className="wk-section-grid">
+          {upperSections.map(s => (
+            <button key={s} className={`wk-section-btn ${activeSection === s ? "active" : ""}`} onClick={() => setActiveSection(s)}>
+              {sectionLabels[s]}
             </button>
           ))}
         </div>
@@ -305,8 +301,7 @@ export default function Workout() {
                   <p>{ex.description}</p>
                   <strong>{ex.reps}</strong>
                   <div className="wk-ex-actions">
-                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`}
-                      onClick={() => toggleExDone(ex.name)}>
+                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`} onClick={() => toggleExDone(ex.name)}>
                       {completedExercises[ex.name] ? "✅ Completado" : "Completar"}
                     </button>
                   </div>
@@ -333,8 +328,7 @@ export default function Workout() {
                     value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}
                     onChange={e => updateWeight(ex.name, e.target.value)} />
                   <div className="wk-ex-actions">
-                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`}
-                      onClick={() => toggleExDone(ex.name)}>
+                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`} onClick={() => toggleExDone(ex.name)}>
                       {completedExercises[ex.name] ? "✅ Completado" : "Completar"}
                     </button>
                     <RestTimer />
@@ -358,8 +352,7 @@ export default function Workout() {
                   <h3>{ex.name}</h3>
                   <p>{ex.reps}</p>
                   <div className="wk-ex-actions">
-                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`}
-                      onClick={() => toggleExDone(ex.name)}>
+                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`} onClick={() => toggleExDone(ex.name)}>
                       {completedExercises[ex.name] ? "✅ Completado" : "Completar"}
                     </button>
                     <RestTimer />
