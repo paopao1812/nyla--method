@@ -178,14 +178,10 @@ export default function Workout() {
           <span>💪 {sets} series</span>
         </div>
         <div className="wk-hero-preview">
-          <div className="wk-hero-exs">
-            {exercises.slice(0, 3).map((e, i) => <span key={i}>· {e.name}</span>)}
-            {exercises.length > 3 && <span>+{exercises.length - 3} más...</span>}
-          </div>
-          <button className="wk-play" onClick={() => {
-            setActiveSection("exercises");
-            window.scrollTo({ top: 400, behavior: "smooth" });
-          }}>▶</button>
+  <div className="wk-hero-exs">
+    {exercises.slice(0, 3).map((e, i) => <span key={i}>· {e.name}</span>)}
+    {exercises.length > 3 && <span>+{exercises.length - 3} más...</span>}
+  </div>
         </div>
       </div>
 
