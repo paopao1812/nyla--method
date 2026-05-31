@@ -78,7 +78,7 @@ export default function Home() {
           onClick={() => navigate("/affirmations")}
         >
           <span>Afirmaciones</span>
-          <small>Recuerda por qué empezaste</small>
+          <small>Hablate bonito</small>
         </button>
 
         <button
@@ -86,7 +86,7 @@ export default function Home() {
           onClick={() => navigate("/library")}
         >
           <span>Biblioteca</span>
-          <small>Explora tu método NYLA</small>
+          <small><small>Aprende la técnica de los ejercicios</small></small>
         </button>
       </div>
 
