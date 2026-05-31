@@ -1,47 +1,162 @@
 
 /* src/styles/Affirmations.css */
+
 .aff-screen {
-  min-height: 100dvh; display: flex; flex-direction: column; gap: 14px;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
   padding: 52px 22px 110px;
   background: #1a0610;
   background-image: radial-gradient(ellipse 55% 20% at 70% 0%, rgba(60,10,80,0.5) 0%, transparent 55%);
-  font-family: 'DM Sans', sans-serif; color: #f5ede6;
-  max-width: 430px; margin: 0 auto; box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  color: #f5ede6;
+  max-width: 430px;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 .aff-screen * { box-sizing: border-box; }
-.aff-eyebrow { font-size: 9px; letter-spacing: 0.44em; text-transform: uppercase; color: #c9607a; font-weight: 500; }
-.aff-cats {
-  display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none;
-  -webkit-overflow-scrolling: touch; padding-bottom: 2px;
+
+/* EYEBROW */
+.aff-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: #c9607a;
+  font-weight: 500;
 }
-.aff-cats::-webkit-scrollbar { display: none; }
+
+/* CATEGORÍAS — 2 filas compactas */
+.aff-cats-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.aff-cats-row {
+  display: flex;
+  gap: 6px;
+}
+
 .aff-cat {
-  flex-shrink: 0; padding: 8px 16px; border-radius: 999px;
-  font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
-  font-weight: 500; font-family: 'DM Sans', sans-serif;
-  border: 1px solid rgba(244,175,200,0.15); color: rgba(244,175,200,0.5);
-  background: rgba(244,175,200,0.05); cursor: pointer; white-space: nowrap; transition: all 0.2s;
+  flex: 1;
+  padding: 7px 4px;
+  border-radius: 10px;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  font-family: 'DM Sans', sans-serif;
+  border: 1px solid rgba(244,175,200,0.15);
+  color: rgba(244,175,200,0.5);
+  background: rgba(244,175,200,0.04);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
+  transition: all 0.2s ease;
+  min-width: 0;
 }
-.aff-cat.active { background: rgba(201,96,122,0.22); border-color: #c9607a; color: #f4afc8; }
-.aff-list { display: flex; flex-direction: column; gap: 10px; }
+
+.aff-cat.active {
+  background: rgba(201,96,122,0.2);
+  border-color: #c9607a;
+  color: #f4afc8;
+  box-shadow: 0 0 8px rgba(201,96,122,0.18);
+}
+
+/* LISTA DE AFIRMACIONES */
+.aff-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 .aff-item {
-  display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  padding: 20px; background: rgba(244,175,200,0.05);
-  border: 1px solid rgba(244,175,200,0.13); border-radius: 22px; transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 18px 20px;
+  background: rgba(244,175,200,0.05);
+  border: 1px solid rgba(244,175,200,0.13);
+  border-radius: 20px;
+  transition: all 0.2s ease;
+  animation: fadeUp 0.25s ease both;
 }
-.aff-item:active { transform: scale(0.99); border-color: rgba(201,96,122,0.3); }
-.aff-item p { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: #f5ede6; line-height: 1.6; flex: 1; }
-.aff-fav { font-size: 22px; background: none; border: none; cursor: pointer; flex-shrink: 0; padding: 4px; transition: transform 0.15s; line-height: 1; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.aff-item:active {
+  transform: scale(0.99);
+  border-color: rgba(201,96,122,0.3);
+}
+
+.aff-item p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  font-style: italic;
+  color: #f5ede6;
+  line-height: 1.55;
+  flex: 1;
+}
+
+.aff-fav {
+  font-size: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  padding: 4px;
+  transition: transform 0.15s;
+  line-height: 1;
+}
 .aff-fav:active { transform: scale(0.85); }
+
+/* BOTTOM NAV */
 .bottom-nav {
-  position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
-  width: 100%; max-width: 430px; background: rgba(16,3,10,0.97);
-  backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
-  border-top: 1px solid rgba(244,175,200,0.15);
-  padding: 10px 0 28px; display: flex; justify-content: space-around; align-items: center; z-index: 9999;
+  position: fixed;
+  bottom: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 100%; max-width: 430px;
+  background: rgba(10,2,8,0.98);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border-top: 1px solid rgba(244,175,200,0.25);
+  box-shadow: 0 -8px 32px rgba(0,0,0,0.5);
+  padding: 10px 8px 28px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  z-index: 9999;
 }
-.nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 6px 0; background: none; border: none; cursor: pointer; }
-.nav-icon { font-size: 20px; opacity: 0.3; display: block; line-height: 1; transition: all 0.2s; }
-.nav-label { font-size: 8px; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(244,175,200,0.45); font-family: 'DM Sans', sans-serif; }
-.nav-btn.active .nav-icon { opacity: 1; filter: drop-shadow(0 0 8px rgba(244,175,200,0.5)); }
+
+.nav-btn {
+  flex: 1; display: flex; flex-direction: column;
+  align-items: center; gap: 4px;
+  padding: 8px 6px; background: none; border: none;
+  cursor: pointer; border-radius: 14px; transition: all 0.2s ease;
+}
+
+.nav-btn.active {
+  background: rgba(201,96,122,0.18);
+  border: 1px solid rgba(201,96,122,0.35);
+  box-shadow: 0 0 14px rgba(201,96,122,0.2);
+}
+
+.nav-icon {
+  font-size: 20px; opacity: 0.28;
+  display: block; line-height: 1; transition: all 0.2s;
+}
+.nav-btn.active .nav-icon { opacity: 1; filter: drop-shadow(0 0 6px rgba(244,175,200,0.6)); }
+
+.nav-label {
+  font-size: 8px; letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: rgba(244,175,200,0.3);
+  font-family: 'DM Sans', sans-serif; font-weight: 500;
+}
 .nav-btn.active .nav-label { color: #f4afc8; }
