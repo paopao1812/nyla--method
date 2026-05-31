@@ -11,20 +11,45 @@ import Meals from "./pages/Meals";
 import Affirmations from "./pages/Affirmations";
 import Cycle from "./pages/Cycle";
 
+// Guard: si ya hizo onboarding, redirige a /home
+function RequireOnboarding({ children }) {
+  const done = localStorage.getItem("nylaOnboardingDone");
+  const name = localStorage.getItem("nylaUserName");
+  if (done && name) return <Navigate to="/home" replace />;
+  return children;
+}
+
+// Guard: si NO hizo onboarding, redirige a /
+function RequireAuth({ children }) {
+  const done = localStorage.getItem("nylaOnboardingDone");
+  const name = localStorage.getItem("nylaUserName");
+  if (!done || !name) return <Navigate to="/" replace />;
+  return children;
+}
+
 export default function App() {
   return (
     <UserProvider>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Welcome />} />
-          <Route path="/onboarding" element={<Onboarding />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/workout" element={<Workout />} />
-          <Route path="/library" element={<Library />} />
-          <Route path="/meals" element={<Meals />} />
-          <Route path="/affirmations" element={<Affirmations />} />
-          <Route path="/cycle" element={<Cycle />} />
-          <Route path="*" element={<Navigate to="/" />} />
+          {/* Rutas públicas — si ya hizo onboarding redirigen a home */}
+          <Route path="/" element={
+            <RequireOnboarding><Welcome /></RequireOnboarding>
+          } />
+          <Route path="/onboarding" element={
+            <RequireOnboarding><Onboarding /></RequireOnboarding>
+          } />
+
+          {/* Rutas protegidas — requieren onboarding completo */}
+          <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />
+          <Route path="/workout" element={<RequireAuth><Workout /></RequireAuth>} />
+          <Route path="/library" element={<RequireAuth><Library /></RequireAuth>} />
+          <Route path="/meals" element={<RequireAuth><Meals /></RequireAuth>} />
+          <Route path="/affirmations" element={<RequireAuth><Affirmations /></RequireAuth>} />
+          <Route path="/cycle" element={<RequireAuth><Cycle /></RequireAuth>} />
+
+          {/* Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </UserProvider>

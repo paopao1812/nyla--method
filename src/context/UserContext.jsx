@@ -1,48 +1,51 @@
-import { createContext, useContext, useState } from 'react'
 
-const UserContext = createContext()
+import { createContext, useContext, useState } from "react";
+
+const UserContext = createContext(null);
 
 export function UserProvider({ children }) {
-  const [userName, setUserName] = useState(
-    localStorage.getItem('nyla-name') || ''
-  )
-  const [currentWeek, setCurrentWeek] = useState(
-    parseInt(localStorage.getItem('nyla-week')) || 1
-  )
-  const [completedDays, setCompletedDays] = useState(
-    JSON.parse(localStorage.getItem('nyla-completed')) || {}
-  )
+  const [userName, setUserName] = useState(() =>
+    localStorage.getItem("nylaUserName") || ""
+  );
 
-  function saveName(name) {
-    setUserName(name)
-    localStorage.setItem('nyla-name', name)
-  }
+  const saveName = (name) => {
+    localStorage.setItem("nylaUserName", name);
+    setUserName(name);
+  };
 
-  function markDayComplete(weekDay) {
-    const updated = { ...completedDays, [weekDay]: true }
-    setCompletedDays(updated)
-    localStorage.setItem('nyla-completed', JSON.stringify(updated))
-  }
+  const resetProgress = () => {
+    // Borra solo el progreso, NO el nombre ni el onboarding
+    localStorage.removeItem("nylaCompletedDays");
+    localStorage.removeItem("nylaExerciseWeights");
+    localStorage.removeItem("nylaInternalWeek");
+    localStorage.removeItem("nylaLastPeriodDate");
+    localStorage.removeItem("nylaFavoriteAffirmation");
+    localStorage.removeItem("nylaRestDuration");
+  };
 
-  function isDayComplete(weekDay) {
-    return !!completedDays[weekDay]
-  }
+  const resetAll = () => {
+    // Borra TODO — solo para el botón explícito de reinicio
+    localStorage.removeItem("nylaUserName");
+    localStorage.removeItem("nylaOnboardingDone");
+    localStorage.removeItem("nylaGoal");
+    localStorage.removeItem("nylaLevel");
+    localStorage.removeItem("nylaDays");
+    localStorage.removeItem("nylaCompletedDays");
+    localStorage.removeItem("nylaExerciseWeights");
+    localStorage.removeItem("nylaInternalWeek");
+    localStorage.removeItem("nylaLastPeriodDate");
+    localStorage.removeItem("nylaFavoriteAffirmation");
+    localStorage.removeItem("nylaRestDuration");
+    setUserName("");
+  };
 
   return (
-    <UserContext.Provider value={{
-      userName,
-      saveName,
-      currentWeek,
-      setCurrentWeek,
-      markDayComplete,
-      isDayComplete,
-      completedDays
-    }}>
+    <UserContext.Provider value={{ userName, saveName, resetProgress, resetAll }}>
       {children}
     </UserContext.Provider>
-  )
+  );
 }
 
 export function useUser() {
-  return useContext(UserContext)
+  return useContext(UserContext);
 }
