@@ -50,7 +50,6 @@ const getCardio = (w) => ({
   speed: Math.min(3.5 + (w - 1) * 0.15, 5.5).toFixed(1),
 });
 
-// Etiquetas motivacionales sin números de semana
 const getBlockLabel = (w) => {
   if (w <= 4) return "Construyendo tu base";
   if (w <= 8) return "Ganando fuerza";
@@ -65,26 +64,15 @@ const getMotivation = (w) => {
   return "Has llegado lejos. NYLA sigue contigo.";
 };
 
-// Calcular semana interna automáticamente según días completados
-const computeInternalWeek = (completedDays, planKey, planDays) => {
-  const totalDays = planDays.length;
-  let week = 1;
-  for (let w = 1; w <= 16; w++) {
-    const daysThisWeek = planDays.filter(d =>
-      completedDays.includes(`${planKey}-${w}-${d}`)
-    ).length;
-    if (daysThisWeek >= totalDays && w < 16) {
-      week = w + 1;
-    } else {
-      week = Math.max(week, w);
-      break;
-    }
-  }
-  return Math.min(week, 16);
-};
-
 export default function Workout() {
   const navigate = useNavigate();
+
+  // Semana interna — controlada por la usuaria, oculta visualmente
+  const [internalWeek, setInternalWeek] = useState(() => {
+    const saved = localStorage.getItem("nylaInternalWeek");
+    return saved ? parseInt(saved) : 1;
+  });
+
   const [selectedPlan, setSelectedPlan] = useState("fiveDays");
   const [selectedDay, setSelectedDay] = useState("Día 1 · Glúteos");
   const [activeSection, setActiveSection] = useState("activation");
@@ -98,15 +86,11 @@ export default function Workout() {
     return s ? JSON.parse(s) : {};
   });
   const [completedExercises, setCompletedExercises] = useState({});
-
-  // Semana interna calculada automáticamente — nunca mostrada a la usuaria
-  const internalWeek = useMemo(() =>
-    computeInternalWeek(completedDays, selectedPlan, plans[selectedPlan].days),
-    [completedDays, selectedPlan]
-  );
+  const [showAdvanceModal, setShowAdvanceModal] = useState(false);
 
   useEffect(() => { localStorage.setItem("nylaCompletedDays", JSON.stringify(completedDays)); }, [completedDays]);
   useEffect(() => { localStorage.setItem("nylaExerciseWeights", JSON.stringify(exerciseWeights)); }, [exerciseWeights]);
+  useEffect(() => { localStorage.setItem("nylaInternalWeek", String(internalWeek)); }, [internalWeek]);
 
   const getCycleInfo = () => {
     if (!lastPeriodDate) return null;
@@ -128,23 +112,29 @@ export default function Workout() {
   );
   const isCompleted = completedDays.includes(dayKey);
 
-  // Métricas motivacionales
   const totalCompleted = completedDays.length;
-  const thisMonthCompleted = completedDays.filter(k => {
-    const parts = k.split("-");
-    return parts.length > 0;
-  }).length;
-
   const weeklyCompleted = plans[selectedPlan].days.filter(d =>
     completedDays.includes(`${selectedPlan}-${internalWeek}-${d}`)
   ).length;
   const progressPercent = (weeklyCompleted / plans[selectedPlan].days.length) * 100;
+  const blockComplete = weeklyCompleted >= plans[selectedPlan].days.length;
+  const isLastBlock = internalWeek >= 16;
 
   const toggleCompleted = () => {
-    const updated = isCompleted
+    setCompletedDays(isCompleted
       ? completedDays.filter(i => i !== dayKey)
-      : [...completedDays, dayKey];
-    setCompletedDays(updated);
+      : [...completedDays, dayKey]
+    );
+  };
+
+  const handleAdvance = () => {
+    if (internalWeek < 16) {
+      setInternalWeek(w => w + 1);
+      setSelectedDay(plans[selectedPlan].days[0]);
+      setActiveSection("activation");
+      setCompletedExercises({});
+    }
+    setShowAdvanceModal(false);
   };
 
   const updateWeight = (name, value) => setExerciseWeights({
@@ -160,7 +150,22 @@ export default function Workout() {
   return (
     <section className="wk-screen">
 
-      {/* HERO — sin mencionar semana */}
+      {/* MODAL DE AVANCE */}
+      {showAdvanceModal && (
+        <div className="wk-modal-overlay">
+          <div className="wk-modal">
+            <p className="wk-modal-eyebrow">NYLA</p>
+            <h2 className="wk-modal-title">¿Lista para continuar al siguiente nivel?</h2>
+            <p className="wk-modal-sub">Tu progresión se actualizará. Los pesos y series evolucionan contigo.</p>
+            <div className="wk-modal-btns">
+              <button className="wk-modal-cancel" onClick={() => setShowAdvanceModal(false)}>Cancelar</button>
+              <button className="wk-modal-confirm" onClick={handleAdvance}>✨ Continuar</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* HERO */}
       <div className="wk-hero">
         <div className="wk-hero-badges">
           <span className="wk-badge-pill">· {getBlockLabel(internalWeek).toUpperCase()}</span>
@@ -184,7 +189,7 @@ export default function Workout() {
         </div>
       </div>
 
-      {/* STATS — motivacionales, sin semana */}
+      {/* STATS */}
       <div className="wk-stats">
         <div className="wk-stat">
           <span className="wk-stat-n">{totalCompleted}</span>
@@ -214,21 +219,35 @@ export default function Workout() {
         <p className="wk-motivation-text">✦ {getMotivation(internalWeek)}</p>
       </div>
 
-      {/* PROGRESS — sin mencionar semana */}
+      {/* PROGRESS */}
       <div className="wk-progress">
         <div className="wk-progress-top">
-          <span>Tu avance de hoy</span>
+          <span>Tu avance</span>
           <strong>{weeklyCompleted}/{plans[selectedPlan].days.length} entrenamientos</strong>
         </div>
         <div className="wk-bar">
           <div className="wk-bar-fill" style={{ width: `${progressPercent}%` }} />
         </div>
         <p className="wk-progress-msg">
-          {weeklyCompleted === plans[selectedPlan].days.length
-            ? "Bloque completado. NYLA está orgullosa de ti ✨"
+          {blockComplete
+            ? "Bloque completado. Estoy orgullosa de ti ✨"
             : "Cada entrenamiento te acerca más a ti."}
         </p>
       </div>
+
+      {/* BOTÓN AVANZAR — solo si el bloque está completo */}
+      {blockComplete && !isLastBlock && (
+        <button className="wk-advance-btn" onClick={() => setShowAdvanceModal(true)}>
+          ✨ Siguiente nivel
+        </button>
+      )}
+      {blockComplete && isLastBlock && (
+        <div className="wk-final-card">
+          <p className="wk-final-emoji">🌸</p>
+          <h3 className="wk-final-title">Has completado el método NYLA</h3>
+          <p className="wk-final-sub">Tu transformación es real. NYLA sigue contigo.</p>
+        </div>
+      )}
 
       {/* PLAN TABS */}
       <div className="wk-pills-row">
