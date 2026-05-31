@@ -300,11 +300,8 @@ export default function Workout() {
                   <h3>{ex.name}</h3>
                   <p>{ex.description}</p>
                   <strong>{ex.reps}</strong>
-                  <div className="wk-ex-actions">
-                    <button className={`wk-ex-done-btn ${completedExercises[ex.name] ? "active" : ""}`} onClick={() => toggleExDone(ex.name)}>
-                      {completedExercises[ex.name] ? "✅ Completado" : "Completar"}
-                    </button>
-                  </div>
+               
+          
                 </div>
               </div>
             ))}
