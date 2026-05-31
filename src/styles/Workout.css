@@ -238,3 +238,19 @@
   border-color: rgba(126,206,158,0.3);
   color: #7ece9e;
 }
+
+/* MOTIVACIÓN */
+.wk-motivation {
+  background: linear-gradient(135deg, rgba(201,96,122,0.08), rgba(244,175,200,0.03));
+  border: 1px solid rgba(244,175,200,0.12);
+  border-radius: 18px;
+  padding: 14px 18px;
+  text-align: center;
+}
+.wk-motivation-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  font-style: italic;
+  color: rgba(244,175,200,0.75);
+  line-height: 1.6;
+}
