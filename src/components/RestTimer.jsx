@@ -72,7 +72,7 @@ export default function RestTimer() {
                 className={`rest-opt ${duration === d ? "active" : ""}`}
                 onClick={() => handleDurationSelect(d)}
               >
-                {d === 60 ? "1 min" : d === 90 ? "1:30" : "2 min"}
+                {d === 30 ? "30 seg" : d === 60 ? "1 min" : "1:30"}
               </button>
             ))}
           </div>
