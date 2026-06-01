@@ -1,4 +1,5 @@
 
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Meals.css";
 
@@ -30,8 +31,121 @@ const supplements = [
   { title: "Magnesio", text: "Puede apoyar descanso, sistema nervioso, recuperación y fatiga.", dose: "Consultar dosis adecuada" },
 ];
 
+// ─── Calculadora ───────────────────────────────────────────
+const FACTORS = {
+  "Perder grasa": {
+    "Sedentaria":             [10, 12],
+    "Moderadamente activa":   [12, 14],
+    "Muy activa":             [14, 15],
+  },
+  "Mantener peso": {
+    "Sedentaria":             [12, 14],
+    "Moderadamente activa":   [14, 16],
+    "Muy activa":             [16, 18],
+  },
+  "Ganar masa muscular": {
+    "Sedentaria":             [16, 18],
+    "Moderadamente activa":   [18, 20],
+    "Muy activa":             [20, 22],
+  },
+};
+
+function CalorieCalculator() {
+  const [peso, setPeso] = useState("");
+  const [objetivo, setObjetivo] = useState("Perder grasa");
+  const [actividad, setActividad] = useState("Moderadamente activa");
+  const [result, setResult] = useState(null);
+
+  const calcular = () => {
+    const kg = parseFloat(peso);
+    if (!kg || kg <= 0) return;
+    const libras = kg * 2.2;
+    const [min, max] = FACTORS[objetivo][actividad];
+    setResult({
+      min: Math.round(libras * min),
+      max: Math.round(libras * max),
+    });
+  };
+
+  return (
+    <div className="ml-calc-card">
+      <p className="ml-calc-eyebrow">CALCULADORA</p>
+      <h2 className="ml-calc-title">Calorías diarias</h2>
+      <p className="ml-calc-sub">Obtén una estimación personalizada según tu objetivo y nivel de actividad.</p>
+
+      {/* Peso */}
+      <div className="ml-calc-field">
+        <label className="ml-calc-label">Peso (kg)</label>
+        <input
+          className="ml-calc-input"
+          type="number"
+          placeholder="Ej. 62"
+          value={peso}
+          onChange={e => { setPeso(e.target.value); setResult(null); }}
+          min="30"
+          max="200"
+        />
+      </div>
+
+      {/* Objetivo */}
+      <div className="ml-calc-field">
+        <label className="ml-calc-label">Objetivo</label>
+        <div className="ml-calc-options">
+          {Object.keys(FACTORS).map(opt => (
+            <button
+              key={opt}
+              className={`ml-calc-opt ${objetivo === opt ? "active" : ""}`}
+              onClick={() => { setObjetivo(opt); setResult(null); }}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Actividad */}
+      <div className="ml-calc-field">
+        <label className="ml-calc-label">Nivel de actividad</label>
+        <div className="ml-calc-options">
+          {["Sedentaria","Moderadamente activa","Muy activa"].map(opt => (
+            <button
+              key={opt}
+              className={`ml-calc-opt ${actividad === opt ? "active" : ""}`}
+              onClick={() => { setActividad(opt); setResult(null); }}
+            >
+              {opt}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Botón calcular */}
+      <button className="ml-calc-btn" onClick={calcular} disabled={!peso}>
+        Calcular
+      </button>
+
+      {/* Resultado */}
+      {result && (
+        <div className="ml-calc-result">
+          <p className="ml-calc-result-label">Calorías estimadas</p>
+          <p className="ml-calc-result-value">{result.min.toLocaleString()} – {result.max.toLocaleString()}</p>
+          <p className="ml-calc-result-unit">kcal por día</p>
+        </div>
+      )}
+
+      {/* Aviso */}
+      <div className="ml-calc-disclaimer">
+        <span>ℹ️</span>
+        <p>Esta estimación es una guía general y no sustituye el asesoramiento de un profesional de la nutrición.</p>
+      </div>
+    </div>
+  );
+}
+
+// ─── Pantalla principal ────────────────────────────────────
 export default function Meals() {
   const navigate = useNavigate();
+
   return (
     <section className="ml-screen">
       <p className="ml-eyebrow">IDEAS PARA NUTRIRTE</p>
@@ -42,6 +156,10 @@ export default function Meals() {
         <p>Tu bienestar siempre es prioridad.</p>
       </div>
 
+      {/* ── CALCULADORA ── */}
+      <CalorieCalculator />
+
+      {/* ── COMIDAS ── */}
       {Object.entries(meals).map(([cat, list]) => (
         <div className="ml-card" key={cat}>
           <h2 className="ml-card-title">{cat}</h2>
@@ -49,12 +167,16 @@ export default function Meals() {
             <div className="ml-item" key={meal.title}>
               <h3>{meal.title}</h3>
               <ul>{meal.items.map(i => <li key={i}>{i}</li>)}</ul>
-              <div className="ml-macros"><span>{meal.protein}</span><span>{meal.calories}</span></div>
+              <div className="ml-macros">
+                <span>{meal.protein}</span>
+                <span>{meal.calories}</span>
+              </div>
             </div>
           ))}
         </div>
       ))}
 
+      {/* ── SUPLEMENTACIÓN ── */}
       <div className="ml-card">
         <h2 className="ml-card-title">Suplementación básica</h2>
         {supplements.map(s => (
