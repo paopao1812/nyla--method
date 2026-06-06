@@ -110,7 +110,7 @@ const weeklyPlan = {
     { name: "Peso muerto rumano" },
     { name: "Patada de glúteo en polea" },
     { name: "Abducciones en máquina" },
-    { name: "Curl femoral" },
+    { name: "Femoral tumbado" },
   ],
   // Only Glúteos
   "Día 2 · Glúteos + Femoral": [

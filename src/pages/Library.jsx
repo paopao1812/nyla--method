@@ -39,7 +39,7 @@ const exerciseCategories = [
       "Patada de glúteo en polea",
       "Patada de glúteo en máquina",
       "Abducciones en máquina",
-      "Curl femoral",
+      "Femoral Tumbado",
     ],
   },
   {
