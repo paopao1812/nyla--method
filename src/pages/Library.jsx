@@ -63,7 +63,7 @@ export default function Library() {
 
   return (
     <section className="lib-screen">
-      <p className="lib-eyebrow">BIBLIOTECA DE EJERCICIOS</p>
+      <span className="nav-label">VIDEOTECA</span>
       <p className="lib-subtitle">Aprende la técnica de los ejercicios.</p>
 
       <div className="lib-grid">
