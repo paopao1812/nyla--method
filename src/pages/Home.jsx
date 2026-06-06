@@ -85,7 +85,7 @@ export default function Home() {
           className="home-option-card"
           onClick={() => navigate("/library")}
         >
-          <span>Biblioteca</span>
+          <span>Videoteca</span>
           <small><small>Aprende la técnica de los ejercicios</small></small>
         </button>
       </div>

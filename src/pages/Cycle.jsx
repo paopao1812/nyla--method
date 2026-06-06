@@ -177,7 +177,7 @@ export default function Cycle() {
         </button>
         <button className="nav-btn" onClick={() => navigate("/library")}>
           <span className="nav-icon">📖</span>
-          <span className="nav-label">Biblioteca</span>
+          <span className="nav-label">Videoteca</span>
         </button>
       </nav>
     </section>
