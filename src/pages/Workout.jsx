@@ -337,24 +337,26 @@ export default function Workout() {
 
       {/* CORE */}
       {activeSection === "core" && (
-        <div className="wk-card">
-          <h2 className="wk-card-title">Core</h2>
-          <div className="wk-ex-list">
-            {corePlan.map((ex, i) => (
-              <div className={`wk-ex ${completedExercises[ex.name] ? "done" : ""}`} key={i}>
-                <div className="wk-ex-num">{i + 1}</div>
-                <div className="wk-ex-body">
-                  <h3>{ex.name}</h3>
-                  <p>{ex.reps}</p>
-                  <div className="wk-ex-actions">
-  <RestTimer />
-</div>
-                </div>
+  <div className="wk-card">
+    <h2 className="wk-card-title">Core</h2>
+    <div className="wk-ex-list">
+      {corePlan.map((ex, i) => (
+        <div className={`wk-ex ${completedExercises[ex.name] ? "done" : ""}`} key={i}>
+          <div className="wk-ex-num">{i + 1}</div>
+          <div className="wk-ex-body">
+            <h3>{ex.name}</h3>
+            <p>{ex.reps}</p>
+            {ex.name === "Plancha frontal" && (
+              <div className="wk-ex-actions">
+                <RestTimer />
               </div>
-            ))}
+            )}
           </div>
         </div>
-      )}
+      ))}
+    </div>
+  </div>
+)}
 
       {/* CARDIO */}
       {activeSection === "cardio" && (
