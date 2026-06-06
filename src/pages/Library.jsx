@@ -25,6 +25,7 @@ const VIDEO_MAP = {
   "Remo sentado":                    "https://res.cloudinary.com/dhinbr3np/video/upload/v1780761012/Remo_Sentado_kkli4i.mp4",
   "Press militar":                   "https://res.cloudinary.com/dhinbr3np/video/upload/v1780761016/Press_Militarr_nqpk1a.mp4",
   "Pullover":                        "https://res.cloudinary.com/dhinbr3np/video/upload/v1780761019/PullOver_shwgxl.mp4",
+  "Femoral tumbado": "https://res.cloudinary.com/dhinbr3np/video/upload/v1780765498/Femoral_Tumbado_d09vah.mp4",
 };
 
 const exerciseCategories = [
