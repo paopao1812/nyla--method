@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <section className="home-screen">
       <div className="home-header">
-        <p className="home-eyebrow">NYLA</p>
+        <p className="home-eyebrow"></p>
 
         <h1 className="home-title">
           Hola, {userName || "Gym Sister"}
