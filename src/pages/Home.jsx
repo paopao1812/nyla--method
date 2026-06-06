@@ -68,9 +68,14 @@ function WorkoutReminder({ onDismiss }) {
     if (onDismiss) onDismiss();
   };
 
-  const handleGo = () => {
-    navigate("/workout");
-  };
+ const handleGo = () => {
+  const next = getNextWorkout();
+  if (next) {
+    localStorage.setItem("nylaSelectedPlan", next.planKey);
+    localStorage.setItem("nylaSelectedDay", next.day);
+  }
+  navigate("/workout");
+};
 
   return (
     <div className="home-reminder">
@@ -133,7 +138,14 @@ export default function Home() {
         </p>
       </div>
 
-      <div className="home-main-card" onClick={() => navigate("/workout")} role="button">
+      <div className="home-main-card" onClick={() => {
+  const next = getNextWorkout();
+  if (next) {
+    localStorage.setItem("nylaSelectedPlan", next.planKey);
+    localStorage.setItem("nylaSelectedDay", next.day);
+  }
+  navigate("/workout");
+}} role="button">
   <p className="home-card-label">Entrenamiento de hoy</p>
   <h2>{(() => {
     const next = getNextWorkout();

@@ -155,8 +155,13 @@ export default function Workout() {
     const saved = localStorage.getItem("nylaInternalWeek");
     return saved ? parseInt(saved) : 1;
   });
-  const [selectedPlan, setSelectedPlan] = useState("fiveDays");
-  const [selectedDay, setSelectedDay] = useState("Día 1 · Glúteos");
+  const [selectedPlan, setSelectedPlan] = useState(() => {
+  return localStorage.getItem("nylaSelectedPlan") || "fiveDays";
+});
+
+const [selectedDay, setSelectedDay] = useState(() => {
+  return localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos";
+});
   const [activeSection, setActiveSection] = useState("activation");
   const [lastPeriodDate] = useState(() => localStorage.getItem("nylaLastPeriodDate") || "");
   const [completedDays, setCompletedDays] = useState(() => {
