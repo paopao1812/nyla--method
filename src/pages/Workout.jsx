@@ -43,7 +43,7 @@ const activationPlan = [
 
 const corePlan = [
   { name: "Heels Taps", reps: "3 × 20 repeticiones" },
-  { name: "Plancha frontal", reps: "3 × 25 segundos" },
+  { name: "Plancha frontal", reps: "3 × 30 segundos" },
   { name: "Bird Dog", reps: "3 × 10 por lado" },
 ];
 
