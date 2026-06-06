@@ -1168,17 +1168,17 @@ html, body, #root {
   transform: translateX(-50%);
   width: calc(100% - 40px);
   max-width: 390px;
-  background: rgba(26, 6, 16, 0.96);
+  background: rgba(58, 15, 35, 0.97);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(244, 175, 200, 0.2);
+  border: 1px solid rgba(244, 175, 200, 0.35);
   border-radius: 999px;
   padding: 10px 8px;
   display: flex;
   justify-content: space-around;
   align-items: center;
   z-index: 9999;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(201, 96, 122, 0.15);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(244, 175, 200, 0.1), 0 2px 12px rgba(201, 96, 122, 0.25);
 }
 
 .nav-btn {
