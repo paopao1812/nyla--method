@@ -12,10 +12,10 @@ const plans = {
     days: ["Día 1 · Glúteos","Día 2 · Espalda","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros / Bíceps / Tríceps","Día 5 · Glúteos unilaterales"],
   },
   threeDays: {
-    label: "Plan 3 días",
-    shortLabel: "3 días",
-    days: ["Día 1 · Glúteos","Día 2 · Espalda","Día 3 · Pierna + Glúteos"],
-  },
+  label: "Plan 3 días",
+  shortLabel: "3 días",
+  days: ["Día 1 · Cuádriceps","Día 2 · Espalda","Día 3 · Glúteos + Pierna"],
+},
   glutesOnly: {
   label: "Solo glúteos",
   shortLabel: "Glúteos",
@@ -56,6 +56,8 @@ const weeklyPlan = {
   "Día 3 · Pierna + Glúteos": [{ name: "Sentadilla búlgara" },{ name: "Prensa pies abajo" },{ name: "Peso muerto rumano" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" }],
   "Día 2 · Glúteos + Femoral": [{ name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Curl femoral" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" }],
   "Día 3 · Glúteos unilaterales": [{ name: "Hip thrust a una pierna" },{ name: "Peso muerto a una pierna" },{ name: "Step Up" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" }],
+  "Día 1 · Cuádriceps": [{ name: "Aductores en máquina" },{ name: "Sentadilla búlgara" },{ name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },{ name: "Extensión de piernas" },{ name: "Gemelos en máquina" }],
+"Día 3 · Glúteos + Pierna": [{ name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },{ name: "Curl femoral" }],
 };
 
 const getSets = (w) => w <= 3 ? 2 : w === 4 ? 3 : 4;
