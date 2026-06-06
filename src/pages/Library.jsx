@@ -99,13 +99,14 @@ function VideoModal({ exercise, onClose }) {
         <div className="lib-video-wrap">
           {url ? (
             <video
-              className="lib-video"
-              src={url}
-              controls
-              playsInline
-              autoPlay
-              controlsList="nodownload"
-            />
+  className="lib-video"
+  src={url}
+  controls
+  playsInline
+  autoPlay
+  muted
+  controlsList="nodownload"
+/>
           ) : (
             <div className="lib-video-soon">
               <p className="lib-video-soon-icon">🎬</p>
