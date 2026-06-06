@@ -1,3 +1,4 @@
+
 /* src/styles/Home.css */
 
 .home-screen {
@@ -205,3 +206,91 @@
   position: relative;
   z-index: 1;
 }
+
+/* ── RECORDATORIO ── */
+.home-reminder {
+  background: linear-gradient(135deg, rgba(139,40,64,0.3), rgba(61,14,37,0.5));
+  border: 1px solid rgba(201,96,122,0.35);
+  border-radius: 22px;
+  padding: 18px 20px;
+  animation: fadeUp 0.3s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.home-reminder-top {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.home-reminder-icon {
+  font-size: 28px;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.home-reminder-label {
+  font-size: 8px;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: #c9607a;
+  font-weight: 500;
+  margin-bottom: 5px;
+}
+
+.home-reminder-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  color: #f5ede6;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.home-reminder-sub {
+  font-size: 11px;
+  color: rgba(244,175,200,0.55);
+}
+
+.home-reminder-btns {
+  display: flex;
+  gap: 10px;
+}
+
+.home-reminder-go {
+  flex: 1;
+  padding: 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b2840, #c9607a);
+  color: #fff;
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(201,96,122,0.35);
+  transition: all 0.2s;
+}
+.home-reminder-go:active { transform: scale(0.97); }
+
+.home-reminder-ignore {
+  flex: 1;
+  padding: 12px;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(244,175,200,0.5);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+  border: 1px solid rgba(244,175,200,0.18);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.home-reminder-ignore:active { border-color: rgba(244,175,200,0.35); }

@@ -1,99 +1,166 @@
 
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 import "../styles/Home.css";
 
+// Mapeo de días para saber qué día sigue
+const PLAN_DAYS = {
+  fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
+  threeDays: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna"],
+  glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
+};
+
+const PLAN_LABELS = {
+  fiveDays: "Plan 5 días",
+  threeDays: "Plan 3 días",
+  glutesOnly: "Only Glúteos",
+};
+
+function getNextWorkout() {
+  try {
+    const completedDays = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
+    const internalWeek = parseInt(localStorage.getItem("nylaInternalWeek") || "1");
+    // Detectar el plan con más días completados
+    const planKey = ["fiveDays","threeDays","glutesOnly"].reduce((best, key) => {
+      const days = PLAN_DAYS[key];
+      const count = days.filter(d => completedDays.includes(`${key}-${internalWeek}-${d}`)).length;
+      const bestCount = PLAN_DAYS[best].filter(d => completedDays.includes(`${best}-${internalWeek}-${d}`)).length;
+      return count > bestCount ? key : best;
+    }, "fiveDays");
+
+    const days = PLAN_DAYS[planKey];
+    // Encontrar el primer día no completado
+    const nextDay = days.find(d => !completedDays.includes(`${planKey}-${internalWeek}-${d}`));
+    if (!nextDay) return null; // bloque completo
+
+    // Verificar si hay algún día ya completado (para saber si es "continúa" o "empieza")
+    const hasStarted = days.some(d => completedDays.includes(`${planKey}-${internalWeek}-${d}`));
+    const completedCount = days.filter(d => completedDays.includes(`${planKey}-${internalWeek}-${d}`)).length;
+
+    return {
+      planKey,
+      planLabel: PLAN_LABELS[planKey],
+      day: nextDay,
+      dayName: nextDay.split("·")[1]?.trim() || nextDay,
+      hasStarted,
+      completedCount,
+      total: days.length,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function WorkoutReminder({ onDismiss }) {
+  const navigate = useNavigate();
+  const next = getNextWorkout();
+  const [visible, setVisible] = useState(true);
+
+  // Solo mostrar si hay un entrenamiento pendiente y no fue ignorado hoy
+  const dismissedToday = localStorage.getItem("nylaReminderDismissed");
+  const today = new Date().toDateString();
+  if (!next || !visible || dismissedToday === today) return null;
+
+  const handleDismiss = () => {
+    localStorage.setItem("nylaReminderDismissed", today);
+    setVisible(false);
+    if (onDismiss) onDismiss();
+  };
+
+  const handleGo = () => {
+    navigate("/workout");
+  };
+
+  return (
+    <div className="home-reminder">
+      <div className="home-reminder-top">
+        <span className="home-reminder-icon">💪</span>
+        <div>
+          <p className="home-reminder-label">
+            {next.hasStarted ? "CONTINÚA DONDE LO DEJASTE" : "TU PRÓXIMO ENTRENAMIENTO"}
+          </p>
+          <h3 className="home-reminder-title">{next.dayName}</h3>
+          <p className="home-reminder-sub">
+            {next.planLabel} · {next.completedCount}/{next.total} completados
+          </p>
+        </div>
+      </div>
+      <div className="home-reminder-btns">
+        <button className="home-reminder-go" onClick={handleGo}>
+          Ir a entrenar
+        </button>
+        <button className="home-reminder-ignore" onClick={handleDismiss}>
+          Ahora no
+        </button>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const navigate = useNavigate();
   const { userName } = useUser();
+  const [showReminder, setShowReminder] = useState(true);
 
   return (
     <section className="home-screen">
       <div className="home-header">
-        <p className="home-eyebrow"></p>
-
         <h1 className="home-title">
           Hola, {userName || "Gym Sister"}
         </h1>
-
         <p className="home-subtitle">
           Hoy entrenas con intención, fuerza y claridad.
         </p>
       </div>
 
+      {/* RECORDATORIO */}
+      {showReminder && (
+        <WorkoutReminder onDismiss={() => setShowReminder(false)} />
+      )}
+
       <div className="home-progress-card">
         <p className="home-card-label">Tu progreso</p>
-
         <div className="home-progress-row">
           <h2>Semana 1</h2>
           <span>Día 1</span>
         </div>
-
         <div className="home-progress-bar">
           <div className="home-progress-fill"></div>
         </div>
-
         <p className="home-progress-text">
           Un paso más cerca de tu versión más fuerte.
         </p>
       </div>
 
-      <div
-        className="home-main-card"
-        onClick={() => navigate("/workout")}
-        role="button"
-      >
+      <div className="home-main-card" onClick={() => navigate("/workout")} role="button">
         <p className="home-card-label">Entrenamiento de hoy</p>
-
         <h2>Glúteos y fuerza base</h2>
-
-        <p>
-          Semana 1 · Día 1
-        </p>
-
-        <button className="home-card-btn">
-          EMPEZAR ENTRENAMIENTO
-        </button>
+        <p>Semana 1 · Día 1</p>
+        <button className="home-card-btn">EMPEZAR ENTRENAMIENTO</button>
       </div>
 
       <div className="home-grid">
-        <button
-          className="home-option-card"
-          onClick={() => navigate("/meals")}
-        >
+        <button className="home-option-card" onClick={() => navigate("/meals")}>
           <span>Nutrición</span>
           <small>Guía para acompañar tu proceso</small>
         </button>
-
-        <button
-          className="home-option-card"
-          onClick={() => navigate("/cycle")}
-        >
+        <button className="home-option-card" onClick={() => navigate("/cycle")}>
           <span>Ciclo</span>
           <small>Entrena según cómo te sientes</small>
         </button>
-
-        <button
-          className="home-option-card"
-          onClick={() => navigate("/affirmations")}
-        >
+        <button className="home-option-card" onClick={() => navigate("/affirmations")}>
           <span>Afirmaciones</span>
-          <small>Hablate bonito</small>
+          <small>Háblate bonito</small>
         </button>
-
-        <button
-          className="home-option-card"
-          onClick={() => navigate("/library")}
-        >
+        <button className="home-option-card" onClick={() => navigate("/library")}>
           <span>Videoteca</span>
-          <small><small>Aprende la técnica de los ejercicios</small></small>
+          <small>Aprende la técnica de los ejercicios</small>
         </button>
       </div>
 
       <div className="home-quote-card">
-        <p>
-          “No necesitas hacerlo perfecto. Solo volver a ti, una vez más.”
-        </p>
+        <p>"No necesitas hacerlo perfecto. Solo volver a ti, una vez más."</p>
       </div>
     </section>
   );
