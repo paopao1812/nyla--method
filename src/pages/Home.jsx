@@ -134,12 +134,22 @@ export default function Home() {
       </div>
 
       <div className="home-main-card" onClick={() => navigate("/workout")} role="button">
-        <p className="home-card-label">Entrenamiento de hoy</p>
-        <h2>Glúteos y fuerza base</h2>
-        <p>Semana 1 · Día 1</p>
-        <button className="home-card-btn">EMPEZAR ENTRENAMIENTO</button>
-      </div>
-
+  <p className="home-card-label">Entrenamiento de hoy</p>
+  <h2>{(() => {
+    const next = getNextWorkout();
+    return next ? next.dayName : "Glúteos y fuerza base";
+  })()}</h2>
+  <p>{(() => {
+    const next = getNextWorkout();
+    return next ? `${next.planLabel} · ${next.completedCount + 1}/${next.total}` : "Semana 1 · Día 1";
+  })()}</p>
+  <button className="home-card-btn">
+    {(() => {
+      const next = getNextWorkout();
+      return next?.hasStarted ? "CONTINUAR ENTRENAMIENTO" : "EMPEZAR ENTRENAMIENTO";
+    })()}
+  </button>
+</div>
       <div className="home-grid">
         <button className="home-option-card" onClick={() => navigate("/meals")}>
           <span>Nutrición</span>
