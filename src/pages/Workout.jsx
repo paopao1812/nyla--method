@@ -17,10 +17,10 @@ const plans = {
     days: ["Día 1 · Glúteos","Día 2 · Espalda","Día 3 · Pierna + Glúteos"],
   },
   glutesOnly: {
-    label: "Solo glúteos",
-    shortLabel: "Glúteos",
-    days: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
-  },
+  label: "Solo glúteos",
+  shortLabel: "Glúteos",
+  days: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
+},
 };
 
 // Nombre corto para cada día
