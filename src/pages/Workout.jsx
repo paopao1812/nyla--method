@@ -9,29 +9,31 @@ const plans = {
   fiveDays: {
     label: "Plan 5 días",
     shortLabel: "5 días",
-    days: ["Día 1 · Glúteos","Día 2 · Espalda","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros / Bíceps / Tríceps","Día 5 · Glúteos unilaterales"],
+    days: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
   },
   threeDays: {
-  label: "Plan 3 días",
-  shortLabel: "3 días",
-  days: ["Día 1 · Cuádriceps","Día 2 · Espalda","Día 3 · Glúteos + Pierna"],
-},
+    label: "Plan 3 días",
+    shortLabel: "3 días",
+    days: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna"],
+  },
   glutesOnly: {
-  label: "Solo glúteos",
-  shortLabel: "Glúteos",
-  days: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
-},
+    label: "Only Glúteos",
+    shortLabel: "Only Glúteos",
+    days: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
+  },
 };
 
-// Nombre corto para cada día
 const getDayShort = (day) => {
   if (day.includes("Glúteos unilaterales")) return { num: day.split("·")[0].trim(), name: "Unilateral" };
-  if (day.includes("Glúteos + Femoral")) return { num: day.split("·")[0].trim(), name: "Glút+Fem" };
-  if (day.includes("Glúteos")) return { num: day.split("·")[0].trim(), name: "Glúteos" };
-  if (day.includes("Espalda")) return { num: day.split("·")[0].trim(), name: "Espalda" };
-  if (day.includes("Cuádriceps")) return { num: day.split("·")[0].trim(), name: "Cuádriceps" };
-  if (day.includes("Hombros")) return { num: day.split("·")[0].trim(), name: "Torso" };
-  if (day.includes("Pierna")) return { num: day.split("·")[0].trim(), name: "Pierna" };
+  if (day.includes("Glúteos + Femoral"))    return { num: day.split("·")[0].trim(), name: "Glút+Fem" };
+  if (day.includes("Glúteos + Pierna"))     return { num: day.split("·")[0].trim(), name: "Glút+Pierna" };
+  if (day.includes("Glúteos"))              return { num: day.split("·")[0].trim(), name: "Glúteos" };
+  if (day.includes("Espalda y Bíceps"))     return { num: day.split("·")[0].trim(), name: "Espalda" };
+  if (day.includes("Espalda"))              return { num: day.split("·")[0].trim(), name: "Espalda" };
+  if (day.includes("Torso"))                return { num: day.split("·")[0].trim(), name: "Torso" };
+  if (day.includes("Cuádriceps"))           return { num: day.split("·")[0].trim(), name: "Cuádriceps" };
+  if (day.includes("Hombros"))              return { num: day.split("·")[0].trim(), name: "Hombros" };
+  if (day.includes("Pierna"))               return { num: day.split("·")[0].trim(), name: "Pierna" };
   return { num: day.split("·")[0].trim(), name: day.split("·")[1]?.trim() || "" };
 };
 
@@ -48,16 +50,83 @@ const corePlan = [
 ];
 
 const weeklyPlan = {
-  "Día 1 · Glúteos": [{ name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Step Up" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" }],
-  "Día 2 · Espalda": [{ name: "Dominadas con banda" },{ name: "Jalón al pecho" },{ name: "Pullover" },{ name: "Remo" },{ name: "Hiperextensiones" }],
-  "Día 3 · Cuádriceps o Descanso": [{ name: "Aductores en máquina" },{ name: "Sentadilla búlgara" },{ name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },{ name: "Extensión de piernas" },{ name: "Gemelos en máquina" }],
-  "Día 4 · Hombros / Bíceps / Tríceps": [{ name: "Press militar" },{ name: "Vuelos laterales" },{ name: "Vuelos frontales" },{ name: "Remo al cuello" },{ name: "Curl bíceps en polea" },{ name: "Curl tríceps en polea" }],
-  "Día 5 · Glúteos unilaterales": [{ name: "Hip thrust a una pierna" },{ name: "Peso muerto a una pierna" },{ name: "Step Up" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" }],
-  "Día 3 · Pierna + Glúteos": [{ name: "Sentadilla búlgara" },{ name: "Prensa pies abajo" },{ name: "Peso muerto rumano" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" }],
-  "Día 2 · Glúteos + Femoral": [{ name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Curl femoral" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" }],
-  "Día 3 · Glúteos unilaterales": [{ name: "Hip thrust a una pierna" },{ name: "Peso muerto a una pierna" },{ name: "Step Up" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" }],
-  "Día 1 · Cuádriceps": [{ name: "Aductores en máquina" },{ name: "Sentadilla búlgara" },{ name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },{ name: "Extensión de piernas" },{ name: "Gemelos en máquina" }],
-"Día 3 · Glúteos + Pierna": [{ name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },{ name: "Curl femoral" }],
+  // Plan 5 días
+  "Día 1 · Glúteos": [
+    { name: "Hip thrust" },
+    { name: "Peso muerto rumano" },
+    { name: "Step Up" },
+    { name: "Patada de glúteo en polea" },
+    { name: "Abducciones en máquina" },
+  ],
+  "Día 2 · Espalda y Bíceps": [
+    { name: "Dominadas con banda" },
+    { name: "Jalón al pecho" },
+    { name: "Pullover" },
+    { name: "Remo" },
+    { name: "Hiperextensiones" },
+    { name: "Curl bíceps en polea" },
+  ],
+  "Día 3 · Cuádriceps o Descanso": [
+    { name: "Aductores en máquina" },
+    { name: "Sentadilla búlgara" },
+    { name: "Sentadilla Goblet con talones elevados" },
+    { name: "Prensa pies abajo" },
+    { name: "Extensión de piernas" },
+    { name: "Gemelos en máquina" },
+  ],
+  "Día 4 · Hombros": [
+    { name: "Press militar" },
+    { name: "Vuelos laterales" },
+    { name: "Vuelos frontales" },
+    { name: "Remo al cuello" },
+    { name: "Curl tríceps en polea" },
+  ],
+  "Día 5 · Glúteos unilaterales": [
+    { name: "Hip thrust a una pierna" },
+    { name: "Peso muerto a una pierna" },
+    { name: "Step Up" },
+    { name: "Patada de glúteo en polea" },
+    { name: "Abducciones en máquina" },
+  ],
+  // Plan 3 días
+  "Día 1 · Cuádriceps": [
+    { name: "Aductores en máquina" },
+    { name: "Sentadilla búlgara" },
+    { name: "Sentadilla Goblet con talones elevados" },
+    { name: "Prensa pies abajo" },
+    { name: "Extensión de piernas" },
+    { name: "Gemelos en máquina" },
+  ],
+  "Día 2 · Torso": [
+    { name: "Jalón al pecho" },
+    { name: "Remo sentado" },
+    { name: "Press militar" },
+    { name: "Elevaciones laterales" },
+    { name: "Curl bíceps" },
+    { name: "Curl tríceps" },
+  ],
+  "Día 3 · Glúteos + Pierna": [
+    { name: "Hip thrust" },
+    { name: "Peso muerto rumano" },
+    { name: "Patada de glúteo en polea" },
+    { name: "Abducciones en máquina" },
+    { name: "Curl femoral" },
+  ],
+  // Only Glúteos
+  "Día 2 · Glúteos + Femoral": [
+    { name: "Hip thrust" },
+    { name: "Peso muerto rumano" },
+    { name: "Sentadilla búlgara" },
+    { name: "Patada de glúteo en polea" },
+    { name: "Abducciones en máquina" },
+  ],
+  "Día 3 · Glúteos unilaterales": [
+    { name: "Hip thrust a una pierna" },
+    { name: "Peso muerto a una pierna" },
+    { name: "Step Up" },
+    { name: "Patada de glúteo en polea" },
+    { name: "Abducciones en máquina" },
+  ],
 };
 
 const getSets = (w) => w <= 3 ? 2 : w === 4 ? 3 : 4;
@@ -108,8 +177,8 @@ export default function Workout() {
   const getCycleInfo = () => {
     if (!lastPeriodDate) return null;
     const cycleDay = ((Math.floor((new Date() - new Date(lastPeriodDate)) / 86400000)) % 28) + 1;
-    if (cycleDay <= 5) return { emoji: "🩸", phase: "Fase menstrual", message: "Prioriza movilidad y descanso activo hoy." };
-    if (cycleDay <= 13) return { emoji: "🌱", phase: "Fase folicular", message: "Energía en alza. Ideal para fuerza y progresión." };
+    if (cycleDay <= 5)  return { emoji: "🩸", phase: "Fase menstrual",  message: "Prioriza movilidad y descanso activo hoy." };
+    if (cycleDay <= 13) return { emoji: "🌱", phase: "Fase folicular",  message: "Energía en alza. Ideal para fuerza y progresión." };
     if (cycleDay <= 16) return { emoji: "💐", phase: "Fase ovulatoria", message: "Máximo rendimiento. Cuida técnica y articulaciones." };
     return { emoji: "🧸", phase: "Fase lútea", message: "Entrena con control. Prioriza recuperación." };
   };
@@ -146,8 +215,9 @@ export default function Workout() {
     [`${selectedPlan}-${internalWeek}-${selectedDay}-${name}`]: value,
   });
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
+
   const isLower = selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps");
-  const isUpper = selectedDay.includes("Espalda") || selectedDay.includes("Hombros");
+  const isUpper = selectedDay.includes("Espalda") || selectedDay.includes("Hombros") || selectedDay.includes("Torso");
 
   const sectionLabels = { activation: "Activación", exercises: "Ejercicios", core: "Core", cardio: "Cardio" };
   const lowerSections = ["activation", "exercises", "cardio"];
@@ -233,36 +303,30 @@ export default function Workout() {
         </div>
       )}
 
-      {/* ── PLAN SELECTOR — segmented control ── */}
+      {/* PLAN SELECTOR */}
       <div className="wk-segment">
         {Object.entries(plans).map(([k, p]) => (
-          <button
-            key={k}
-            className={`wk-segment-btn ${selectedPlan === k ? "active" : ""}`}
-            onClick={() => { setSelectedPlan(k); setSelectedDay(p.days[0]); setActiveSection("activation"); }}
-          >
+          <button key={k} className={`wk-segment-btn ${selectedPlan === k ? "active" : ""}`}
+            onClick={() => { setSelectedPlan(k); setSelectedDay(p.days[0]); setActiveSection("activation"); }}>
             {p.shortLabel}
           </button>
         ))}
       </div>
 
-      {/* ── DAY SELECTOR — grid compacto ── */}
+      {/* DAY SELECTOR */}
       <div className="wk-day-grid">
         {plans[selectedPlan].days.map(day => {
           const { num, name } = getDayShort(day);
           const dayNum = num.replace("Día ", "D");
           return (
-            <button
-              key={day}
-              className={`wk-day-chip ${selectedDay === day ? "active" : ""}`}
+            <button key={day} className={`wk-day-chip ${selectedDay === day ? "active" : ""}`}
               onClick={() => {
                 setSelectedDay(day);
                 setActiveSection(
                   day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps")
                     ? "activation" : "exercises"
                 );
-              }}
-            >
+              }}>
               <span className="wk-day-num">{dayNum}</span>
               <span className="wk-day-name">{name}</span>
             </button>
@@ -270,7 +334,7 @@ export default function Workout() {
         })}
       </div>
 
-      {/* ── SECTION TABS — 3 columnas ── */}
+      {/* SECTION TABS */}
       {isLower && (
         <div className="wk-section-grid">
           {lowerSections.map(s => (
@@ -303,8 +367,6 @@ export default function Workout() {
                   <h3>{ex.name}</h3>
                   <p>{ex.description}</p>
                   <strong>{ex.reps}</strong>
-               
-          
                 </div>
               </div>
             ))}
@@ -328,8 +390,8 @@ export default function Workout() {
                     value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}
                     onChange={e => updateWeight(ex.name, e.target.value)} />
                   <div className="wk-ex-actions">
-  <RestTimer />
-</div>
+                    <RestTimer />
+                  </div>
                 </div>
               </div>
             ))}
@@ -339,26 +401,26 @@ export default function Workout() {
 
       {/* CORE */}
       {activeSection === "core" && (
-  <div className="wk-card">
-    <h2 className="wk-card-title">Core</h2>
-    <div className="wk-ex-list">
-      {corePlan.map((ex, i) => (
-        <div className={`wk-ex ${completedExercises[ex.name] ? "done" : ""}`} key={i}>
-          <div className="wk-ex-num">{i + 1}</div>
-          <div className="wk-ex-body">
-            <h3>{ex.name}</h3>
-            <p>{ex.reps}</p>
-            {ex.name === "Plancha frontal" && (
-              <div className="wk-ex-actions">
-                <RestTimer />
+        <div className="wk-card">
+          <h2 className="wk-card-title">Core</h2>
+          <div className="wk-ex-list">
+            {corePlan.map((ex, i) => (
+              <div className={`wk-ex ${completedExercises[ex.name] ? "done" : ""}`} key={i}>
+                <div className="wk-ex-num">{i + 1}</div>
+                <div className="wk-ex-body">
+                  <h3>{ex.name}</h3>
+                  <p>{ex.reps}</p>
+                  {ex.name === "Plancha frontal" && (
+                    <div className="wk-ex-actions">
+                      <RestTimer />
+                    </div>
+                  )}
+                </div>
               </div>
-            )}
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-  </div>
-)}
+      )}
 
       {/* CARDIO */}
       {activeSection === "cardio" && (
