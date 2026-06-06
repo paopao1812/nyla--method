@@ -3,18 +3,68 @@ import { useNavigate } from "react-router-dom";
 import "../styles/Library.css";
 
 const exerciseCategories = [
-  { title: "Glúteos", exercises: ["Hip Thrust","Patada en polea","Abducción","Sentadilla búlgara"] },
-  { title: "Pierna", exercises: ["Prensa","Peso muerto rumano","Curl femoral","Extensión de cuádriceps"] },
-  { title: "Torso", exercises: ["Jalón al pecho","Remo sentado","Press hombro","Curl bíceps"] },
-  { title: "Core", exercises: ["Dead bug","Plancha","Crunch cable","Elevaciones de piernas"] },
+  {
+    title: "Glúteos",
+    exercises: [
+      "Hip Thrust con barra",
+      "Hip Thrust a una pierna",
+      "Peso muerto",
+      "Peso muerto a una pierna",
+      "Step Up",
+      "Patada de glúteo en polea",
+      "Patada de glúteo en máquina",
+      "Abducciones en máquina",
+    ],
+  },
+  {
+    title: "Cuádriceps",
+    exercises: [
+      "Sentadilla búlgara",
+      "Sentadilla Goblet talones elevados",
+      "Prensa pies abajo",
+      "Gemelos en máquina",
+      "Aductores en máquina",
+    ],
+  },
+  {
+    title: "Torso",
+    exercises: [
+      "Dominadas con banda",
+      "Jalón al pecho",
+      "Pullover",
+      "Remo sentado",
+      "Curl bíceps",
+      "Curl de tríceps",
+      "Press militar",
+      "Elevaciones laterales",
+      "Elevaciones frontales",
+    ],
+  },
+  {
+    title: "Activación Glúteo-Pierna",
+    exercises: [
+      "Clamshell con banda",
+      "Puente de glúteos",
+      "Monster walk con banda",
+    ],
+  },
+  {
+    title: "Core",
+    exercises: [
+      "Heels Taps",
+      "Plancha frontal",
+      "Bird Dog",
+    ],
+  },
 ];
 
 export default function Library() {
   const navigate = useNavigate();
+
   return (
     <section className="lib-screen">
       <p className="lib-eyebrow">BIBLIOTECA DE EJERCICIOS</p>
-      <p className="lib-subtitle">Cada ejercicio tendrá vídeo, técnica y explicación paso a paso.</p>
+      <p className="lib-subtitle">Aprende la técnica de los ejercicios.</p>
 
       <div className="lib-grid">
         {exerciseCategories.map((cat, i) => (
