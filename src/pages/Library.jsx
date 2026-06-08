@@ -26,6 +26,11 @@ const VIDEO_MAP = {
   "Press militar":                   "https://res.cloudinary.com/dhinbr3np/video/upload/v1780761016/Press_Militarr_nqpk1a.mp4",
   "Pullover":                        "https://res.cloudinary.com/dhinbr3np/video/upload/v1780761019/PullOver_shwgxl.mp4",
   "Femoral tumbado":                 "https://res.cloudinary.com/dhinbr3np/video/upload/v1780765498/Femoral_Tumbado_d09vah.mp4",
+  "Puente de glúteos":        "https://res.cloudinary.com/dhinbr3np/video/upload/v1780927205/Puente_de_glu%CC%81teos_qxwu0w.mp4",
+  "Monster walk con banda":   "https://res.cloudinary.com/dhinbr3np/video/upload/v1780927259/Monster_walk_con_banda_wqa8lr.mp4",
+"Gemelos en máquina":       "https://res.cloudinary.com/dhinbr3np/video/upload/v1780927499/Gemelos_en_ma%CC%81quina_uvklzq.mp4",
+"Clamshell con banda":      "https://res.cloudinary.com/dhinbr3np/video/upload/v1780927191/Clamshell_con_banda_wlo1lp.mp4",
+"Sentadilla búlgara":       "https://res.cloudinary.com/dhinbr3np/video/upload/v1780927129/Sentadilla_bu%CC%81lgara_wfzyeg.mp4",
 };
 
 const exerciseCategories = [
