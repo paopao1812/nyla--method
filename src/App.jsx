@@ -37,7 +37,7 @@ export default function App() {
             <RequireOnboarding><Welcome /></RequireOnboarding>
           } />
           <Route path="/onboarding" element={
-            <RequireOnboarding><Onboarding /></RequireOnboarding>
+            
           } />
 
           {/* Rutas protegidas — requieren onboarding completo */}

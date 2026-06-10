@@ -179,6 +179,13 @@ export default function Home() {
           <span>Videoteca</span>
           <small>Aprende la técnica de los ejercicios</small>
         </button>
+        <button
+  className="home-option-card"
+  onClick={() => navigate("/onboarding")}
+>
+  <span>Mi perfil</span>
+  <small>Revisa tu compromiso inicial</small>
+</button>
       </div>
 
       <div className="home-quote-card">
