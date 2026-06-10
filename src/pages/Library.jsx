@@ -31,6 +31,9 @@ const VIDEO_MAP = {
 "Gemelos en máquina":       "https://res.cloudinary.com/dhinbr3np/video/upload/v1780927499/Gemelos_en_ma%CC%81quina_uvklzq.mp4",
 "Clamshell con banda":      "https://res.cloudinary.com/dhinbr3np/video/upload/v1780927191/Clamshell_con_banda_wlo1lp.mp4",
 "Sentadilla búlgara":       "https://res.cloudinary.com/dhinbr3np/video/upload/v1780927129/Sentadilla_bu%CC%81lgara_wfzyeg.mp4",
+"Bird Dog":        "https://res.cloudinary.com/dhinbr3np/video/upload/v1781113316/Bird_Dog_vnb3xh.mp4",
+"Heels Taps":      "https://res.cloudinary.com/dhinbr3np/video/upload/v1781113304/Heels_Taps_so7fnp.mp4",
+"Plancha frontal": "https://res.cloudinary.com/dhinbr3np/video/upload/v1781113292/Plancha_frontal_ndron8.mp4",
 };
 
 const exerciseCategories = [
