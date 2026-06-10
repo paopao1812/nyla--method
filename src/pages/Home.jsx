@@ -179,13 +179,28 @@ export default function Home() {
           <span>Videoteca</span>
           <small>Aprende la técnica de los ejercicios</small>
         </button>
-        <button
-  className="home-option-card"
-  onClick={() => navigate("/onboarding")}
->
-  <span>Mi perfil</span>
-  <small>Revisa tu compromiso inicial</small>
-</button>
+       <div className="home-grid">
+  <button className="home-option-card" onClick={() => navigate("/meals")}>
+    <span>Nutrición</span>
+    <small>Guía para acompañar tu proceso</small>
+  </button>
+  <button className="home-option-card" onClick={() => navigate("/cycle")}>
+    <span>Ciclo</span>
+    <small>Entrena según cómo te sientes</small>
+  </button>
+  <button className="home-option-card" onClick={() => navigate("/affirmations")}>
+    <span>Afirmaciones</span>
+    <small>Háblate bonito</small>
+  </button>
+  <button className="home-option-card" onClick={() => navigate("/library")}>
+    <span>Videoteca</span>
+    <small>Aprende la técnica de los ejercicios</small>
+  </button>
+  <button className="home-option-card" onClick={() => navigate("/onboarding")}>
+    <span>Mi perfil</span>
+    <small>Revisa tu compromiso inicial</small>
+  </button>
+</div>
       </div>
 
       <div className="home-quote-card">
