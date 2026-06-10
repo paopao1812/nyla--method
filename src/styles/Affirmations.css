@@ -8,7 +8,7 @@
   gap: 14px;
   padding: 52px 22px 110px;
   background: #1a0610;
-  background-image: radial-gradient(ellipse 60% 25% at 50% 0%, rgba(107,21,53,0.5) 0%, transparent 60%);
+  background-image: radial-gradient(ellipse 60% 25% at 50% 0%, rgba(107,21,53,0.25) 0%, transparent 60%);
   font-family: 'DM Sans', sans-serif;
   color: #f5ede6;
   max-width: 430px;
