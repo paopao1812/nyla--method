@@ -294,3 +294,26 @@
   transition: all 0.2s;
 }
 .home-reminder-ignore:active { border-color: rgba(244,175,200,0.35); }
+.home-header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.home-profile-btn {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #8b2840, #c9607a);
+  color: #fff;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(201,96,122,0.4);
+  transition: all 0.2s;
+}
+.home-profile-btn:active { transform: scale(0.93); }

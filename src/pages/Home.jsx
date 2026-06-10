@@ -111,13 +111,18 @@ export default function Home() {
   return (
     <section className="home-screen">
       <div className="home-header">
-        <h1 className="home-title">
-          Hola, {userName || "Gym Sister"}
-        </h1>
-        <p className="home-subtitle">
-          Hoy entrenas con intención, fuerza y claridad.
-        </p>
-      </div>
+  <div className="home-header-row">
+    <h1 className="home-title">
+      Hola, {userName || "Gym Sister"}
+    </h1>
+    <button className="home-profile-btn" onClick={() => navigate("/onboarding")}>
+      {userName?.[0]?.toUpperCase() || "P"}
+    </button>
+  </div>
+  <p className="home-subtitle">
+    Hoy entrenas con intención, fuerza y claridad.
+  </p>
+</div>
 
       {/* RECORDATORIO */}
       {showReminder && (
