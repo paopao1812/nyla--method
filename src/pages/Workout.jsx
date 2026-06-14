@@ -167,6 +167,12 @@ const [selectedDay, setSelectedDay] = useState(() => {
   const [completedDays, setCompletedDays] = useState(() => {
     const s = localStorage.getItem("nylaCompletedDays");
     return s ? JSON.parse(s) : [];
+    const [activeSection, setActiveSection] = useState(() => {
+  const savedDay = localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos";
+  const isLower = savedDay.includes("Glúteos") || savedDay.includes("Pierna") || 
+                  savedDay.includes("Femoral") || savedDay.includes("Cuádriceps");
+  return isLower ? "activation" : "exercises";
+});
   });
   const [exerciseWeights, setExerciseWeights] = useState(() => {
     const s = localStorage.getItem("nylaExerciseWeights");
