@@ -162,6 +162,14 @@ export default function Workout() {
 const [selectedDay, setSelectedDay] = useState(() => {
   return localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos";
 });
+
+const [activeSection, setActiveSection] = useState(() => {
+  const savedDay = localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos";
+  const isLower = savedDay.includes("Glúteos") || savedDay.includes("Pierna") ||
+                  savedDay.includes("Femoral") || savedDay.includes("Cuádriceps");
+  return isLower ? "activation" : "exercises";
+
+});
   const [activeSection, setActiveSection] = useState("activation");
   const [lastPeriodDate] = useState(() => localStorage.getItem("nylaLastPeriodDate") || "");
   const [completedDays, setCompletedDays] = useState(() => {
