@@ -38,7 +38,7 @@ export default function App() {
           <Route path="/" element={
             <RequireOnboarding><Welcome /></RequireOnboarding>
           } />
-          <Route path="/onboarding" element={
+          <Route path="/onboarding" element={<Onboarding />
             
           } />
 
