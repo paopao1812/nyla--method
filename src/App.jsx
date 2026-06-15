@@ -10,6 +10,8 @@ import Library from "./pages/Library";
 import Meals from "./pages/Meals";
 import Affirmations from "./pages/Affirmations";
 import Cycle from "./pages/Cycle";
+import Premium from "./pages/Premium";
+import Success from "./pages/Success";
 
 // Guard: si ya hizo onboarding, redirige a /home
 function RequireOnboarding({ children }) {
@@ -47,6 +49,8 @@ export default function App() {
           <Route path="/meals" element={<RequireAuth><Meals /></RequireAuth>} />
           <Route path="/affirmations" element={<RequireAuth><Affirmations /></RequireAuth>} />
           <Route path="/cycle" element={<RequireAuth><Cycle /></RequireAuth>} />
+          <Route path="/premium" element={<Premium />} />
+<Route path="/success" element={<Success />} />
 
           {/* Fallback */}
           <Route path="*" element={<Navigate to="/" replace />} />
