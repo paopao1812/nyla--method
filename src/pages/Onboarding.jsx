@@ -174,3 +174,4 @@ export default function Onboarding() {
     </div>
   );
 }
+<Route path="/onboarding" element={<Onboarding />} />
