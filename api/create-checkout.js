@@ -14,8 +14,8 @@ export default async function handler(req, res) {
     line_items: [{
       price_data: {
         currency: "eur",
-        product_data: { name: "NYLA Premium — Acceso de por vida" },
-        unit_amount: 2900,
+        product_data: { name: "NYLA Premium — Acceso anual · Precio de lanzamiento" },
+        unit_amount: 3900,
       },
       quantity: 1,
     }],
