@@ -164,7 +164,6 @@ const [selectedDay, setSelectedDay] = useState(() => {
 });
 
 
-  const [activeSection, setActiveSection] = useState("activation");
   const [lastPeriodDate] = useState(() => localStorage.getItem("nylaLastPeriodDate") || "");
   const [completedDays, setCompletedDays] = useState(() => {
     const s = localStorage.getItem("nylaCompletedDays");
