@@ -214,3 +214,9 @@ export default function Home() {
     </section>
   );
 }
+<button
+  className="home-premium-btn"
+  onClick={() => navigate("/premium")}
+>
+  ✨ Unlock NYLA Premium
+</button>

@@ -317,3 +317,20 @@
   transition: all 0.2s;
 }
 .home-profile-btn:active { transform: scale(0.93); }
+.home-premium-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b2840, #c9607a);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(201,96,122,0.4);
+  transition: all 0.2s;
+}
+.home-premium-btn:active { transform: scale(0.97); }
