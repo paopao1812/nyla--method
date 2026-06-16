@@ -140,3 +140,21 @@
   line-height: 1.7;
   font-style: italic;
 }
+.premium-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+}
+
+.premium-original {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  color: rgba(244,175,200,0.35);
+  text-decoration: line-through;
+}
+
+.premium-urgency {
+  font-size: 11px;
+  color: #c9607a;
+  letter-spacing: 0.08em;
+}

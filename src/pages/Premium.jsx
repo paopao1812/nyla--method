@@ -49,9 +49,13 @@ export default function Premium() {
         </div>
 
         <div className="premium-price">
-          <span className="premium-amount">29€</span>
-          <span className="premium-period">one time · lifetime access</span>
-        </div>
+  <div className="premium-price-row">
+    <span className="premium-amount">39€</span>
+    <span className="premium-original">59€</span>
+  </div>
+  <span className="premium-period">annual access · launch price</span>
+  <span className="premium-urgency">⚡ Limited time offer for early members</span>
+</div>
 
         <input
           className="premium-input"
