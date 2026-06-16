@@ -2,8 +2,6 @@
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../styles/PremiumSuccess.css";
 
 export default function Premium() {
