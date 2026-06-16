@@ -173,6 +173,10 @@ const [selectedDay, setSelectedDay] = useState(() => {
   const [completedExercises, setCompletedExercises] = useState({});
   const [showAdvanceModal, setShowAdvanceModal] = useState(false);
 
+  const [exerciseWeights, setExerciseWeights] = useState(() => {
+    const s = localStorage.getItem("nylaExerciseWeights");
+    return s ? JSON.parse(s) : {};
+  });
   useEffect(() => { localStorage.setItem("nylaCompletedDays", JSON.stringify(completedDays)); }, [completedDays]);
   useEffect(() => { localStorage.setItem("nylaExerciseWeights", JSON.stringify(exerciseWeights)); }, [exerciseWeights]);
   useEffect(() => { localStorage.setItem("nylaInternalWeek", String(internalWeek)); }, [internalWeek]);
