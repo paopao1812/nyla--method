@@ -2,10 +2,7 @@
 
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "../styles/PremiumSuccess.css";
-
 export default function Success() {
   const navigate = useNavigate();
 
