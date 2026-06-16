@@ -50,7 +50,6 @@ export default function App() {
           <Route path="/affirmations" element={<RequireAuth><Affirmations /></RequireAuth>} />
           <Route path="/cycle" element={<RequireAuth><Cycle /></RequireAuth>} />
           <Route path="/premium" element={<Premium />} />
-<Route path="/onboarding" element={<Onboarding />} />
 
 
           {/* Fallback */}
