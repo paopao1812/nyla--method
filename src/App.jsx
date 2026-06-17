@@ -19,7 +19,8 @@ import Register from "./pages/Register";
 function RequireAuth({ children }) {
   const done = localStorage.getItem("nylaOnboardingDone");
   const email = localStorage.getItem("nylaUserEmail");
-  if (!done || !email) return <Navigate to="/login" replace />;
+  const name = localStorage.getItem("nylaUserName");
+  if (!done || (!email && !name)) return <Navigate to="/login" replace />;
   return children;
 }
 
