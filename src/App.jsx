@@ -12,23 +12,18 @@ import Affirmations from "./pages/Affirmations";
 import Cycle from "./pages/Cycle";
 import Premium from "./pages/Premium";
 import Success from "./pages/Success";
+import Login from "./pages/Login";
+import Register from "./pages/Register";
 
 // Guard: si ya hizo onboarding, redirige a /home
-function RequireOnboarding({ children }) {
+function RequireAuth({ children }) {
   const done = localStorage.getItem("nylaOnboardingDone");
-  const name = localStorage.getItem("nylaUserName");
-  if (done && name) return <Navigate to="/home" replace />;
+  const email = localStorage.getItem("nylaUserEmail");
+  if (!done || !email) return <Navigate to="/login" replace />;
   return children;
 }
 
 // Guard: si NO hizo onboarding, redirige a /
-function RequireAuth({ children }) {
-  const done = localStorage.getItem("nylaOnboardingDone");
-  const name = localStorage.getItem("nylaUserName");
-  if (!done || !name) return <Navigate to="/" replace />;
-  return children;
-}
-
 export default function App() {
   return (
     <UserProvider>
@@ -50,6 +45,8 @@ export default function App() {
           <Route path="/affirmations" element={<RequireAuth><Affirmations /></RequireAuth>} />
           <Route path="/cycle" element={<RequireAuth><Cycle /></RequireAuth>} />
           <Route path="/premium" element={<Premium />} />
+          <Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
 
 
           {/* Fallback */}
