@@ -1,3 +1,4 @@
+
 import Stripe from "stripe";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
@@ -19,8 +20,8 @@ export default async function handler(req, res) {
       },
       quantity: 1,
     }],
-    success_url: "https://nyla-real.vercel.app/success",
-    cancel_url: "https://nyla-real.vercel.app/",
+    success_url: `${process.env.VITE_APP_URL || "https://nyla-real.vercel.app"}/success?email=${encodeURIComponent(email)}`,
+    cancel_url: `${process.env.VITE_APP_URL || "https://nyla-real.vercel.app"}/premium`,
   });
 
   res.status(200).json({ url: session.url });
