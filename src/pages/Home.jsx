@@ -148,9 +148,7 @@ export default function Home() {
         <p>"No necesitas hacerlo perfecto. Solo volver a ti, una vez más."</p>
       </div>
 
-      <button className="home-premium-btn" onClick={() => navigate("/premium")}>
-        ✨ Unlock NYLA Premium
-      </button>
+      
       <p className="home-copyright">© 2025 NYLA . Todos los derechos reservados.</p>
     </section>
   );
