@@ -31,9 +31,8 @@ export default function App() {
       <BrowserRouter>
         <Routes>
           {/* Rutas públicas — si ya hizo onboarding redirigen a home */}
-          <Route path="/" element={
-            <RequireOnboarding><Welcome /></RequireOnboarding>
-          } />
+          <Route path="/" element={<Welcome />} />
+          
           <Route path="/onboarding" element={<Onboarding />
             
           } />
