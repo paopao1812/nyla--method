@@ -10,14 +10,16 @@ export default function Register() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+  
 
   const handleRegister = async () => {
     if (!name || !email || !password) { setError("Completa todos los campos."); return; }
     if (password.length < 6) { setError("La contraseña debe tener al menos 6 caracteres."); return; }
     setLoading(true);
     setError("");
-    const [showPassword, setShowPassword] = useState(false);
+    
 
     // Verificar si el email tiene compra activa
     const res = await fetch("/api/verify-purchase", {
