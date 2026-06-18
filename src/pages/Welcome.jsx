@@ -1,7 +1,7 @@
 
 import { useNavigate } from "react-router-dom";
 import "../styles/PremiumSuccess.css";
-import "../styles/Welcome.css";
+
 
 export default function Welcome() {
   const navigate = useNavigate();
