@@ -42,7 +42,7 @@ export default function Register() {
     localStorage.setItem("nylaUserName", name);
     localStorage.setItem("nylaUserEmail", email.toLowerCase());
     localStorage.setItem("nylaPremium", "true");
-    navigate("/onboarding");
+    navigate("/profile-setup");
     setLoading(false);
   };
 

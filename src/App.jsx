@@ -14,6 +14,7 @@ import Affirmations from "./pages/Affirmations";
 import Cycle from "./pages/Cycle";
 import Premium from "./pages/Premium";
 import Success from "./pages/Success";
+import Profile from "./pages/Profile";
 
 // Guard: requiere sesión y onboarding completo
 function RequireAuth({ children }) {
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/premium" element={<Premium />} />
           <Route path="/success" element={<Success />} />
+          <Route path="/profile-setup" element={<Profile />} />
 
           {/* Protegidas */}
           <Route path="/home" element={<RequireAuth><Home /></RequireAuth>} />

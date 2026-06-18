@@ -1,0 +1,112 @@
+.profile-screen {
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: #1a0610;
+  background-image: radial-gradient(ellipse 80% 40% at 50% 0%, rgba(139,40,64,0.4) 0%, transparent 65%);
+  font-family: 'DM Sans', sans-serif;
+  box-sizing: border-box;
+}
+
+.profile-card {
+  width: 100%;
+  max-width: 390px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 32px 24px;
+  background: rgba(244,175,200,0.04);
+  border: 1px solid rgba(244,175,200,0.15);
+  border-radius: 28px;
+}
+
+.profile-eyebrow {
+  font-size: 9px;
+  letter-spacing: 0.44em;
+  text-transform: uppercase;
+  color: #c9607a;
+  font-weight: 500;
+}
+
+.profile-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 36px;
+  font-weight: 400;
+  color: #f4afc8;
+  line-height: 1.15;
+}
+
+.profile-sub {
+  font-size: 12px;
+  color: rgba(244,175,200,0.45);
+  line-height: 1.6;
+}
+
+.profile-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.profile-label {
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(244,175,200,0.5);
+  font-weight: 500;
+}
+
+.profile-input {
+  width: 100%;
+  padding: 13px 16px;
+  border-radius: 12px;
+  border: 1.5px solid rgba(244,175,200,0.18);
+  background: rgba(244,175,200,0.05);
+  color: #f5ede6;
+  font-size: 16px;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  color-scheme: dark;
+  transition: border-color 0.2s;
+}
+.profile-input:focus { border-color: #c9607a; }
+.profile-input::placeholder { color: rgba(244,175,200,0.25); }
+
+.profile-btn {
+  width: 100%;
+  padding: 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b2840, #c9607a);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(201,96,122,0.4);
+  transition: all 0.2s;
+}
+.profile-btn:active { transform: scale(0.97); }
+
+.profile-skip {
+  font-size: 11px;
+  color: rgba(244,175,200,0.35);
+  text-align: center;
+  cursor: pointer;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.profile-skip:hover { color: rgba(244,175,200,0.6); }
