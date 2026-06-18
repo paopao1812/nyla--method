@@ -158,3 +158,53 @@
   color: #c9607a;
   letter-spacing: 0.08em;
 }
+/* Welcome buttons */
+.welcome-btns {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+}
+
+.welcome-btn-primary {
+  width: 100%;
+  padding: 16px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #8b2840, #c9607a);
+  color: #fff;
+  font-size: 11px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 6px 24px rgba(201,96,122,0.4);
+  transition: all 0.2s;
+}
+.welcome-btn-primary:active { transform: scale(0.97); }
+
+.welcome-btn-secondary {
+  width: 100%;
+  padding: 15px;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(244,175,200,0.7);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 500;
+  border: 1px solid rgba(244,175,200,0.25);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+.welcome-btn-secondary:active { border-color: rgba(244,175,200,0.5); }
+
+.welcome-hint {
+  font-size: 11px;
+  color: rgba(244,175,200,0.35);
+  text-align: center;
+  line-height: 1.6;
+  letter-spacing: 0.04em;
+}
