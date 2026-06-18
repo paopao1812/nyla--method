@@ -17,6 +17,7 @@ export default function Register() {
     if (password.length < 6) { setError("La contraseña debe tener al menos 6 caracteres."); return; }
     setLoading(true);
     setError("");
+    const [showPassword, setShowPassword] = useState(false);
 
     // Verificar si el email tiene compra activa
     const res = await fetch("/api/verify-purchase", {
@@ -46,7 +47,7 @@ export default function Register() {
   return (
     <div className="premium-screen">
       <div className="premium-card">
-        <p className="premium-eyebrow">NYLA METHOD</p>
+        <p className="premium-eyebrow">NYLA</p>
         <h1 className="premium-title">Crea tu<br />cuenta</h1>
         <p className="premium-sub">Usa el email con el que compraste NYLA.</p>
 
@@ -55,8 +56,28 @@ export default function Register() {
             value={name} onChange={e => { setName(e.target.value); setError(""); }} />
           <input className="premium-input" type="email" placeholder="Tu email"
             value={email} onChange={e => { setEmail(e.target.value); setError(""); }} />
-          <input className="premium-input" type="password" placeholder="Contraseña (mín. 6 caracteres)"
-            value={password} onChange={e => { setPassword(e.target.value); setError(""); }} />
+          <div style={{ position: "relative" }}>
+  <input
+    className="premium-input"
+    type={showPassword ? "text" : "password"}
+    placeholder="Contraseña (mín. 6 caracteres)"
+    value={password}
+    onChange={e => { setPassword(e.target.value); setError(""); }}
+    style={{ paddingRight: "44px" }}
+  />
+  <button
+    type="button"
+    onClick={() => setShowPassword(p => !p)}
+    style={{
+      position: "absolute", right: "14px", top: "50%",
+      transform: "translateY(-50%)", background: "none",
+      border: "none", cursor: "pointer", fontSize: "16px",
+      color: "rgba(244,175,200,0.5)"
+    }}
+  >
+    {showPassword ? "🙈" : "👁"}
+  </button>
+</div>
         </div>
 
         {error && <p className="premium-error">{error}</p>}
