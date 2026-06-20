@@ -18,9 +18,9 @@ export default function Welcome() {
         </p>
 
         <div className="welcome-btns">
-          <button className="welcome-btn-primary" onClick={() => navigate("/register")}>
-            CREATE MY ACCOUNT
-          </button>
+          <button className="welcome-btn-primary" onClick={() => navigate("/premium")}>
+  CREATE MY ACCOUNT
+</button>
           <button className="welcome-btn-secondary" onClick={() => navigate("/login")}>
             I ALREADY HAVE AN ACCOUNT
           </button>

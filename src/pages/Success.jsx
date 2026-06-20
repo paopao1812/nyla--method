@@ -1,12 +1,15 @@
 
-
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useEffect } from "react";
 import "../styles/PremiumSuccess.css";
+
 export default function Success() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
+    const email = searchParams.get("email");
+    if (email) localStorage.setItem("nylaUserEmail", email);
     localStorage.setItem("nylaPremium", "true");
   }, []);
 
@@ -18,10 +21,10 @@ export default function Success() {
         <h1 className="success-title">Welcome to<br />NYLA Premium</h1>
         <p className="success-sub">Your lifetime access has been activated.</p>
         <p className="success-msg">
-          You now have full access to the 16-week method, video library, cycle training and everything NYLA has to offer.
+          Now create your account to start your journey.
         </p>
-        <button className="success-btn" onClick={() => navigate("/home")}>
-          Start your journey →
+        <button className="success-btn" onClick={() => navigate("/register")}>
+          Create my account →
         </button>
       </div>
     </div>
