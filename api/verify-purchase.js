@@ -1,3 +1,4 @@
+
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
@@ -13,16 +14,22 @@ export default async function handler(req, res) {
 
   const { data, error } = await supabase
     .from("customers")
-    .select("premium, expiration_date")
+    .select("premium, expiration_date, trial_end_date")
     .eq("email", email.toLowerCase())
     .single();
 
   if (error || !data) return res.status(200).json({ authorized: false });
 
   const now = new Date();
-  const expired = data.expiration_date ? new Date(data.expiration_date) < now : false;
+
+  // Verificar premium activo
+  const premiumActive = data.premium && data.expiration_date && new Date(data.expiration_date) > now;
+
+  // Verificar trial activo
+  const trialActive = data.trial_end_date && new Date(data.trial_end_date) > now;
 
   res.status(200).json({
-    authorized: data.premium && !expired,
+    authorized: premiumActive || trialActive,
+    trial: trialActive && !premiumActive,
   });
 }
