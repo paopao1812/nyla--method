@@ -37,8 +37,8 @@ export default async function handler(req, res) {
     },
     body: JSON.stringify({
       from: "NYLA <onboarding@resend.dev>",
-      to: email,
-      subject: "Tu semana gratis en NYLA ya está activada 🌸",
+      to:  "paolavalenciavictoria@gmail.com",
+      subject: `Nueva usuaria en prueba gratis: ${email}`,
       html: `
         <div style="font-family:Georgia,serif;max-width:480px;margin:0 auto;background:#160a10;color:#f5e8ef;padding:48px 32px;border-radius:16px;">
           <h1 style="font-size:32px;font-weight:300;color:#f4afc8;margin-bottom:8px;letter-spacing:.2em;">NYLA</h1>
