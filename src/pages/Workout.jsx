@@ -438,7 +438,7 @@ export default function Workout() {
     localStorage.setItem("nylaCompletedDays", JSON.stringify(updated));
     setCompletedDays(updated);
   }
-  navigate("/summary", {
+  navigate("/home", {
     replace: false,
     state: {
       selectedDay,
