@@ -7,7 +7,7 @@ import "../styles/RestTimer.css";
 
 const PLAN_DAYS = {
   fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
-  threeDays: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna"],
+  threeDays: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
   homeDays: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
 };
@@ -21,7 +21,7 @@ const plans = {
   threeDays: {
     label: "Plan 3 días",
     shortLabel: "3 días",
-    days: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna"],
+    days: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
   },
   glutesOnly: {
     label: "Only Glúteos",
@@ -88,7 +88,7 @@ const weeklyPlan = {
     { name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },
     { name: "Extensión de piernas" },{ name: "Gemelos en máquina" },
   ],
-  "Día 2 · Torso": [
+  "Día 2 · Tren Superior": [
     { name: "Jalón al pecho" },{ name: "Remo sentado" },{ name: "Press militar" },
     { name: "Elevaciones laterales" },{ name: "Curl bíceps" },{ name: "Curl tríceps" },
   ],
