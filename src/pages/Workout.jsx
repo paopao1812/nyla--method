@@ -433,15 +433,16 @@ export default function Workout() {
           <button className="wk-complete" onClick={() => {
   if (!isCompleted) toggleCompleted();
   navigate("/summary", {
-    state: {
-      selectedDay,
-      selectedPlan,
-      sets,
-      exercises,
-      exerciseWeights,
-      internalWeek,
-    }
-  });
+  replace: true,
+  state: {
+    selectedDay,
+    selectedPlan,
+    sets,
+    exercises,
+    exerciseWeights,
+    internalWeek,
+  }
+});
 }}>
   {isCompleted ? "Ver resumen ✅" : "Marcar como completado"}
 </button>

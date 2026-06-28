@@ -114,9 +114,9 @@ export default function Summary() {
         <button className="sum-share-btn" onClick={handleShare}>
           ↑ Compartir mi logro
         </button>
-        <button className="sum-home-btn" onClick={() => navigate("/home")}>
-          Volver a Home
-        </button>
+        <button className="sum-home-btn" onClick={() => navigate("/home", { replace: true })}>
+  Volver a Home
+</button>
       </div>
     </div>
   );
