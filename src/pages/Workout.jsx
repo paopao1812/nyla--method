@@ -120,11 +120,20 @@ const weeklyPlan = {
 
 const getSets = (w) => w <= 3 ? 2 : w === 4 ? 3 : 4;
 const getReps = () => "6–12 reps";
-const getCardio = (w) => ({
-  time: "25 min",
-  incline: Math.min(5 + Math.floor((w - 1) / 2), 9),
-  speed: Math.min(3.5 + (w - 1) * 0.15, 5.5).toFixed(1),
-});
+const cardioTable = [
+  { time: "15 min", incline: 3, eliptica: 3 },
+  { time: "20 min", incline: 4, eliptica: 4 },
+  { time: "20 min", incline: 5, eliptica: 5 },
+  { time: "25 min", incline: 6, eliptica: 6 },
+  { time: "25 min", incline: 7, eliptica: 7 },
+  { time: "30 min", incline: 8, eliptica: 8 },
+  { time: "30 min", incline: 9, eliptica: "8–9" },
+  { time: "30 min", incline: 10, eliptica: "9–10" },
+];
+const getCardio = (w) => {
+  const idx = Math.min(Math.floor((w - 1) / 2), 7);
+  return cardioTable[idx];
+};
 const getBlockLabel = (w) => {
   if (w <= 4) return "Construyendo tu base";
   if (w <= 8) return "Ganando fuerza";
@@ -516,14 +525,19 @@ export default function Workout() {
           </div>
         ) : (
           <div className="wk-cardio">
-            <p className="wk-cardio-eyebrow">CARDIO DESPUÉS DE PESAS</p>
-            <h2 className="wk-cardio-title">Caminadora inclinada</h2>
+            <p className="wk-cardio-eyebrow">CARDIO DESPUÉS DE PESAS · SEMANA {internalWeek}</p>
+            <h2 className="wk-cardio-title">🚶‍♀️ Caminadora inclinada</h2>
             <div className="wk-cardio-stats">
               <div><span>Tiempo</span><strong>{cardio.time}</strong></div>
-              <div><span>Inclinación</span><strong>{cardio.incline}</strong></div>
-              <div><span>Velocidad</span><strong>{cardio.speed}</strong></div>
+              <div><span>Inclinación</span><strong>{cardio.incline}%</strong></div>
             </div>
-            <small>Intensidad cómoda. Inclinación máx. 9 · Velocidad máx. 5.5</small>
+            <div className="wk-cardio-divider" />
+            <h2 className="wk-cardio-title">🔄 Elíptica</h2>
+            <div className="wk-cardio-stats">
+              <div><span>Tiempo</span><strong>{cardio.time}</strong></div>
+              <div><span>Resistencia</span><strong>{cardio.eliptica}</strong></div>
+            </div>
+            <small>Elige una opción. Intensidad cómoda y constante.</small>
             <button className="wk-complete" onClick={handleComplete}>
               Finalizar entrenamiento ✦
             </button>
