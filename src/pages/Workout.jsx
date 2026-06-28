@@ -376,10 +376,16 @@ export default function Workout() {
 
       {/* PLAN SELECTOR */}
       <div className="wk-segment">
-        {Object.entries(plans).map(([k, p]) => (
-          <button key={k} className={`wk-segment-btn ${selectedPlan === k ? "active" : ""}`}
-            onClick={() => { setSelectedPlan(k); setSelectedDay(p.days[0]); setActiveSection("activation"); }}>
-            {p.shortLabel}
+        {[
+          { key: "fiveDays", icon: "🏋️", label: "5 días" },
+          { key: "threeDays", icon: "📅", label: "3 días" },
+          { key: "glutesOnly", icon: "🍑", label: "Glúteos" },
+          { key: "homeDays", icon: "🏠", label: "Casa" },
+        ].map(({ key, icon, label }) => (
+          <button key={key} className={`wk-segment-btn ${selectedPlan === key ? "active" : ""}`}
+            onClick={() => { setSelectedPlan(key); setSelectedDay(plans[key].days[0]); setActiveSection("activation"); }}>
+            <span className="wk-seg-icon">{icon}</span>
+            <span className="wk-seg-label">{label}</span>
           </button>
         ))}
       </div>
