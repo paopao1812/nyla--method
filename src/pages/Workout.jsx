@@ -9,6 +9,7 @@ const PLAN_DAYS = {
   fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
   threeDays: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
+  homeDays: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
 };
 
 const plans = {
@@ -26,6 +27,11 @@ const plans = {
     label: "Only Glúteos",
     shortLabel: "Only Glúteos",
     days: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
+  },
+  homeDays: {
+    label: "En Casa",
+    shortLabel: "En Casa",
+    days: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
   },
 };
 
@@ -89,6 +95,18 @@ const weeklyPlan = {
   "Día 3 · Glúteos + Pierna": [
     { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Patada de glúteo en polea" },
     { name: "Abducciones en máquina" },{ name: "Femoral tumbado" },
+  ],
+  "Día 1 · Glúteos y Pierna": [
+    { name: "Hip thrust con banda" },{ name: "Sentadilla sumo con mancuerna" },{ name: "Peso muerto rumano con mancuernas" },
+    { name: "Patada de glúteo con banda" },{ name: "Abducción lateral con banda" },
+  ],
+  "Día 2 · Tren Superior": [
+    { name: "Press de hombros con mancuernas" },{ name: "Remo con mancuerna" },{ name: "Curl de bíceps con mancuernas" },
+    { name: "Extensión de tríceps con mancuerna" },{ name: "Elevaciones laterales" },
+  ],
+  "Día 3 · Glúteos + Core": [
+    { name: "Puente de glúteos con banda" },{ name: "Sentadilla búlgara con mancuernas" },{ name: "Peso muerto a una pierna" },
+    { name: "Plancha frontal" },{ name: "Bird Dog" },{ name: "Heels Taps" },
   ],
   "Día 2 · Glúteos + Femoral": [
     { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Sentadilla búlgara" },
