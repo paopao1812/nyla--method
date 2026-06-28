@@ -439,7 +439,7 @@ export default function Workout() {
     setCompletedDays(updated);
   }
   navigate("/summary", {
-    replace: true,
+    replace: false,
     state: {
       selectedDay,
       selectedPlan,
