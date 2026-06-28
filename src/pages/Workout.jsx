@@ -499,19 +499,36 @@ export default function Workout() {
 
       {/* CARDIO */}
       {activeSection === "cardio" && (
-        <div className="wk-cardio">
-          <p className="wk-cardio-eyebrow">CARDIO DESPUÉS DE PESAS</p>
-          <h2 className="wk-cardio-title">Caminadora inclinada</h2>
-          <div className="wk-cardio-stats">
-            <div><span>Tiempo</span><strong>{cardio.time}</strong></div>
-            <div><span>Inclinación</span><strong>{cardio.incline}</strong></div>
-            <div><span>Velocidad</span><strong>{cardio.speed}</strong></div>
+        selectedPlan === "homeDays" ? (
+          <div className="wk-cardio">
+            <p className="wk-cardio-eyebrow">MOVIMIENTO DIARIO</p>
+            <h2 className="wk-cardio-title">🚶‍♀️ Pasos diarios</h2>
+            <div className="wk-cardio-stats">
+              <div><span>Objetivo mínimo</span><strong>10.000</strong></div>
+              <div><span>Objetivo ideal</span><strong>15.000</strong></div>
+            </div>
+            <p style={{textAlign:"center", padding:"0 16px", opacity:0.7, fontSize:"14px"}}>
+              Caminar es la forma más efectiva de mantenerte activa en casa. Distribuye los pasos a lo largo del día.
+            </p>
+            <button className="wk-complete" onClick={handleComplete}>
+              Finalizar entrenamiento ✦
+            </button>
           </div>
-          <small>Intensidad cómoda. Inclinación máx. 9 · Velocidad máx. 5.5</small>
-          <button className="wk-complete" onClick={handleComplete}>
-            Finalizar entrenamiento ✦
-          </button>
-        </div>
+        ) : (
+          <div className="wk-cardio">
+            <p className="wk-cardio-eyebrow">CARDIO DESPUÉS DE PESAS</p>
+            <h2 className="wk-cardio-title">Caminadora inclinada</h2>
+            <div className="wk-cardio-stats">
+              <div><span>Tiempo</span><strong>{cardio.time}</strong></div>
+              <div><span>Inclinación</span><strong>{cardio.incline}</strong></div>
+              <div><span>Velocidad</span><strong>{cardio.speed}</strong></div>
+            </div>
+            <small>Intensidad cómoda. Inclinación máx. 9 · Velocidad máx. 5.5</small>
+            <button className="wk-complete" onClick={handleComplete}>
+              Finalizar entrenamiento ✦
+            </button>
+          </div>
+        )
       )}
 
       <nav className="bottom-nav">
