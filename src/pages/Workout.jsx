@@ -50,82 +50,47 @@ const corePlan = [
 ];
 
 const weeklyPlan = {
-  // Plan 5 días
   "Día 1 · Glúteos": [
-    { name: "Hip thrust" },
-    { name: "Peso muerto rumano" },
-    { name: "Step Up" },
-    { name: "Patada de glúteo en polea" },
-    { name: "Abducciones en máquina" },
+    { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Step Up" },
+    { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
   ],
   "Día 2 · Espalda y Bíceps": [
-    { name: "Dominadas con banda" },
-    { name: "Jalón al pecho" },
-    { name: "Pullover" },
-    { name: "Remo" },
-    { name: "Hiperextensiones" },
-    { name: "Curl bíceps en polea" },
+    { name: "Dominadas con banda" },{ name: "Jalón al pecho" },{ name: "Pullover" },
+    { name: "Remo" },{ name: "Hiperextensiones" },{ name: "Curl bíceps en polea" },
   ],
   "Día 3 · Cuádriceps o Descanso": [
-    { name: "Aductores en máquina" },
-    { name: "Sentadilla búlgara" },
-    { name: "Sentadilla Goblet con talones elevados" },
-    { name: "Prensa pies abajo" },
-    { name: "Extensión de piernas" },
-    { name: "Gemelos en máquina" },
+    { name: "Aductores en máquina" },{ name: "Sentadilla búlgara" },
+    { name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },
+    { name: "Extensión de piernas" },{ name: "Gemelos en máquina" },
   ],
   "Día 4 · Hombros": [
-    { name: "Press militar" },
-    { name: "Vuelos laterales" },
-    { name: "Vuelos frontales" },
-    { name: "Remo al cuello" },
-    { name: "Curl tríceps en polea" },
+    { name: "Press militar" },{ name: "Vuelos laterales" },{ name: "Vuelos frontales" },
+    { name: "Remo al cuello" },{ name: "Curl tríceps en polea" },
   ],
   "Día 5 · Glúteos unilaterales": [
-    { name: "Hip thrust a una pierna" },
-    { name: "Peso muerto a una pierna" },
-    { name: "Step Up" },
-    { name: "Patada de glúteo en polea" },
-    { name: "Abducciones en máquina" },
+    { name: "Hip thrust a una pierna" },{ name: "Peso muerto a una pierna" },{ name: "Step Up" },
+    { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
   ],
-  // Plan 3 días
   "Día 1 · Cuádriceps": [
-    { name: "Aductores en máquina" },
-    { name: "Sentadilla búlgara" },
-    { name: "Sentadilla Goblet con talones elevados" },
-    { name: "Prensa pies abajo" },
-    { name: "Extensión de piernas" },
-    { name: "Gemelos en máquina" },
+    { name: "Aductores en máquina" },{ name: "Sentadilla búlgara" },
+    { name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },
+    { name: "Extensión de piernas" },{ name: "Gemelos en máquina" },
   ],
   "Día 2 · Torso": [
-    { name: "Jalón al pecho" },
-    { name: "Remo sentado" },
-    { name: "Press militar" },
-    { name: "Elevaciones laterales" },
-    { name: "Curl bíceps" },
-    { name: "Curl tríceps" },
+    { name: "Jalón al pecho" },{ name: "Remo sentado" },{ name: "Press militar" },
+    { name: "Elevaciones laterales" },{ name: "Curl bíceps" },{ name: "Curl tríceps" },
   ],
   "Día 3 · Glúteos + Pierna": [
-    { name: "Hip thrust" },
-    { name: "Peso muerto rumano" },
-    { name: "Patada de glúteo en polea" },
-    { name: "Abducciones en máquina" },
-    { name: "Femoral tumbado" },
+    { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Patada de glúteo en polea" },
+    { name: "Abducciones en máquina" },{ name: "Femoral tumbado" },
   ],
-  // Only Glúteos
   "Día 2 · Glúteos + Femoral": [
-    { name: "Hip thrust" },
-    { name: "Peso muerto rumano" },
-    { name: "Sentadilla búlgara" },
-    { name: "Patada de glúteo en polea" },
-    { name: "Abducciones en máquina" },
+    { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Sentadilla búlgara" },
+    { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
   ],
   "Día 3 · Glúteos unilaterales": [
-    { name: "Hip thrust a una pierna" },
-    { name: "Peso muerto a una pierna" },
-    { name: "Step Up" },
-    { name: "Patada de glúteo en polea" },
-    { name: "Abducciones en máquina" },
+    { name: "Hip thrust a una pierna" },{ name: "Peso muerto a una pierna" },{ name: "Step Up" },
+    { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
   ],
 };
 
@@ -151,35 +116,46 @@ const getMotivation = (w) => {
 
 export default function Workout() {
   const navigate = useNavigate();
+
   const [internalWeek, setInternalWeek] = useState(() => {
     const saved = localStorage.getItem("nylaInternalWeek");
     return saved ? parseInt(saved) : 1;
   });
-  const [selectedPlan, setSelectedPlan] = useState(() => {
-  return localStorage.getItem("nylaSelectedPlan") || "fiveDays";
-});
 
-const [selectedDay, setSelectedDay] = useState(() => {
-  return localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos";
-});
+  const [selectedPlan, setSelectedPlan] = useState(() =>
+    localStorage.getItem("nylaSelectedPlan") || "fiveDays"
+  );
 
+  const [selectedDay, setSelectedDay] = useState(() =>
+    localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos"
+  );
+
+  const [activeSection, setActiveSection] = useState(() =>
+    localStorage.getItem("nylaActiveSection") || "exercises"
+  );
 
   const [lastPeriodDate] = useState(() => localStorage.getItem("nylaLastPeriodDate") || "");
+
   const [completedDays, setCompletedDays] = useState(() => {
     const s = localStorage.getItem("nylaCompletedDays");
     return s ? JSON.parse(s) : [];
   });
-  const [activeSection, setActiveSection] = useState("exercises");
-  const [completedExercises, setCompletedExercises] = useState({});
-  const [showAdvanceModal, setShowAdvanceModal] = useState(false);
 
   const [exerciseWeights, setExerciseWeights] = useState(() => {
     const s = localStorage.getItem("nylaExerciseWeights");
     return s ? JSON.parse(s) : {};
   });
+
+  const [completedExercises, setCompletedExercises] = useState({});
+  const [showAdvanceModal, setShowAdvanceModal] = useState(false);
+
+  // Persistir estado al cambiar
   useEffect(() => { localStorage.setItem("nylaCompletedDays", JSON.stringify(completedDays)); }, [completedDays]);
   useEffect(() => { localStorage.setItem("nylaExerciseWeights", JSON.stringify(exerciseWeights)); }, [exerciseWeights]);
   useEffect(() => { localStorage.setItem("nylaInternalWeek", String(internalWeek)); }, [internalWeek]);
+  useEffect(() => { localStorage.setItem("nylaSelectedPlan", selectedPlan); }, [selectedPlan]);
+  useEffect(() => { localStorage.setItem("nylaSelectedDay", selectedDay); }, [selectedDay]);
+  useEffect(() => { localStorage.setItem("nylaActiveSection", activeSection); }, [activeSection]);
 
   const getCycleInfo = () => {
     if (!lastPeriodDate) return null;
@@ -208,19 +184,28 @@ const [selectedDay, setSelectedDay] = useState(() => {
     ? completedDays.filter(i => i !== dayKey)
     : [...completedDays, dayKey]
   );
+
   const handleAdvance = () => {
     if (internalWeek < 16) {
       setInternalWeek(w => w + 1);
       setSelectedDay(plans[selectedPlan].days[0]);
-      setActiveSection("activation");
+      setActiveSection("exercises");
       setCompletedExercises({});
     }
     setShowAdvanceModal(false);
   };
+
   const updateWeight = (name, value) => setExerciseWeights({
     ...exerciseWeights,
     [`${selectedPlan}-${internalWeek}-${selectedDay}-${name}`]: value,
   });
+
+  // Obtener peso de semana anterior
+  const getPrevWeight = (name) => {
+    if (internalWeek <= 1) return null;
+    return exerciseWeights[`${selectedPlan}-${internalWeek - 1}-${selectedDay}-${name}`] || null;
+  };
+
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
 
   const isLower = selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps");
@@ -229,6 +214,13 @@ const [selectedDay, setSelectedDay] = useState(() => {
   const sectionLabels = { activation: "Activación", exercises: "Ejercicios", core: "Core", cardio: "Cardio" };
   const lowerSections = ["activation", "exercises", "cardio"];
   const upperSections = ["exercises", "core", "cardio"];
+
+  const changeSection = (s) => setActiveSection(s);
+  const changeDay = (day) => {
+    setSelectedDay(day);
+    const isLowerDay = day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps");
+    setActiveSection(isLowerDay ? "activation" : "exercises");
+  };
 
   return (
     <section className="wk-screen">
@@ -327,13 +319,7 @@ const [selectedDay, setSelectedDay] = useState(() => {
           const dayNum = num.replace("Día ", "D");
           return (
             <button key={day} className={`wk-day-chip ${selectedDay === day ? "active" : ""}`}
-              onClick={() => {
-                setSelectedDay(day);
-                setActiveSection(
-                  day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps")
-                    ? "activation" : "exercises"
-                );
-              }}>
+              onClick={() => changeDay(day)}>
               <span className="wk-day-num">{dayNum}</span>
               <span className="wk-day-name">{name}</span>
             </button>
@@ -345,7 +331,7 @@ const [selectedDay, setSelectedDay] = useState(() => {
       {isLower && (
         <div className="wk-section-grid">
           {lowerSections.map(s => (
-            <button key={s} className={`wk-section-btn ${activeSection === s ? "active" : ""}`} onClick={() => setActiveSection(s)}>
+            <button key={s} className={`wk-section-btn ${activeSection === s ? "active" : ""}`} onClick={() => changeSection(s)}>
               {sectionLabels[s]}
             </button>
           ))}
@@ -354,7 +340,7 @@ const [selectedDay, setSelectedDay] = useState(() => {
       {isUpper && (
         <div className="wk-section-grid">
           {upperSections.map(s => (
-            <button key={s} className={`wk-section-btn ${activeSection === s ? "active" : ""}`} onClick={() => setActiveSection(s)}>
+            <button key={s} className={`wk-section-btn ${activeSection === s ? "active" : ""}`} onClick={() => changeSection(s)}>
               {sectionLabels[s]}
             </button>
           ))}
@@ -387,21 +373,27 @@ const [selectedDay, setSelectedDay] = useState(() => {
           <h2 className="wk-card-title">{selectedDay}</h2>
           <p className="wk-card-sub">{sets} series · 6–12 reps por ejercicio</p>
           <div className="wk-ex-list">
-            {exercises.map((ex, i) => (
-              <div className={`wk-ex ${completedExercises[ex.name] ? "done" : ""}`} key={i}>
-                <div className="wk-ex-num">{i + 1}</div>
-                <div className="wk-ex-body">
-                  <h3>{ex.name}</h3>
-                  <p>{sets} series · {getReps()}</p>
-                  <input className="wk-input" type="number" placeholder="Peso usado (kg)"
-                    value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}
-                    onChange={e => updateWeight(ex.name, e.target.value)} />
-                  <div className="wk-ex-actions">
-                    <RestTimer />
+            {exercises.map((ex, i) => {
+              const prevWeight = getPrevWeight(ex.name);
+              return (
+                <div className={`wk-ex ${completedExercises[ex.name] ? "done" : ""}`} key={i}>
+                  <div className="wk-ex-num">{i + 1}</div>
+                  <div className="wk-ex-body">
+                    <h3>{ex.name}</h3>
+                    <p>{sets} series · {getReps()}</p>
+                    <input className="wk-input" type="number" placeholder="Peso usado (kg)"
+                      value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}
+                      onChange={e => updateWeight(ex.name, e.target.value)} />
+                    {prevWeight && (
+                      <p className="wk-prev-weight">↑ Semana anterior: {prevWeight} kg</p>
+                    )}
+                    <div className="wk-ex-actions">
+                      <RestTimer />
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       )}
@@ -418,9 +410,7 @@ const [selectedDay, setSelectedDay] = useState(() => {
                   <h3>{ex.name}</h3>
                   <p>{ex.reps}</p>
                   {ex.name === "Plancha frontal" && (
-                    <div className="wk-ex-actions">
-                      <RestTimer />
-                    </div>
+                    <div className="wk-ex-actions"><RestTimer /></div>
                   )}
                 </div>
               </div>
