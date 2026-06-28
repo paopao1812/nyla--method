@@ -34,9 +34,39 @@ const VIDEO_MAP = {
 "Bird Dog":        "https://res.cloudinary.com/dhinbr3np/video/upload/v1781113316/Bird_Dog_vnb3xh.mp4",
 "Heels Taps":      "https://res.cloudinary.com/dhinbr3np/video/upload/v1781113304/Heels_Taps_so7fnp.mp4",
 "Plancha frontal": "https://res.cloudinary.com/dhinbr3np/video/upload/v1781113292/Plancha_frontal_ndron8.mp4",
+  "Hip thrust con banda": null,
+  "Sentadilla sumo con mancuerna": null,
+  "Peso muerto rumano con mancuernas": null,
+  "Patada de glúteo con banda": null,
+  "Abducción lateral con banda": null,
+  "Press de hombros con mancuernas": null,
+  "Remo con mancuerna": null,
+  "Curl de bíceps con mancuernas": null,
+  "Extensión de tríceps con mancuerna": null,
+  "Puente de glúteos con banda": null,
 };
 
 const exerciseCategories = [
+  {
+    title: "🏠 En Casa",
+    exercises: [
+      "Hip thrust con banda",
+      "Sentadilla sumo con mancuerna",
+      "Peso muerto rumano con mancuernas",
+      "Patada de glúteo con banda",
+      "Abducción lateral con banda",
+      "Press de hombros con mancuernas",
+      "Remo con mancuerna",
+      "Curl de bíceps con mancuernas",
+      "Extensión de tríceps con mancuerna",
+      "Puente de glúteos con banda",
+      "Sentadilla búlgara",
+      "Peso muerto a una pierna",
+      "Plancha frontal",
+      "Bird Dog",
+      "Heels Taps",
+    ],
+  },
   {
     title: "Glúteos",
     exercises: [
