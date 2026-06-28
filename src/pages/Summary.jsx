@@ -1,4 +1,5 @@
-import { useEffect, useRef } from "react";
+
+import { useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import "../styles/Summary.css";
 
@@ -13,6 +14,12 @@ const motivationalByDay = {
   "default": "Un día más eligiéndote. Eso es lo que construye resultados reales. ✦",
 };
 
+const PLAN_DAYS = {
+  fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
+  threeDays: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna"],
+  glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
+};
+
 function getMotivation(dayName) {
   const key = Object.keys(motivationalByDay).find(k => dayName?.includes(k));
   return motivationalByDay[key] || motivationalByDay["default"];
@@ -25,7 +32,7 @@ export default function Summary() {
 
   const {
     selectedDay = "Entrenamiento",
-    selectedPlan = "",
+    selectedPlan = "fiveDays",
     sets = 2,
     exercises = [],
     exerciseWeights = {},
@@ -38,26 +45,43 @@ export default function Summary() {
   const today = new Date().toLocaleDateString("es-ES", { weekday: "long", day: "numeric", month: "long" });
 
   const handleShare = async () => {
+    const text = `✦ He completado ${dayName} con NYLA Method.\n\n${motivation}\n\n💪 ${exercises.length} ejercicios · ${sets} series\n\nnyla-real.vercel.app`;
     if (navigator.share) {
       try {
         await navigator.share({
           title: "NYLA Method — Entrenamiento completado",
-          text: `✦ He completado ${dayName} con NYLA Method.\n${motivation}\n\n💪 ${exercises.length} ejercicios · ${sets} series\n\nnyla-real.vercel.app`,
+          text,
         });
       } catch {}
     } else {
-      // Fallback — copiar al portapapeles
-      const text = `✦ He completado ${dayName} con NYLA Method.\n${motivation}\n\n💪 ${exercises.length} ejercicios · ${sets} series\n\nnyla-real.vercel.app`;
       navigator.clipboard?.writeText(text);
       alert("Copiado al portapapeles ✓");
     }
+  };
+
+  const handleGoHome = () => {
+    // Calcular siguiente día pendiente
+    const completedDays = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
+    const days = PLAN_DAYS[selectedPlan] || [];
+    const nextDay = days.find(d => !completedDays.includes(`${selectedPlan}-${internalWeek}-${d}`));
+
+    if (nextDay) {
+      localStorage.setItem("nylaSelectedDay", nextDay);
+      localStorage.setItem("nylaSelectedPlan", selectedPlan);
+      const isLower = nextDay.includes("Glúteos") || nextDay.includes("Pierna") || nextDay.includes("Femoral") || nextDay.includes("Cuádriceps");
+      localStorage.setItem("nylaActiveSection", isLower ? "activation" : "exercises");
+    } else {
+      localStorage.removeItem("nylaSelectedDay");
+      localStorage.removeItem("nylaActiveSection");
+    }
+
+    navigate("/home", { replace: true });
   };
 
   return (
     <div className="sum-screen">
       <div className="sum-card" ref={cardRef}>
 
-        {/* HEADER */}
         <div className="sum-header">
           <p className="sum-eyebrow">NYLA METHOD · COMPLETADO</p>
           <p className="sum-date">{today}</p>
@@ -65,7 +89,6 @@ export default function Summary() {
           <p className="sum-plan">{planLabel}</p>
         </div>
 
-        {/* STATS */}
         <div className="sum-stats">
           <div className="sum-stat">
             <span className="sum-stat-n">{exercises.length}</span>
@@ -81,7 +104,6 @@ export default function Summary() {
           </div>
         </div>
 
-        {/* EJERCICIOS */}
         <div className="sum-exercises">
           <p className="sum-section-label">LO QUE HAS TRABAJADO</p>
           {exercises.map((ex, i) => {
@@ -99,24 +121,20 @@ export default function Summary() {
           })}
         </div>
 
-        {/* FRASE */}
         <div className="sum-motivation">
           <p>{motivation}</p>
         </div>
 
-        {/* FIRMA */}
         <p className="sum-brand">NYLA Method · nyla-real.vercel.app</p>
-
       </div>
 
-      {/* BOTONES */}
       <div className="sum-actions">
         <button className="sum-share-btn" onClick={handleShare}>
           ↑ Compartir mi logro
         </button>
-        <button className="sum-home-btn" onClick={() => localStorage.removeItem("nylaActiveSection"); localStorage.removeItem("nylaSelectedDay"); navigate("/home", { replace: true })}>
-  Volver a Home
-</button>
+        <button className="sum-home-btn" onClick={handleGoHome}>
+          Volver a Home
+        </button>
       </div>
     </div>
   );
