@@ -430,19 +430,25 @@ export default function Workout() {
             <div><span>Velocidad</span><strong>{cardio.speed}</strong></div>
           </div>
           <small>Intensidad cómoda. Inclinación máx. 9 · Velocidad máx. 5.5</small>
-          <button className="wk-complete" onClick={() => {
-  if (!isCompleted) toggleCompleted();
-  navigate("/summary", {
-  replace: true,
-  state: {
-    selectedDay,
-    selectedPlan,
-    sets,
-    exercises,
-    exerciseWeights,
-    internalWeek,
+         <button className="wk-complete" onClick={() => {
+  const key = `${selectedPlan}-${internalWeek}-${selectedDay}`;
+  const current = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
+  if (!current.includes(key)) {
+    const updated = [...current, key];
+    localStorage.setItem("nylaCompletedDays", JSON.stringify(updated));
+    setCompletedDays(updated);
   }
-});
+  navigate("/summary", {
+    replace: true,
+    state: {
+      selectedDay,
+      selectedPlan,
+      sets,
+      exercises,
+      exerciseWeights,
+      internalWeek,
+    }
+  });
 }}>
   {isCompleted ? "Ver resumen ✅" : "Marcar como completado"}
 </button>
