@@ -430,9 +430,21 @@ export default function Workout() {
             <div><span>Velocidad</span><strong>{cardio.speed}</strong></div>
           </div>
           <small>Intensidad cómoda. Inclinación máx. 9 · Velocidad máx. 5.5</small>
-          <button className={`wk-complete ${isCompleted ? "done" : ""}`} onClick={toggleCompleted}>
-            {isCompleted ? "Entrenamiento completado ✅" : "Marcar como completado"}
-          </button>
+          <button className={`wk-complete ${isCompleted ? "done" : ""}`} onClick={() => {
+  toggleCompleted();
+  navigate("/summary", {
+    state: {
+      selectedDay,
+      selectedPlan,
+      sets,
+      exercises,
+      exerciseWeights,
+      internalWeek,
+    }
+  });
+}}>
+  {isCompleted ? "Entrenamiento completado ✅" : "Marcar como completado"}
+</button>
         </div>
       )}
 

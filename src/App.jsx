@@ -14,6 +14,8 @@ import Affirmations from "./pages/Affirmations";
 import Cycle from "./pages/Cycle";
 import Premium from "./pages/Premium";
 import Success from "./pages/Success";
+import Summary from "./pages/Summary";
+<Route path="/summary" element={<RequireAuth><Summary /></RequireAuth>} />
 
 
 // Guard: requiere sesión y onboarding completo
