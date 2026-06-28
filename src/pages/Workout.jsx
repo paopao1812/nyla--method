@@ -148,6 +148,7 @@ export default function Workout() {
 
   const [completedExercises, setCompletedExercises] = useState({});
   const [showAdvanceModal, setShowAdvanceModal] = useState(false);
+  const [showSummaryModal, setShowSummaryModal] = useState(false);
 
   // Persistir estado al cambiar
   useEffect(() => { localStorage.setItem("nylaCompletedDays", JSON.stringify(completedDays)); }, [completedDays]);
@@ -206,6 +207,34 @@ export default function Workout() {
     return exerciseWeights[`${selectedPlan}-${internalWeek - 1}-${selectedDay}-${name}`] || null;
   };
 
+
+  const handleComplete = () => {
+    const key = `${selectedPlan}-${internalWeek}-${selectedDay}`;
+    const current = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
+    if (!current.includes(key)) {
+      const updated = [...current, key];
+      localStorage.setItem("nylaCompletedDays", JSON.stringify(updated));
+      setCompletedDays(updated);
+    }
+    setShowSummaryModal(true);
+  };
+
+  const handleGoHome = () => {
+    const completedDaysArr = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
+    const days = PLAN_DAYS[selectedPlan] || [];
+    const nextDay = days.find(d => !completedDaysArr.includes(`${selectedPlan}-${internalWeek}-${d}`));
+    if (nextDay) {
+      localStorage.setItem("nylaSelectedDay", nextDay);
+      localStorage.setItem("nylaSelectedPlan", selectedPlan);
+      const isLowerDay = nextDay.includes("Glúteos") || nextDay.includes("Pierna") || nextDay.includes("Femoral") || nextDay.includes("Cuádriceps");
+      localStorage.setItem("nylaActiveSection", isLowerDay ? "activation" : "exercises");
+    } else {
+      localStorage.removeItem("nylaSelectedDay");
+      localStorage.removeItem("nylaActiveSection");
+    }
+    setShowSummaryModal(false);
+    navigate("/home", { replace: true });
+  };
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
 
   const isLower = selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps");
@@ -226,6 +255,25 @@ export default function Workout() {
     <section className="wk-screen">
 
       {/* MODAL */}
+
+      {showSummaryModal && (
+        <div className="wk-modal-overlay">
+          <div className="wk-modal">
+            <p className="wk-modal-eyebrow">NYLA METHOD</p>
+            <h2 className="wk-modal-title">¡Entrenamiento completado! 🌸</h2>
+            <p className="wk-modal-sub">{selectedDay.split("·")[1]?.trim() || selectedDay}</p>
+            <div className="wk-modal-stats">
+              <span>💪 {exercises.length} ejercicios</span>
+              <span>🔥 {sets} series</span>
+            </div>
+            <p className="wk-modal-motivation">{getMotivation(internalWeek)}</p>
+            <div className="wk-modal-btns">
+              <button className="wk-modal-confirm" onClick={handleGoHome}>Volver a Home ✦</button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {showAdvanceModal && (
         <div className="wk-modal-overlay">
           <div className="wk-modal">
@@ -430,28 +478,9 @@ export default function Workout() {
             <div><span>Velocidad</span><strong>{cardio.speed}</strong></div>
           </div>
           <small>Intensidad cómoda. Inclinación máx. 9 · Velocidad máx. 5.5</small>
-         <button className="wk-complete" onClick={() => {
-  const key = `${selectedPlan}-${internalWeek}-${selectedDay}`;
-  const current = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
-  if (!current.includes(key)) {
-    const updated = [...current, key];
-    localStorage.setItem("nylaCompletedDays", JSON.stringify(updated));
-    setCompletedDays(updated);
-  }
-  navigate("/home", {
-    replace: false,
-    state: {
-      selectedDay,
-      selectedPlan,
-      sets,
-      exercises,
-      exerciseWeights,
-      internalWeek,
-    }
-  });
-}}>
-  {isCompleted ? "Ver resumen ✅" : "Marcar como completado"}
-</button>
+          <button className="wk-complete" onClick={handleComplete}>
+            Finalizar entrenamiento ✦
+          </button>
         </div>
       )}
 
