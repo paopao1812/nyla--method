@@ -114,7 +114,7 @@ export default function Summary() {
         <button className="sum-share-btn" onClick={handleShare}>
           ↑ Compartir mi logro
         </button>
-        <button className="sum-home-btn" onClick={() => navigate("/home", { replace: true })}>
+        <button className="sum-home-btn" onClick={() => localStorage.removeItem("nylaActiveSection"); localStorage.removeItem("nylaSelectedDay"); navigate("/home", { replace: true })}>
   Volver a Home
 </button>
       </div>
