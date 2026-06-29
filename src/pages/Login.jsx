@@ -7,6 +7,7 @@ import "../styles/PremiumSuccess.css";
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ export default function Login() {
     const { authorized } = await res.json();
 
     localStorage.setItem("nylaUserEmail", email.toLowerCase());
+    if (name.trim()) localStorage.setItem("nylaUserName", name.trim());
     if (authorized) localStorage.setItem("nylaPremium", "true");
 
     // Si no tiene onboarding, mandarlo ahí primero
@@ -45,6 +47,8 @@ export default function Login() {
         <p className="premium-sub">Inicia sesión para continuar tu journey.</p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+          <input className="premium-input" type="text" placeholder="Tu nombre"
+            value={name} onChange={e => { setName(e.target.value); setError(""); }} />
           <input className="premium-input" type="email" placeholder="Tu email"
             value={email} onChange={e => { setEmail(e.target.value); setError(""); }} />
           <input className="premium-input" type="password" placeholder="Tu contraseña"
