@@ -1,10 +1,14 @@
 
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 import "../styles/PremiumSuccess.css";
-
-
 export default function Welcome() {
   const navigate = useNavigate();
+  useEffect(() => {
+    const email = localStorage.getItem("nylaUserEmail");
+    const done = localStorage.getItem("nylaOnboardingDone");
+    if (email && done) navigate("/home", { replace: true });
+  }, []);
 
   return (
     <div className="welcome-page">
