@@ -11,16 +11,20 @@ function initAudio() {
 function playBeep() {
   try {
     if (!audioCtx) return;
-    [0, 0.4, 0.8].forEach(delay => {
+    // Alarma: tono que sube y baja repetido
+    [0, 0.5, 1.0, 1.5].forEach(delay => {
       const osc = audioCtx.createOscillator();
       const gain = audioCtx.createGain();
       osc.connect(gain);
       gain.connect(audioCtx.destination);
-      osc.frequency.value = 880;
-      gain.gain.setValueAtTime(0.6, audioCtx.currentTime + delay);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + 0.35);
+      osc.type = "square";
+      osc.frequency.setValueAtTime(660, audioCtx.currentTime + delay);
+      osc.frequency.linearRampToValueAtTime(880, audioCtx.currentTime + delay + 0.25);
+      osc.frequency.linearRampToValueAtTime(660, audioCtx.currentTime + delay + 0.45);
+      gain.gain.setValueAtTime(0.8, audioCtx.currentTime + delay);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + 0.45);
       osc.start(audioCtx.currentTime + delay);
-      osc.stop(audioCtx.currentTime + delay + 0.35);
+      osc.stop(audioCtx.currentTime + delay + 0.45);
     });
   } catch {}
 }
