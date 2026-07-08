@@ -11,15 +11,17 @@ function initAudio() {
 function playBeep() {
   try {
     if (!audioCtx) return;
-    const osc = audioCtx.createOscillator();
-    const gain = audioCtx.createGain();
-    osc.connect(gain);
-    gain.connect(audioCtx.destination);
-    osc.frequency.value = 880;
-    gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
-    osc.start(audioCtx.currentTime);
-    osc.stop(audioCtx.currentTime + 0.5);
+    [0, 0.4, 0.8].forEach(delay => {
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.frequency.value = 880;
+      gain.gain.setValueAtTime(0.6, audioCtx.currentTime + delay);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + 0.35);
+      osc.start(audioCtx.currentTime + delay);
+      osc.stop(audioCtx.currentTime + delay + 0.35);
+    });
   } catch {}
 }
 
@@ -56,7 +58,7 @@ export default function RestTimer() {
           setRunning(false);
           setDone(true);
           playBeep();
-          if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+          if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300]);
           return 0;
         }
         return prev - 1;
