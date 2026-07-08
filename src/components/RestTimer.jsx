@@ -1,10 +1,25 @@
 
 import { useState, useEffect, useRef, useCallback } from "react";
 
+let audioCtx = null;
+function initAudio() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+  if (audioCtx.state === "suspended") audioCtx.resume();
+}
 function playBeep() {
   try {
-    const audio = new Audio("/beep.wav");
-    audio.play().catch(() => {});
+    if (!audioCtx) return;
+    const osc = audioCtx.createOscillator();
+    const gain = audioCtx.createGain();
+    osc.connect(gain);
+    gain.connect(audioCtx.destination);
+    osc.frequency.value = 880;
+    gain.gain.setValueAtTime(0.5, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+    osc.start(audioCtx.currentTime);
+    osc.stop(audioCtx.currentTime + 0.5);
   } catch {}
 }
 
@@ -50,6 +65,7 @@ export default function RestTimer() {
   }, []);
 
   const handleDurationSelect = (d) => {
+    initAudio();
     localStorage.setItem("nylaRestDuration", String(d));
     setDuration(d);
     start(d);
