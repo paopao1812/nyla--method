@@ -3,18 +3,8 @@ import { useState, useEffect, useRef, useCallback } from "react";
 
 function playBeep() {
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
-    [0, 0.3, 0.6].forEach(delay => {
-      const osc = ctx.createOscillator();
-      const gain = ctx.createGain();
-      osc.connect(gain);
-      gain.connect(ctx.destination);
-      osc.frequency.value = 880;
-      gain.gain.setValueAtTime(0.4, ctx.currentTime + delay);
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + delay + 0.2);
-      osc.start(ctx.currentTime + delay);
-      osc.stop(ctx.currentTime + delay + 0.2);
-    });
+    const audio = new Audio("/beep.wav");
+    audio.play().catch(() => {});
   } catch {}
 }
 
