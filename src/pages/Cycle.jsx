@@ -175,7 +175,6 @@ export default function Cycle() {
           <span className="nav-icon">✨</span>
           <span className="nav-label">Afirmaciones</span>
         </button>
-        </button>
       </nav>
     </section>
   );
