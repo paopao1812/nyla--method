@@ -1,5 +1,6 @@
 
 import { useState, useMemo, useEffect } from "react";
+import { VIDEO_MAP } from "../data/videoMap";
 import { useNavigate } from "react-router-dom";
 import RestTimer from "../components/RestTimer";
 import "../styles/Workout.css";
@@ -180,6 +181,7 @@ export default function Workout() {
   });
 
   const [completedExercises, setCompletedExercises] = useState({});
+  const [activeVideo, setActiveVideo] = useState(null);
   const [showAdvanceModal, setShowAdvanceModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
@@ -466,7 +468,25 @@ export default function Workout() {
                 <div className={`wk-ex ${completedExercises[ex.name] ? "done" : ""}`} key={i}>
                   <div className="wk-ex-num">{i + 1}</div>
                   <div className="wk-ex-body">
-                    <h3>{ex.name}</h3>
+                    <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                      <h3>{ex.name}</h3>
+                      {VIDEO_MAP[ex.name] && (
+                        <button className="wk-video-btn" onClick={() => setActiveVideo(activeVideo === ex.name ? null : ex.name)}>
+                          {activeVideo === ex.name ? "✕" : "▶"}
+                        </button>
+                      )}
+                    </div>
+                    {activeVideo === ex.name && VIDEO_MAP[ex.name] && (
+                      <video
+                        src={VIDEO_MAP[ex.name]}
+                        controls
+                        playsInline
+                        autoPlay
+                        muted
+                        controlsList="nodownload"
+                        style={{width:"100%",borderRadius:"10px",marginBottom:"8px"}}
+                      />
+                    )}
                     <p>{sets} series · {getReps()}</p>
                     <input className="wk-input" type="number" placeholder="Peso usado (kg)"
                       value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}

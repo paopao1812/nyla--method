@@ -558,3 +558,14 @@
 }
 .wk-seg-icon { font-size: 20px; }
 .wk-seg-label { font-size: 11px; }
+.wk-video-btn {
+  background: rgba(201,96,122,0.2);
+  border: 1px solid #c9607a;
+  color: #c9607a;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
