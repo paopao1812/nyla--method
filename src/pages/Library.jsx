@@ -1,4 +1,3 @@
-import { VIDEO_MAP } from "../data/videoMap";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Library.css";
