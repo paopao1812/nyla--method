@@ -30,3 +30,4 @@ export const VIDEO_MAP = {
   "Heels Taps": "https://res.cloudinary.com/dhinbr3np/video/upload/v1781113304/Heels_Taps_so7fnp.mp4",
   "Plancha frontal": "https://res.cloudinary.com/dhinbr3np/video/upload/v1781113292/Plancha_frontal_ndron8.mp4",
 };
+// video map fix Thu Jul  9 18:25:36 CEST 2026
