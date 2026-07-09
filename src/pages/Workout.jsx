@@ -64,24 +64,24 @@ const corePlan = [
 
 const weeklyPlan = {
   "Día 1 · Glúteos": [
-    { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Step Up" },
+    { name: "Hip Thrust con barra" },{ name: "Peso muerto" },{ name: "Step Up" },
     { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
   ],
   "Día 2 · Espalda y Bíceps": [
     { name: "Dominadas con banda" },{ name: "Jalón al pecho" },{ name: "Pullover" },
-    { name: "Remo" },{ name: "Hiperextensiones" },{ name: "Curl bíceps en polea" },
+    { name: "Remo sentado" },{ name: "Hiperextensiones" },{ name: "Curl bíceps" },
   ],
   "Día 3 · Cuádriceps o Descanso": [
     { name: "Aductores en máquina" },{ name: "Sentadilla búlgara" },
     { name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },
-    { name: "Extensión de piernas" },{ name: "Gemelos en máquina" },
+    { name: "Extensión de cuádriceps" },{ name: "Gemelos en máquina" },
   ],
   "Día 4 · Hombros": [
-    { name: "Press militar" },{ name: "Vuelos laterales" },{ name: "Vuelos frontales" },
-    { name: "Remo al cuello" },{ name: "Curl tríceps en polea" },
+    { name: "Press militar" },{ name: "Elevaciones laterales" },{ name: "Elevaciones frontales" },
+    { name: "Remo al cuello" },{ name: "Curl de tríceps" },
   ],
   "Día 5 · Glúteos unilaterales": [
-    { name: "Hip thrust a una pierna" },{ name: "Peso muerto a una pierna" },{ name: "Step Up" },
+    { name: "Hip Thrust a una pierna" },{ name: "Peso muerto a una pierna" },{ name: "Step Up" },
     { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
   ],
   "Día 1 · Cuádriceps": [
