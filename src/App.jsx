@@ -1,6 +1,7 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
+import MagicLink from "./pages/MagicLink";
 import { useEffect } from "react";
 import { trackActivity } from "./utils/trackActivity";
 
@@ -56,6 +57,7 @@ export default function App() {
           <Route path="/register" element={<RequireGuest><Register /></RequireGuest>} />
           <Route path="/onboarding" element={<Onboarding />} />
           <Route path="/premium" element={<Premium />} />
+          <Route path="/magic" element={<MagicLink />} />
           <Route path="/success" element={<Success />} />
           
 

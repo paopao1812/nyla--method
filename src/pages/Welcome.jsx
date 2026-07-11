@@ -22,7 +22,7 @@ export default function Welcome() {
         </p>
 
         <div className="welcome-btns">
-          <button className="welcome-btn-primary" onClick={() => navigate("/premium")}>
+          <button className="welcome-btn-primary" onClick={() => navigate("/magic")}>
   CREATE MY ACCOUNT
 </button>
           <button className="welcome-btn-secondary" onClick={() => navigate("/login")}>
