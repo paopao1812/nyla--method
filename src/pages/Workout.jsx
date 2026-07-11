@@ -1,5 +1,6 @@
 
 import { useState, useMemo, useEffect } from "react";
+import { trackActivity } from "../utils/trackActivity";
 import { VIDEO_MAP } from "../data/videoMap";
 import { useNavigate } from "react-router-dom";
 import RestTimer from "../components/RestTimer";
@@ -244,6 +245,7 @@ export default function Workout() {
 
 
   const handleComplete = () => {
+    trackActivity();
     const key = `${selectedPlan}-${internalWeek}-${selectedDay}`;
     const current = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
     if (!current.includes(key)) {

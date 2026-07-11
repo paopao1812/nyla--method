@@ -1,6 +1,8 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
+import { useEffect } from "react";
+import { trackActivity } from "./utils/trackActivity";
 
 import Welcome from "./pages/Welcome";
 import Onboarding from "./pages/Onboarding";
@@ -34,6 +36,16 @@ function RequireGuest({ children }) {
 }
 
 export default function App() {
+  useEffect(() => {
+    trackActivity();
+    const onFocus = () => trackActivity();
+    window.addEventListener("focus", onFocus);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") trackActivity();
+    });
+    return () => window.removeEventListener("focus", onFocus);
+  }, []);
+
   return (
     <UserProvider>
       <BrowserRouter>

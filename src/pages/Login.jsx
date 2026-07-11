@@ -1,5 +1,6 @@
 
 import { useState } from "react";
+import { trackActivity } from "../utils/trackActivity";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabase";
 import "../styles/PremiumSuccess.css";
@@ -33,6 +34,7 @@ export default function Login() {
     if (authorized) localStorage.setItem("nylaPremium", "true");
 
     // Si no tiene onboarding, mandarlo ahí primero
+    trackActivity();
     const onboarding = localStorage.getItem("nylaOnboardingDone");
     if (!onboarding) { navigate("/onboarding"); }
     else { navigate("/home"); }
