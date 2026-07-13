@@ -175,6 +175,7 @@ export default function Cycle() {
           <span className="nav-icon">✨</span>
           <span className="nav-label">Afirmaciones</span>
         </button>
+      <button className="nav-btn" onClick={() => navigate("/progress")}><span className="nav-icon">📊</span><span className="nav-label">Progreso</span></button>
       </nav>
     </section>
   );
