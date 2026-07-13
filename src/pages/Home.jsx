@@ -129,6 +129,13 @@ export default function Home() {
 
       
       <p className="home-copyright">© 2025 NYLA . Todos los derechos reservados.</p>
+      <nav className="bottom-nav">
+        <button className="nav-btn" onClick={() => navigate("/cycle")}><span className="nav-icon">🌙</span><span className="nav-label">Ciclo</span></button>
+        <button className="nav-btn" onClick={() => navigate("/workout")}><span className="nav-icon">🏋️</span><span className="nav-label">Entrena</span></button>
+        <button className="nav-btn" onClick={() => navigate("/meals")}><span className="nav-icon">🍓</span><span className="nav-label">Nutrición</span></button>
+        <button className="nav-btn" onClick={() => navigate("/progress")}><span className="nav-icon">📊</span><span className="nav-label">Progreso</span></button>
+        <button className="nav-btn" onClick={() => navigate("/affirmations")}><span className="nav-icon">✨</span><span className="nav-label">Afirmaciones</span></button>
+      </nav>
     </section>
   );
 }
