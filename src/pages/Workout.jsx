@@ -149,29 +149,7 @@ const getMotivation = (w) => {
   return "Has llegado lejos. NYLA sigue contigo.";
 };
 
-
-              style={{
-                display:"flex", flexDirection:"column", alignItems:"center", gap:"2px",
-                opacity: isDone ? 0.5 : isActive ? 1 : 0.4,
-                cursor: isDone || isActive ? "default" : "pointer"
-              }}>
-              <span style={{fontSize:"16px"}}>{isDone ? "✓" : icons[s]}</span>
-              <span style={{fontSize:"9px", color: isActive ? "#c9607a" : "#fff", fontWeight: isActive ? "600" : "400"}}>
-                {labels[s]}
-              </span>
-            </div>
-            {i < sections.length - 1 && (
-              <div style={{width:"20px", height:"1px", background: isDone ? "#c9607a" : "rgba(255,255,255,0.2)", margin:"0 2px", marginBottom:"10px"}} />
-            )}
-          </div>
-        );
-      })}
-    </div>
-  );
-}
 export default function Workout() {
-  const navigate = useNavigate();
-
   const [internalWeek, setInternalWeek] = useState(() => {
     const saved = localStorage.getItem("nylaInternalWeek");
     return saved ? parseInt(saved) : 1;
