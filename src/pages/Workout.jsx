@@ -287,7 +287,7 @@ export default function Workout() {
   };
 
   return (
-    <section className="wk-screen">
+    <div className="wk-screen">
 
       {/* MODAL */}
 
@@ -576,6 +576,6 @@ export default function Workout() {
         <button className="nav-btn" onClick={() => navigate("/meals")}><span className="nav-icon">🍓</span><span className="nav-label">Nutrición</span></button>
         <button className="nav-btn" onClick={() => navigate("/progress")}><span className="nav-icon">📊</span><span className="nav-label">Progreso</span></button><button className="nav-btn" onClick={() => navigate("/affirmations")}><span className="nav-icon">✨</span><span className="nav-label">Afirmaciones</span></button>
       </nav>
-    </section>
+    </div>
   );
 }// fix build Sat Jul 18 21:48:28 CEST 2026
