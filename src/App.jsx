@@ -1,6 +1,7 @@
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { UserProvider } from "./context/UserContext";
+import BottomNav from "./components/BottomNav";
 import MagicLink from "./pages/MagicLink";
 import Progress from "./pages/Progress";
 import { useEffect } from "react";
@@ -51,6 +52,7 @@ export default function App() {
   return (
     <UserProvider>
       <BrowserRouter>
+        <BottomNav />
         <Routes>
           {/* Públicas */}
           <Route path="/" element={<RequireGuest><Welcome /></RequireGuest>} />
