@@ -149,6 +149,38 @@ const getMotivation = (w) => {
   return "Has llegado lejos. NYLA sigue contigo.";
 };
 
+
+function SessionBar({ sections, current, onSkip }) {
+  const icons = { activation: "🔥", exercises: "💪", core: "🧘", cardio: "🏃" };
+  const labels = { activation: "Activación", exercises: "Ejercicios", core: "Core", cardio: "Cardio" };
+  return (
+    <div style={{display:"flex", alignItems:"center", justifyContent:"center", gap:"4px", padding:"12px 16px", background:"rgba(255,255,255,0.03)", marginBottom:"8px"}}>
+      {sections.map((s, i) => {
+        const isDone = sections.indexOf(current) > i;
+        const isActive = s === current;
+        return (
+          <div key={s} style={{display:"flex", alignItems:"center", gap:"4px"}}>
+            <div
+              onClick={() => !isActive && !isDone && onSkip(s)}
+              style={{
+                display:"flex", flexDirection:"column", alignItems:"center", gap:"2px",
+                opacity: isDone ? 0.5 : isActive ? 1 : 0.4,
+                cursor: isDone || isActive ? "default" : "pointer"
+              }}>
+              <span style={{fontSize:"16px"}}>{isDone ? "✓" : icons[s]}</span>
+              <span style={{fontSize:"9px", color: isActive ? "#c9607a" : "#fff", fontWeight: isActive ? "600" : "400"}}>
+                {labels[s]}
+              </span>
+            </div>
+            {i < sections.length - 1 && (
+              <div style={{width:"20px", height:"1px", background: isDone ? "#c9607a" : "rgba(255,255,255,0.2)", margin:"0 2px", marginBottom:"10px"}} />
+            )}
+          </div>
+        );
+      })}
+    </div>
+  );
+}
 export default function Workout() {
   const navigate = useNavigate();
 
@@ -184,6 +216,7 @@ export default function Workout() {
   const [completedExercises, setCompletedExercises] = useState({});
   const [activeVideo, setActiveVideo] = useState(null);
   const [showAdvanceModal, setShowAdvanceModal] = useState(false);
+  const [skipTarget, setSkipTarget] = useState(null);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
   // Persistir estado al cambiar
@@ -282,6 +315,13 @@ export default function Workout() {
   const upperSections = ["exercises", "core", "cardio"];
 
   const changeSection = (s) => setActiveSection(s);
+  const handleSkipTo = (s) => {
+    setSkipTarget(s);
+  };
+  const confirmSkip = () => {
+    if (skipTarget) setActiveSection(skipTarget);
+    setSkipTarget(null);
+  };
   const changeDay = (day) => {
     setSelectedDay(day);
     const isLowerDay = day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps");
@@ -325,6 +365,20 @@ export default function Workout() {
         </div>
       )}
 
+      {/* MODAL SALTAR FASE */}
+      {skipTarget && (
+        <div className="wk-modal-overlay">
+          <div className="wk-modal">
+            <p className="wk-modal-eyebrow">NYLA</p>
+            <h2 className="wk-modal-title">¿Segura que quieres saltar?</h2>
+            <p className="wk-modal-sub">Se recomienda seguir el orden para obtener mejores resultados.</p>
+            <div className="wk-modal-btns">
+              <button className="wk-modal-cancel" onClick={() => setSkipTarget(null)}>Seguir el orden</button>
+              <button className="wk-modal-confirm" onClick={confirmSkip}>Saltar igualmente</button>
+            </div>
+          </div>
+        </div>
+      )}
       {/* HERO */}
       <div className="wk-hero">
         <div className="wk-hero-badges">
@@ -420,22 +474,10 @@ export default function Workout() {
 
       {/* SECTION TABS */}
       {isLower && (
-        <div className="wk-section-grid">
-          {lowerSections.map(s => (
-            <button key={s} className={`wk-section-btn ${activeSection === s ? "active" : ""}`} onClick={() => changeSection(s)}>
-              {sectionLabels[s]}
-            </button>
-          ))}
-        </div>
+        <SessionBar sections={lowerSections} current={activeSection} onSkip={handleSkipTo} />
       )}
       {isUpper && (
-        <div className="wk-section-grid">
-          {upperSections.map(s => (
-            <button key={s} className={`wk-section-btn ${activeSection === s ? "active" : ""}`} onClick={() => changeSection(s)}>
-              {sectionLabels[s]}
-            </button>
-          ))}
-        </div>
+        <SessionBar sections={upperSections} current={activeSection} onSkip={handleSkipTo} />
       )}
 
       {/* ACTIVATION */}
