@@ -268,7 +268,7 @@ export default function Workout() {
       localStorage.removeItem("nylaActiveSection");
     }
     setShowSummaryModal(false);
-    navigate("/home", { replace: true });
+    navigate("/home");
   };
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
 
