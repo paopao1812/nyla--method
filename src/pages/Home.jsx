@@ -84,12 +84,6 @@ export default function Home() {
   const planDays = PLAN_DAYS[selectedPlan] || PLAN_DAYS.fiveDays;
   const weekCompleted = planDays.filter(d => completedDays.includes(`${selectedPlan}-${internalWeek}-${d}`)).length;
   const progressPercent = Math.round((weekCompleted / planDays.length) * 100);
-  const internalWeek = parseInt(localStorage.getItem("nylaInternalWeek") || "1");
-  const completedDays = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
-  const selectedPlan = localStorage.getItem("nylaSelectedPlan") || "fiveDays";
-  const planDays = PLAN_DAYS[selectedPlan] || PLAN_DAYS.fiveDays;
-  const weekCompleted = planDays.filter(d => completedDays.includes(`${selectedPlan}-${internalWeek}-${d}`)).length;
-  const progressPercent = Math.round((weekCompleted / planDays.length) * 100);
 
   const goWorkout = () => {
     const next = getNextWorkout();
