@@ -578,4 +578,4 @@ export default function Workout() {
       </nav>
     </section>
   );
-}
+}// fix build Sat Jul 18 21:48:28 CEST 2026
