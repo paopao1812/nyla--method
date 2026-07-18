@@ -420,7 +420,7 @@ export default function Workout() {
 
 
       {/* ACTIVATION */}
-      {isLower && (
+      {isLower && activeSection === "activation" && (
         <div className="wk-card">
           <h2 className="wk-card-title">Activación de Glúteos</h2>
           <p className="wk-card-sub">8 min · Sin peso · Lento y controlado.</p>
@@ -447,11 +447,14 @@ export default function Workout() {
               </div>
             ))}
           </div>
+          <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => setActiveSection("exercises")}>
+            Siguiente: Ejercicios →
+          </button>
         </div>
       )}
 
       {/* EXERCISES */}
-      {true && (
+      {activeSection === "exercises" && (
         <div className="wk-card">
           <h2 className="wk-card-title">{selectedDay}</h2>
           <p className="wk-card-sub">{sets} series · 6–12 reps por ejercicio</p>
@@ -496,11 +499,14 @@ export default function Workout() {
               );
             })}
           </div>
+          <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => setActiveSection(isUpper ? "core" : "cardio")}>
+            Siguiente: {isUpper ? "Core" : "Cardio"} →
+          </button>
         </div>
       )}
 
       {/* CORE */}
-      {isUpper && (
+      {isUpper && activeSection === "core" && (
         <div className="wk-card">
           <h2 className="wk-card-title">Core</h2>
           <div className="wk-ex-list">
@@ -528,11 +534,14 @@ export default function Workout() {
               </div>
             ))}
           </div>
+          <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => setActiveSection("cardio")}>
+            Siguiente: Cardio →
+          </button>
         </div>
       )}
 
       {/* CARDIO */}
-      {true && (
+      {activeSection === "cardio" && (
         selectedPlan === "homeDays" ? (
           <div className="wk-cardio">
             <p className="wk-cardio-eyebrow">MOVIMIENTO DIARIO</p>
