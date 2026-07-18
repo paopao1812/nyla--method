@@ -60,6 +60,9 @@ export default function Onboarding() {
       if (selectedLevel !== null) localStorage.setItem("nylaLevel", String(selectedLevel));
       localStorage.setItem("nylaDays", JSON.stringify(selectedDays));
       localStorage.setItem("nylaOnboardingDone", "true");
+      const numDays = selectedDays.length;
+      const plan = numDays >= 5 ? "fiveDays" : numDays >= 3 ? "threeDays" : "glutesOnly";
+      localStorage.setItem("nylaSelectedPlan", plan);
       navigate("/home");
     }
   }

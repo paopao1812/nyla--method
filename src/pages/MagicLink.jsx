@@ -17,15 +17,28 @@ export default function MagicLink() {
         const email = session.user.email;
         localStorage.setItem("nylaUserEmail", email);
 
-        // Crear o actualizar cliente con trial de 14 días
-        const trialEnd = new Date();
-        trialEnd.setDate(trialEnd.getDate() + 14);
+        // Verificar si ya tuvo premium o trial antes de asignar
+        const { data: existingCustomer } = await supabase
+          .from("customers")
+          .select("premium, trial_end_date")
+          .eq("email", email.toLowerCase())
+          .single();
 
-        await supabase.from("customers").upsert({
-          email: email.toLowerCase(),
-          trial_end_date: trialEnd.toISOString(),
-          last_active_at: new Date().toISOString(),
-        }, { onConflict: "email", ignoreDuplicates: false });
+        const yaTienePremium = existingCustomer?.premium === true;
+        const trialActivo = existingCustomer?.trial_end_date &&
+          new Date(existingCustomer.trial_end_date) > new Date();
+
+        if (!yaTienePremium && !trialActivo) {
+          await supabase.from("customers").upsert({
+            email: email.toLowerCase(),
+            trial_end_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(),
+            last_active_at: new Date().toISOString(),
+          }, { onConflict: "email" });
+        } else {
+          await supabase.from("customers")
+            .update({ last_active_at: new Date().toISOString() })
+            .eq("email", email.toLowerCase());
+        }
 
         const onboarding = localStorage.getItem("nylaOnboardingDone");
         if (!onboarding) navigate("/onboarding");
