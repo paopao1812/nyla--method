@@ -277,7 +277,7 @@ export default function Workout() {
 
   const sectionLabels = { activation: "Activación", exercises: "Ejercicios", core: "Core", cardio: "Cardio" };
   const lowerSections = ["activation", "exercises", "cardio"];
-  const upperSections = ["exercises", "core", "cardio"];
+  const upperSections = ["core", "exercises", "cardio"];
 
   const changeSection = (s) => setActiveSection(s);
   const changeDay = (day) => {
