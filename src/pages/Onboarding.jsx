@@ -40,6 +40,7 @@ function StepBar({ total, current }) {
 export default function Onboarding() {
   const [step, setStep] = useState(1);
   const [selectedGoal, setSelectedGoal] = useState(null);
+  const [nombre, setNombre] = useState("");
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedDays, setSelectedDays] = useState(["M", "J"]);
   const { userName } = useUser();
@@ -60,6 +61,7 @@ export default function Onboarding() {
       if (selectedLevel !== null) localStorage.setItem("nylaLevel", String(selectedLevel));
       localStorage.setItem("nylaDays", JSON.stringify(selectedDays));
       localStorage.setItem("nylaOnboardingDone", "true");
+      if (nombre.trim()) localStorage.setItem("nylaUserName", nombre.trim());
       const numDays = selectedDays.length;
       const plan = numDays >= 5 ? "fiveDays" : numDays >= 3 ? "threeDays" : "glutesOnly";
       localStorage.setItem("nylaSelectedPlan", plan);
@@ -76,9 +78,20 @@ export default function Onboarding() {
           <div className="ob-top">
             <StepBar total={4} current={1} />
             <p className="ob-num">Paso 1 de 4 · Tu intención</p>
-            <p className="ob-subtitle">¿Qué quieres construir con NYLA?</p>
+            <p className="ob-subtitle">¿Cómo te llamas?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 12 }}>
+            <input
+              className="premium-input"
+              type="text"
+              placeholder="Tu nombre"
+              value={nombre}
+              onChange={e => setNombre(e.target.value)}
+              style={{ marginBottom: "24px" }}
+            />
+            <p className="ob-subtitle" style={{ marginBottom: "12px" }}>¿Qué quieres construir con NYLA?</p>
+          <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 12 }}>
+            </div>
             <div className="goal-grid">
               {GOALS.map((g, i) => (
                 <div key={i} className={`goal-card ${selectedGoal === i ? "selected" : ""}`} onClick={() => setSelectedGoal(i)}>
