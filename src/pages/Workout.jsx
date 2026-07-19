@@ -154,9 +154,14 @@ export default function Workout() {
     return saved ? parseInt(saved) : 1;
   });
 
-  const [selectedPlan, setSelectedPlan] = useState(() =>
-    localStorage.getItem("nylaSelectedPlan") || "fiveDays"
-  );
+  const [selectedPlan, setSelectedPlan] = useState(() => {
+    const place = localStorage.getItem("nylaPlace") || "gym";
+    if (place === "home") {
+      localStorage.setItem("nylaSelectedPlan", "homeDays");
+      return "homeDays";
+    }
+    return localStorage.getItem("nylaSelectedPlan") || "fiveDays";
+  });
 
   const [selectedDay, setSelectedDay] = useState(() =>
     localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos"
