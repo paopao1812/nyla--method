@@ -4,7 +4,7 @@
   min-height: 100dvh;
   display: flex; flex-direction: column; gap: 14px;
   padding: 52px 22px 110px;
-  background: #1a0610;
+  background: #2d0f1e;
   background-image: radial-gradient(ellipse 70% 28% at 50% 0%, rgba(107,21,53,0.6) 0%, transparent 62%);
   font-family: 'DM Sans', sans-serif;
   color: #f5ede6;
