@@ -71,8 +71,12 @@ export default function Onboarding() {
       let plan;
       if (selectedPlace === "home") {
         plan = "homeDays";
+      } else if (numDays >= 5) {
+        plan = "fiveDays";
+      } else if (numDays === 4) {
+        plan = "fourDays";
       } else {
-        plan = numDays >= 5 ? "fiveDays" : numDays >= 3 ? "threeDays" : "glutesOnly";
+        plan = "threeDays";
       }
       localStorage.setItem("nylaSelectedPlan", plan);
       navigate("/home");
