@@ -666,11 +666,15 @@ export default function Workout() {
                       />
                     )}
                     <p>{sets} series · {getReps(internalWeek, selectedPlan)}</p>
-                    <input className="wk-input" type="number" placeholder="Peso usado (kg)"
-                      value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}
-                      onChange={e => updateWeight(ex.name, e.target.value)} />
-                    {prevWeight && (
-                      <p className="wk-prev-weight">↑ Semana anterior: {prevWeight} kg</p>
+                    {selectedPlan !== "homeDays" && (
+                      <>
+                        <input className="wk-input" type="number" placeholder="Peso usado (kg)"
+                          value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}
+                          onChange={e => updateWeight(ex.name, e.target.value)} />
+                        {prevWeight && (
+                          <p className="wk-prev-weight">↑ Semana anterior: {prevWeight} kg</p>
+                        )}
+                      </>
                     )}
                     <div className="wk-ex-actions">
                       <RestTimer />
