@@ -7,10 +7,10 @@
   flex-direction: column;
   gap: 14px;
   padding: 0 22px 140px;
-  background: #2d0f1e;
+  background: #fdf0f3;
   background-image: radial-gradient(ellipse 80% 30% at 60% 0%, rgba(139,40,64,0.35) 0%, transparent 65%);
   font-family: 'DM Sans', sans-serif;
-  color: #f5ede6;
+  color: #2d0f1e;
   max-width: 430px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -33,7 +33,7 @@
   font-family: 'Cormorant Garamond', serif;
   font-size: 40px;
   font-weight: 400;
-  color: #f4afc8;
+  color: #8b2840;
   line-height: 1.1;
   margin-bottom: 8px;
 }
@@ -70,7 +70,7 @@
 .home-progress-row h2 {
   font-family: 'Cormorant Garamond', serif;
   font-size: 24px;
-  color: #f5ede6;
+  color: #2d0f1e;
 }
 .home-progress-row span {
   font-size: 11px;
@@ -168,7 +168,7 @@
 .home-option-card span {
   font-family: 'Cormorant Garamond', serif;
   font-size: 20px;
-  color: #f4afc8;
+  color: #8b2840;
   line-height: 1.1;
 }
 
@@ -201,7 +201,7 @@
   font-family: 'Cormorant Garamond', serif;
   font-size: 17px;
   font-style: italic;
-  color: #f5ede6;
+  color: #2d0f1e;
   line-height: 1.65;
   position: relative;
   z-index: 1;
@@ -246,7 +246,7 @@
 .home-reminder-title {
   font-family: 'Cormorant Garamond', serif;
   font-size: 22px;
-  color: #f5ede6;
+  color: #2d0f1e;
   line-height: 1.2;
   margin-bottom: 4px;
 }
