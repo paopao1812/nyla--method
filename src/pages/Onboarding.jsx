@@ -43,6 +43,7 @@ export default function Onboarding() {
   const [nombre, setNombre] = useState("");
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedDays, setSelectedDays] = useState(["M", "J"]);
+  const [selectedPlace, setSelectedPlace] = useState(null);
   const { userName } = useUser();
   const navigate = useNavigate();
 
@@ -53,7 +54,7 @@ export default function Onboarding() {
   }
 
   function next() {
-    if (step < 4) {
+    if (step < 5) {
       setStep(s => s + 1);
     } else {
       // Guardar todo en localStorage al completar
@@ -62,8 +63,14 @@ export default function Onboarding() {
       localStorage.setItem("nylaDays", JSON.stringify(selectedDays));
       localStorage.setItem("nylaOnboardingDone", "true");
       if (nombre.trim()) localStorage.setItem("nylaUserName", nombre.trim());
+      localStorage.setItem("nylaPlace", selectedPlace || "gym");
       const numDays = selectedDays.length;
-      const plan = numDays >= 5 ? "fiveDays" : numDays >= 3 ? "threeDays" : "glutesOnly";
+      let plan;
+      if (selectedPlace === "home") {
+        plan = "homeDays";
+      } else {
+        plan = numDays >= 5 ? "fiveDays" : numDays >= 3 ? "threeDays" : "glutesOnly";
+      }
       localStorage.setItem("nylaSelectedPlan", plan);
       navigate("/home");
     }
@@ -76,8 +83,8 @@ export default function Onboarding() {
       {step === 1 && (
         <>
           <div className="ob-top">
-            <StepBar total={4} current={1} />
-            <p className="ob-num">Paso 1 de 4 · Tu intención</p>
+            <StepBar total={5} current={1} />
+            <p className="ob-num">Paso 1 de 5 · Tu intención</p>
             <p className="ob-subtitle">¿Cómo te llamas?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 12 }}>
@@ -112,8 +119,8 @@ export default function Onboarding() {
       {step === 2 && (
         <>
           <div className="ob-top">
-            <StepBar total={4} current={2} />
-            <p className="ob-num">Paso 2 de 4 · Tu punto de partida</p>
+            <StepBar total={5} current={2} />
+            <p className="ob-num">Paso 2 de 5 · Tu punto de partida</p>
             <p className="ob-subtitle">¿Donde estás ahora?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 12 }}>
@@ -137,8 +144,8 @@ export default function Onboarding() {
       {step === 3 && (
         <>
           <div className="ob-top">
-            <StepBar total={4} current={3} />
-            <p className="ob-num">Paso 3 de 4 · Tu ritmo</p>
+            <StepBar total={5} current={3} />
+            <p className="ob-num">Paso 3 de 5 · Tu ritmo</p>
             <p className="ob-subtitle">¿Qué días quieres entrenar?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 16 }}>
@@ -158,12 +165,46 @@ export default function Onboarding() {
         </>
       )}
 
-      {/* PASO 4: COMPROMISO */}
+      {/* PASO 4: LUGAR */}
       {step === 4 && (
         <>
           <div className="ob-top">
-            <StepBar total={4} current={4} />
-            <p className="ob-num">Tu compromiso</p>
+            <StepBar total={5} current={4} />
+            <p className="ob-num">Paso 4 de 5 · Tu espacio</p>
+            <p className="ob-subtitle">¿Dónde vas a entrenar?</p>
+          </div>
+          <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 12 }}>
+            <div className="level-grid">
+              <div className={`level-card ${selectedPlace === "gym" ? "selected" : ""}`} onClick={() => setSelectedPlace("gym")}>
+                <div className="level-icon">🏋️</div>
+                <div className="level-info">
+                  <h4>Gimnasio</h4>
+                  <p>Acceso a máquinas, pesos y equipamiento completo.</p>
+                </div>
+                <div className="level-check">✓</div>
+              </div>
+              <div className={`level-card ${selectedPlace === "home" ? "selected" : ""}`} onClick={() => setSelectedPlace("home")}>
+                <div className="level-icon">🏠</div>
+                <div className="level-info">
+                  <h4>En casa</h4>
+                  <p>Necesitarás mínimo una mancuerna y bandas de resistencia.</p>
+                </div>
+                <div className="level-check">✓</div>
+              </div>
+            </div>
+          </div>
+          <div className="ob-footer">
+            <button className="btn-primary" onClick={next} disabled={!selectedPlace}>CONTINUAR →</button>
+          </div>
+        </>
+      )}
+
+      {/* PASO 5: COMPROMISO */}
+      {step === 5 && (
+        <>
+          <div className="ob-top">
+            <StepBar total={5} current={4} />
+            <p className="ob-num">Paso 5 de 5 · Tu compromiso</p>
             <p className="ob-subtitle">Una promesa que te cumples. ☺️</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start" }}>
