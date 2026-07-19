@@ -156,6 +156,24 @@ export default function Settings() {
         )}
       </div>
 
+      {/* PERFIL */}
+      <div style={{
+        background:"rgba(0,0,0,0.15)", borderRadius:"16px",
+        padding:"16px", border:"1px solid rgba(244,175,200,0.1)",
+        marginBottom:"16px"
+      }}>
+        <p style={{fontSize:"15px", fontWeight:"500", marginBottom:"4px"}}>Tu perfil</p>
+        <p style={{fontSize:"12px", opacity:0.5, marginBottom:"12px"}}>Actualiza tus objetivos, nivel y ciclo</p>
+        <button onClick={() => navigate("/onboarding")} style={{
+          width:"100%", padding:"12px", borderRadius:"12px",
+          background:"rgba(0,0,0,0.2)", color:"#f4afc8",
+          border:"1px solid rgba(244,175,200,0.2)", cursor:"pointer",
+          fontSize:"13px", letterSpacing:"0.1em"
+        }}>
+          Editar perfil →
+        </button>
+      </div>
+
       {/* INFO */}
       <div style={{
         background:"rgba(0,0,0,0.15)", borderRadius:"16px",
