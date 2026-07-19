@@ -807,5 +807,5 @@ export default function Workout() {
       
     </div>
   );
-}// fix build Sat Jul 18 21:48:28 CEST 2026
-// responsive fix Sun Jul 19 21:36:40 CEST 2026
+}
+// build 2026-07-19T20:10:33.090Z
