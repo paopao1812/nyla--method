@@ -18,6 +18,8 @@ export default function Progress() {
   const selectedPlan = localStorage.getItem("nylaSelectedPlan") || "fiveDays";
 
   const [selectedExercise, setSelectedExercise] = useState(null);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
+  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   // Historial de entrenamientos
   const history = completedDays.map(key => {
@@ -43,6 +45,24 @@ export default function Progress() {
   }, [exerciseWeights]);
 
   const exerciseNames = Object.keys(exercisesWithWeights);
+
+  const handleReset = () => {
+    localStorage.removeItem("nylaCompletedDays");
+    localStorage.removeItem("nylaExerciseWeights");
+    localStorage.removeItem("nylaInternalWeek");
+    localStorage.removeItem("nylaSelectedDay");
+    localStorage.removeItem("nylaActiveSection");
+    window.location.reload();
+  };
+
+  const handleReset = () => {
+    localStorage.removeItem("nylaCompletedDays");
+    localStorage.removeItem("nylaExerciseWeights");
+    localStorage.removeItem("nylaInternalWeek");
+    localStorage.removeItem("nylaSelectedDay");
+    localStorage.removeItem("nylaActiveSection");
+    window.location.reload();
+  };
 
   const planLabels = {
     fiveDays: "5 días",
