@@ -105,7 +105,7 @@ export default function Home() {
         <p className="home-subtitle">Hoy entrenas con intención, fuerza y claridad.</p>
       </div>
 
-      {showReminder && <WorkoutReminder onDismiss={() => setShowReminder(false)} />}
+
 
       <div className="home-progress-card">
         <p className="home-card-label">Tu progreso</p>
