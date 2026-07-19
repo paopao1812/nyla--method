@@ -378,6 +378,7 @@ export default function Workout() {
     }
     setShowSummaryModal(false);
     setShowExercises(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
 
