@@ -239,11 +239,13 @@ export default function Onboarding() {
                   value={lastPeriodDate}
                   onChange={e => setLastPeriodDate(e.target.value)}
                   max={new Date().toISOString().split("T")[0]}
-                  style={{
+style={{
                     background:"rgba(0,0,0,0.2)", border:"1px solid rgba(244,175,200,0.2)",
                     borderRadius:"12px", padding:"14px", color:"#f5ede6",
                     fontSize:"16px", width:"100%", marginBottom:"12px",
-                    fontFamily:"DM Sans, sans-serif", boxSizing:"border-box"
+                    fontFamily:"DM Sans, sans-serif", boxSizing:"border-box",
+                    WebkitAppearance:"none", appearance:"none",
+                    maxWidth:"100%", display:"block"
                   }}
                 />
                 {lastPeriodDate && (() => {
