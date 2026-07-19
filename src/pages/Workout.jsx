@@ -808,3 +808,4 @@ export default function Workout() {
     </div>
   );
 }// fix build Sat Jul 18 21:48:28 CEST 2026
+// responsive fix Sun Jul 19 21:36:40 CEST 2026
