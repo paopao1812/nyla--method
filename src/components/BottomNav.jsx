@@ -6,14 +6,14 @@ export default function BottomNav() {
   const path = location.pathname;
 
   const items = [
-    { path: "/cycle", icon: "🌙", label: "Ciclo" },
+
     { path: "/workout", icon: "🏋️", label: "Entrena" },
     { path: "/meals", icon: "🍓", label: "Nutrición" },
     { path: "/progress", icon: "📊", label: "Progreso" },
     { path: "/affirmations", icon: "✨", label: "Afirmaciones" },
   ];
 
-  const showNav = ["/home","/workout","/cycle","/meals","/progress","/affirmations","/library"].includes(path);
+  const showNav = ["/home","/workout","/meals","/progress","/affirmations","/library"].includes(path);
   if (!showNav) return null;
 
   return (
