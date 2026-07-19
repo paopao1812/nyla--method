@@ -320,12 +320,10 @@ export default function Workout() {
   const availablePlans = nylaPlace === "home"
     ? ["homeDays"]
     : numDays >= 5
-    ? ["fiveDays", "fourDays"]
-    : numDays >= 4
-    ? ["fourDays", "threeDays", "glutesOnly"]
-    : numDays >= 3
-    ? ["threeDays", "glutesOnly"]
-    : ["glutesOnly"];
+    ? ["fiveDays"]
+    : numDays === 4
+    ? ["fourDays"]
+    : ["threeDays"];
   const changeDay = (day) => {
     setSelectedDay(day);
     const isLowerDay = day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps");
