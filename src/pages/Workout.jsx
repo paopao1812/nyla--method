@@ -593,7 +593,6 @@ export default function Workout() {
         </div>
       )}
 
-      {showExercises && <>}
       {/* CORE PRIMERO EN HOMEDAYS */}
       {showCoreFirst && activeSection === "exercises" && (
         <div className="wk-card" style={{marginBottom:"8px"}}>
