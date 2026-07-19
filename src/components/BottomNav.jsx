@@ -17,7 +17,7 @@ export default function BottomNav() {
   if (!showNav) return null;
 
   return (
-    <>
+
     <nav style={{
       position: "fixed", bottom: 0, left: "50%", transform: "translateX(-50%)",
       width: "100%", maxWidth: "430px",
@@ -44,18 +44,7 @@ export default function BottomNav() {
         </button>
       ))}
     </nav>
-      <button
-        onClick={() => navigate("/settings")}
-        style={{
-          position:"fixed", top:"16px", right:"16px",
-          background:"rgba(0,0,0,0.3)", border:"1px solid rgba(244,175,200,0.2)",
-          borderRadius:"50%", width:"36px", height:"36px",
-          display:"flex", alignItems:"center", justifyContent:"center",
-          fontSize:"16px", cursor:"pointer", zIndex:99999,
-          backdropFilter:"blur(8px)"
-        }}>
-        ⚙️
-      </button>
-    </>
+
+
   );
 }
