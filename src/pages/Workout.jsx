@@ -123,16 +123,18 @@ const weeklyPlan = {
     { name: "Remo sentado" },{ name: "Peso muerto" },{ name: "Elevaciones laterales" },
   ],
   "Día 1 · Glúteos y Pierna": [
-    { name: "Hip thrust con banda" },{ name: "Sentadilla sumo con mancuerna" },{ name: "Peso muerto rumano con mancuernas" },
-    { name: "Patada de glúteo con banda" },{ name: "Abducción lateral con banda" },
+    { name: "Hip thrust con banda" },{ name: "Sentadilla búlgara con mancuernas" },
+    { name: "Sentadilla sumo con mancuerna" },{ name: "Abducción de cadera con banda" },
   ],
   "Día 2 · Tren Superior": [
-    { name: "Press de hombros con mancuernas" },{ name: "Remo con mancuerna" },{ name: "Curl de bíceps con mancuernas" },
-    { name: "Extensión de tríceps con mancuerna" },{ name: "Elevaciones laterales" },
+    { name: "Remo con mancuerna" },{ name: "Press de hombros con mancuernas" },
+    { name: "Curl de bíceps con mancuernas" },{ name: "Extensión de tríceps con mancuerna" },
+    { name: "Pullover con mancuerna" },
   ],
   "Día 3 · Glúteos + Core": [
-    { name: "Puente de glúteos con banda" },{ name: "Sentadilla búlgara con mancuernas" },{ name: "Peso muerto a una pierna" },
-    { name: "Plancha frontal" },{ name: "Bird Dog" },{ name: "Heels Taps" },
+    { name: "Peso muerto con mancuerna" },{ name: "Zancada hacia atrás con mancuerna" },
+    { name: "Puente de glúteos con banda" },{ name: "Patada de glúteo con banda" },
+    { name: "Abducción de cadera con banda" },
   ],
   "Día 2 · Glúteos + Femoral": [
     { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Sentadilla búlgara" },
@@ -320,8 +322,9 @@ export default function Workout() {
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
 
   const isRestDay = selectedDay === "Descanso Activo";
-  const isLower = !isRestDay && (selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps"));
+  const isLower = !isRestDay && selectedPlan !== "homeDays" && (selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps"));
   const isUpper = !isRestDay && (selectedDay.includes("Espalda") || selectedDay.includes("Hombros") || selectedDay.includes("Torso") || selectedDay.includes("Tren Superior"));
+  const showCore = !isRestDay && (isLower || selectedPlan === "homeDays");
 
   const sectionLabels = { activation: "Activación", exercises: "Ejercicios", core: "Core", cardio: "Cardio" };
   const lowerSections = ["activation", "exercises", "cardio"];
@@ -595,7 +598,7 @@ export default function Workout() {
       )}
 
       {/* CORE */}
-      {isUpper && activeSection === "core" && (
+      {(isUpper || showCore) && activeSection === "core" && (
         <div className="wk-card">
           <h2 className="wk-card-title">Core</h2>
           <div className="wk-ex-list">
