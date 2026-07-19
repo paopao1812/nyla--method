@@ -1,13 +1,13 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Cuenco tibetano generado con Web Audio API
-function playBowl() {
+// Cuenco tibetano - recibe el contexto ya inicializado
+function playBowl(ctx) {
+  if (!ctx) return;
   try {
-    const ctx = new (window.AudioContext || window.webkitAudioContext)();
+    if (ctx.state === "suspended") ctx.resume();
     const duration = 4;
     const fundamental = 432;
-
     [1, 2.756, 5.404].forEach((harmonic, i) => {
       const osc = ctx.createOscillator();
       const gain = ctx.createGain();
@@ -15,7 +15,7 @@ function playBowl() {
       gain.connect(ctx.destination);
       osc.type = "sine";
       osc.frequency.value = fundamental * harmonic;
-      gain.gain.setValueAtTime(i === 0 ? 0.4 : 0.15, ctx.currentTime);
+      gain.gain.setValueAtTime(i === 0 ? 0.5 : 0.2, ctx.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
       osc.start(ctx.currentTime);
       osc.stop(ctx.currentTime + duration);
@@ -130,7 +130,7 @@ export default function MindfulStart() {
 
   const handleFinish = () => {
     stopAmbience();
-    playBowl();
+    playBowl(audioCtxRef.current);
     setTimeout(() => setScreen("done"), 500);
   };
 
@@ -153,6 +153,11 @@ export default function MindfulStart() {
   };
 
   const startMode = (m) => {
+    // Inicializar AudioContext desde tap del usuario para iOS
+    if (!audioCtxRef.current) {
+      audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
+    }
+    if (audioCtxRef.current.state === "suspended") audioCtxRef.current.resume();
     setMode(m);
     setTimeLeft(MODES[m].duration);
     setScreen("active");
@@ -173,7 +178,7 @@ export default function MindfulStart() {
 
   if (screen === "choose") return (
     <div style={{
-      minHeight:"100dvh", background:"#1a0610",
+      minHeight:"100dvh", background:"#6b1535",
       display:"flex", flexDirection:"column",
       alignItems:"center", justifyContent:"center",
       padding:"40px 28px", fontFamily:"DM Sans, sans-serif",
@@ -216,7 +221,7 @@ export default function MindfulStart() {
 
   if (screen === "active") return (
     <div style={{
-      minHeight:"100dvh", background:"#1a0610",
+      minHeight:"100dvh", background:"#6b1535",
       display:"flex", flexDirection:"column",
       alignItems:"center", justifyContent:"center",
       padding:"40px 28px", fontFamily:"DM Sans, sans-serif",
@@ -270,20 +275,14 @@ export default function MindfulStart() {
         }}>
           {running ? "Pausar" : "Continuar"}
         </button>
-        <button onClick={() => {
-          stopAmbience();
-          const btn = document.createElement("button");
-          btn.click();
-          audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
-          startAmbience();
-        }} style={{
+<button onClick={() => ambience ? stopAmbience() : startAmbience()} style={{
           padding:"12px 28px", borderRadius:"12px",
           background: ambience ? "rgba(201,96,122,0.15)" : "rgba(244,175,200,0.05)",
           border:"1px solid rgba(244,175,200,0.15)",
           color: ambience ? "#f4afc8" : "rgba(244,175,200,0.4)",
           cursor:"pointer", fontSize:"13px"
         }}>
-          {ambience ? "🔊 Ambiente" : "🔇 Ambiente"}
+          {ambience ? "🔊 Sonido" : "🔇 Silencio"}
         </button>
       </div>
 
@@ -298,7 +297,7 @@ export default function MindfulStart() {
 
   if (screen === "done") return (
     <div style={{
-      minHeight:"100dvh", background:"#1a0610",
+      minHeight:"100dvh", background:"#6b1535",
       display:"flex", flexDirection:"column",
       alignItems:"center", justifyContent:"center",
       padding:"40px 28px", fontFamily:"DM Sans, sans-serif",

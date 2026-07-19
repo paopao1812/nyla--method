@@ -411,12 +411,7 @@ export default function Workout() {
           <span>🔥 {exercises.length} ejercicios</span>
           <span>💪 {sets} series</span>
         </div>
-        <div className="wk-hero-preview">
-          <div className="wk-hero-exs">
-            {exercises.slice(0, 3).map((e, i) => <span key={i}>· {e.name}</span>)}
-            {exercises.length > 3 && <span>+{exercises.length - 3} más...</span>}
-          </div>
-        </div>
+
       </div>
 
 
