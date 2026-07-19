@@ -279,6 +279,15 @@ export default function Workout() {
   const upperSections = ["core", "exercises", "cardio"];
 
   const changeSection = (s) => setActiveSection(s);
+
+  // Planes disponibles según días elegidos en onboarding
+  const nylaDays = JSON.parse(localStorage.getItem("nylaDays") || "[]");
+  const numDays = nylaDays.length;
+  const availablePlans = numDays >= 5
+    ? ["fiveDays", "homeDays"]
+    : numDays >= 3
+    ? ["threeDays", "glutesOnly", "homeDays"]
+    : ["glutesOnly", "homeDays"];
   const changeDay = (day) => {
     setSelectedDay(day);
     const isLowerDay = day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps");
@@ -391,7 +400,7 @@ export default function Workout() {
           { key: "threeDays", icon: "📅", label: "3 días" },
           { key: "glutesOnly", icon: "🍑", label: "Glúteos" },
           { key: "homeDays", icon: "🏠", label: "Casa" },
-        ].map(({ key, icon, label }) => (
+        ].filter(p => availablePlans.includes(p.key)).map(({ key, icon, label }) => (
           <button key={key} className={`wk-segment-btn ${selectedPlan === key ? "active" : ""}`}
             onClick={() => { setSelectedPlan(key); setSelectedDay(plans[key].days[0]); setActiveSection("activation"); }}>
             <span className="wk-seg-icon">{icon}</span>
