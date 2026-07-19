@@ -189,13 +189,13 @@ export default function Workout() {
 
     if (place === "home") {
       localStorage.setItem("nylaSelectedPlan", "homeDays");
+      localStorage.setItem("nylaActiveSection", "exercises");
       return "homeDays";
     }
     if (place === "glutesOnly") {
       localStorage.setItem("nylaSelectedPlan", "glutesOnly");
       return "glutesOnly";
     }
-    // Calcular plan correcto según días
     let correctPlan;
     if (numDays >= 5) correctPlan = "fiveDays";
     else if (numDays === 4) correctPlan = "fourDays";
@@ -348,7 +348,11 @@ export default function Workout() {
   const changeDay = (day) => {
     setSelectedDay(day);
     const isLowerDay = day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps");
-    setActiveSection(isLowerDay ? "activation" : "exercises");
+    if (selectedPlan === "homeDays") {
+      setActiveSection("exercises");
+    } else {
+      setActiveSection(isLowerDay ? "activation" : "exercises");
+    }
   };
 
   return (
