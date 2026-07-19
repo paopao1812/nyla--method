@@ -684,9 +684,16 @@ export default function Workout() {
               );
             })}
           </div>
-          <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => setActiveSection(isUpper ? "core" : "cardio")}>
-            Siguiente: {isUpper ? "Core" : "Cardio"} →
-          </button>
+          {selectedPlan !== "homeDays" && (
+            <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => setActiveSection(isUpper ? "core" : "cardio")}>
+              Siguiente: {isUpper ? "Core" : "Cardio"} →
+            </button>
+          )}
+          {selectedPlan === "homeDays" && !isUpper && (
+            <button className="wk-complete" style={{marginTop:"16px"}} onClick={handleComplete}>
+              Finalizar entrenamiento ✦
+            </button>
+          )}
         </div>
       )}
 
@@ -719,9 +726,16 @@ export default function Workout() {
               </div>
             ))}
           </div>
-          <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => setActiveSection("cardio")}>
-            Siguiente: Cardio →
-          </button>
+          {selectedPlan !== "homeDays" && (
+            <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => setActiveSection("cardio")}>
+              Siguiente: Cardio →
+            </button>
+          )}
+          {selectedPlan === "homeDays" && (
+            <button className="wk-complete" style={{marginTop:"16px"}} onClick={handleComplete}>
+              Finalizar entrenamiento ✦
+            </button>
+          )}
         </div>
       )}
 
