@@ -181,11 +181,16 @@ export default function Workout() {
 
   const [selectedPlan, setSelectedPlan] = useState(() => {
     const place = localStorage.getItem("nylaPlace") || "gym";
+    const saved = localStorage.getItem("nylaSelectedPlan") || "fiveDays";
     if (place === "home") {
       localStorage.setItem("nylaSelectedPlan", "homeDays");
       return "homeDays";
     }
-    return localStorage.getItem("nylaSelectedPlan") || "fiveDays";
+    if (place === "glutesOnly") {
+      localStorage.setItem("nylaSelectedPlan", "glutesOnly");
+      return "glutesOnly";
+    }
+    return saved;
   });
 
   const [selectedDay, setSelectedDay] = useState(() =>

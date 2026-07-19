@@ -71,6 +71,8 @@ export default function Onboarding() {
       let plan;
       if (selectedPlace === "home") {
         plan = "homeDays";
+      } else if (selectedPlace === "glutesOnly") {
+        plan = "glutesOnly";
       } else if (numDays >= 5) {
         plan = "fiveDays";
       } else if (numDays === 4) {
@@ -213,6 +215,14 @@ export default function Onboarding() {
                 <div className="level-info">
                   <h4>En casa</h4>
                   <p>Necesitarás mínimo una mancuerna y bandas de resistencia.</p>
+                </div>
+                <div className="level-check">✓</div>
+              </div>
+              <div className={`level-card ${selectedPlace === "glutesOnly" ? "selected" : ""}`} onClick={() => setSelectedPlace("glutesOnly")}>
+                <div className="level-icon">🍑</div>
+                <div className="level-info">
+                  <h4>Solo Glúteos</h4>
+                  <p>Plan enfocado exclusivamente en glúteos y femoral.</p>
                 </div>
                 <div className="level-check">✓</div>
               </div>
