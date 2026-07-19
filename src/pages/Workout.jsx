@@ -359,7 +359,7 @@ export default function Workout() {
       setCompletedDays(updated);
     }
     setShowSummaryModal(true);
-  };
+  };x
 
   const handleGoHome = () => {
     const completedDaysArr = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
@@ -377,12 +377,7 @@ export default function Workout() {
       localStorage.removeItem("nylaActiveSection");
     }
     setShowSummaryModal(false);
-    setShowExercises(false);
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-    }, 100);
+    navigate("/home");
   };
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
 
@@ -598,7 +593,7 @@ export default function Workout() {
         </div>
       )}
 
-      
+      {showExercises && <>}
       {/* CORE PRIMERO EN HOMEDAYS */}
       {showCoreFirst && activeSection === "exercises" && (
         <div className="wk-card" style={{marginBottom:"8px"}}>
@@ -814,4 +809,3 @@ export default function Workout() {
     </div>
   );
 }// fix build Sat Jul 18 21:48:28 CEST 2026
-// Sun Jul 19 20:53:14 CEST 2026
