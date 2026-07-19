@@ -44,6 +44,8 @@ export default function Onboarding() {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedDays, setSelectedDays] = useState(["M", "J"]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+  const [lastPeriodDate, setLastPeriodDate] = useState("");
+  const [skipCycle, setSkipCycle] = useState(false);
   const { userName } = useUser();
   const navigate = useNavigate();
 
@@ -54,7 +56,7 @@ export default function Onboarding() {
   }
 
   function next() {
-    if (step < 5) {
+    if (step < 6) {
       setStep(s => s + 1);
     } else {
       // Guardar todo en localStorage al completar
@@ -64,6 +66,7 @@ export default function Onboarding() {
       localStorage.setItem("nylaOnboardingDone", "true");
       if (nombre.trim()) localStorage.setItem("nylaUserName", nombre.trim());
       localStorage.setItem("nylaPlace", selectedPlace || "gym");
+      if (lastPeriodDate) localStorage.setItem("nylaLastPeriodDate", lastPeriodDate);
       const numDays = selectedDays.length;
       let plan;
       if (selectedPlace === "home") {
@@ -83,8 +86,8 @@ export default function Onboarding() {
       {step === 1 && (
         <>
           <div className="ob-top">
-            <StepBar total={5} current={1} />
-            <p className="ob-num">Paso 1 de 5 · Tu intención</p>
+            <StepBar total={6} current={1} />
+            <p className="ob-num">Paso 1 de 6 · Tu intención</p>
             <p className="ob-subtitle">¿Cómo te llamas?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 12 }}>
@@ -119,8 +122,8 @@ export default function Onboarding() {
       {step === 2 && (
         <>
           <div className="ob-top">
-            <StepBar total={5} current={2} />
-            <p className="ob-num">Paso 2 de 5 · Tu punto de partida</p>
+            <StepBar total={6} current={2} />
+            <p className="ob-num">Paso 2 de 6 · Tu punto de partida</p>
             <p className="ob-subtitle">¿Donde estás ahora?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 12 }}>
@@ -144,8 +147,8 @@ export default function Onboarding() {
       {step === 3 && (
         <>
           <div className="ob-top">
-            <StepBar total={5} current={3} />
-            <p className="ob-num">Paso 3 de 5 · Tu ritmo</p>
+            <StepBar total={6} current={3} />
+            <p className="ob-num">Paso 3 de 6 · Tu ritmo</p>
             <p className="ob-subtitle">¿Cuántos días a la semana quieres entrenar?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 16 }}>
@@ -187,8 +190,8 @@ export default function Onboarding() {
       {step === 4 && (
         <>
           <div className="ob-top">
-            <StepBar total={5} current={4} />
-            <p className="ob-num">Paso 4 de 5 · Tu espacio</p>
+            <StepBar total={6} current={4} />
+            <p className="ob-num">Paso 4 de 6 · Tu espacio</p>
             <p className="ob-subtitle">¿Dónde vas a entrenar?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 12 }}>
@@ -221,8 +224,8 @@ export default function Onboarding() {
       {step === 5 && (
         <>
           <div className="ob-top">
-            <StepBar total={5} current={4} />
-            <p className="ob-num">Paso 5 de 5 · Tu compromiso</p>
+            <StepBar total={6} current={4} />
+            <p className="ob-num">Paso 5 de 6 · Tu compromiso</p>
             <p className="ob-subtitle">Una promesa que te cumples. ☺️</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start" }}>
