@@ -10,7 +10,7 @@ export default function BottomNav() {
     { path: "/meals", icon: "🍓", label: "Nutrición" },
     { path: "/progress", icon: "📊", label: "Progreso" },
     { path: "/mindful", icon: "🧘", label: "Mente" },
-    { path: "/settings", icon: "👤", label: "Perfil" },
+    { path: "/settings", icon: null, label: "Perfil", isProfile: true },
   ];
 
   const showNav = ["/home","/workout","/meals","/progress","/affirmations","/library","/settings"].includes(path);
@@ -36,7 +36,19 @@ export default function BottomNav() {
             opacity: path === item.path ? 1 : 0.5,
             padding: "4px 8px",
           }}>
-          <span style={{fontSize: "20px"}}>{item.icon}</span>
+          {item.isProfile ? (
+            <div style={{
+              width: "24px", height: "24px", borderRadius: "50%",
+              background: path === item.path ? "#c9607a" : "rgba(244,175,200,0.3)",
+              display: "flex", alignItems: "center", justifyContent: "center",
+              fontSize: "11px", fontWeight: "600", color: "#fff",
+              fontFamily: "DM Sans, sans-serif"
+            }}>
+              {userName[0].toUpperCase()}
+            </div>
+          ) : (
+            <span style={{fontSize: "20px"}}>{item.icon}</span>
+          )}
           <span style={{fontSize: "10px", color: path === item.path ? "#c9607a" : "#f5ede6", fontFamily: "DM Sans, sans-serif"}}>
             {item.label}
           </span>
