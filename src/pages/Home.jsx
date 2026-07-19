@@ -22,18 +22,13 @@ function getNextWorkout() {
   try {
     const completedDays = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
     const internalWeek = parseInt(localStorage.getItem("nylaInternalWeek") || "1");
-    const planKey = ["fiveDays","threeDays","glutesOnly"].reduce((best, key) => {
-      const days = PLAN_DAYS[key];
-      const count = days.filter(d => completedDays.includes(`${key}-${internalWeek}-${d}`)).length;
-      const bestCount = PLAN_DAYS[best].filter(d => completedDays.includes(`${best}-${internalWeek}-${d}`)).length;
-      return count > bestCount ? key : best;
-    }, "fiveDays");
-    const days = PLAN_DAYS[planKey];
+    const planKey = localStorage.getItem("nylaSelectedPlan") || "fiveDays";
+    const days = PLAN_DAYS[planKey] || PLAN_DAYS.fiveDays;
     const nextDay = days.find(d => !completedDays.includes(`${planKey}-${internalWeek}-${d}`));
     if (!nextDay) return null;
     const hasStarted = days.some(d => completedDays.includes(`${planKey}-${internalWeek}-${d}`));
     const completedCount = days.filter(d => completedDays.includes(`${planKey}-${internalWeek}-${d}`)).length;
-    return { planKey, planLabel: PLAN_LABELS[planKey], day: nextDay, dayName: nextDay.split("·")[1]?.trim() || nextDay, hasStarted, completedCount, total: days.length };
+    return { planKey, planLabel: PLAN_LABELS[planKey] || planKey, day: nextDay, dayName: nextDay.split("·")[1]?.trim() || nextDay, hasStarted, completedCount, total: days.length };
   } catch { return null; }
 }
 
