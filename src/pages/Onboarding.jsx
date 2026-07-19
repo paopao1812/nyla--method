@@ -224,8 +224,54 @@ export default function Onboarding() {
       {step === 5 && (
         <>
           <div className="ob-top">
-            <StepBar total={6} current={4} />
-            <p className="ob-num">Paso 5 de 6 · Tu compromiso</p>
+            <StepBar total={6} current={5} />
+            <p className="ob-num">Paso 5 de 6 · Tu ciclo</p>
+            <p className="ob-subtitle">¿Cuándo fue tu último período?</p>
+          </div>
+          <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 16 }}>
+            <p style={{fontSize:"13px", color:"rgba(244,175,200,0.6)", marginBottom:"16px", lineHeight:"1.6"}}>
+              Esto nos permite adaptar tu entrenamiento a cada fase de tu ciclo. Es opcional y solo tú lo ves.
+            </p>
+            {!skipCycle ? (
+              <>
+                <input
+                  type="date"
+                  value={lastPeriodDate}
+                  onChange={e => setLastPeriodDate(e.target.value)}
+                  max={new Date().toISOString().split("T")[0]}
+                  style={{
+                    background:"rgba(0,0,0,0.2)", border:"1px solid rgba(244,175,200,0.2)",
+                    borderRadius:"12px", padding:"14px", color:"#f5ede6",
+                    fontSize:"16px", width:"100%", marginBottom:"12px",
+                    fontFamily:"DM Sans, sans-serif", boxSizing:"border-box"
+                  }}
+                />
+                <p onClick={() => setSkipCycle(true)}
+                  style={{fontSize:"12px", color:"rgba(244,175,200,0.45)", textAlign:"center", cursor:"pointer", marginTop:"8px"}}>
+                  Prefiero no indicarlo
+                </p>
+              </>
+            ) : (
+              <div style={{textAlign:"center", padding:"20px"}}>
+                <p style={{fontSize:"14px", color:"rgba(244,175,200,0.6)"}}>Sin problema 🌸</p>
+                <p onClick={() => setSkipCycle(false)}
+                  style={{fontSize:"12px", color:"#c9607a", cursor:"pointer", marginTop:"8px"}}>
+                  Añadirlo igualmente
+                </p>
+              </div>
+            )}
+          </div>
+          <div className="ob-footer">
+            <button className="btn-primary" onClick={next}>CONTINUAR →</button>
+          </div>
+        </>
+      )}
+
+      {step === 6 && (
+        <>
+          <div className="ob-top">
+            <StepBar total={6} current={6} />
+            <p className="ob-num">Paso 6 de 6 · Tu compromiso</p>
             <p className="ob-subtitle">Una promesa que te cumples. ☺️</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start" }}>
