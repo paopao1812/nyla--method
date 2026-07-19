@@ -287,6 +287,7 @@ export default function Workout() {
 
   const [completedExercises, setCompletedExercises] = useState({});
   const [activeVideo, setActiveVideo] = useState(null);
+  const [showExercises, setShowExercises] = useState(false);
   const [showAdvanceModal, setShowAdvanceModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
@@ -407,6 +408,7 @@ export default function Workout() {
     : [selectedPlan];
   const changeDay = (day) => {
     setSelectedDay(day);
+    setShowExercises(false);
     const isLowerDay = day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps");
     if (selectedPlan === "homeDays") {
       setActiveSection("exercises");
@@ -534,7 +536,7 @@ export default function Workout() {
           { key: "fourDays", icon: "4️⃣", label: "4 días" },
         ].filter(p => availablePlans.includes(p.key)).map(({ key, icon, label }) => (
           <button key={key} className={`wk-segment-btn ${selectedPlan === key ? "active" : ""}`}
-            onClick={() => { setSelectedPlan(key); setSelectedDay(plans[key].days[0]); setActiveSection("activation"); }}>
+            onClick={() => { setSelectedPlan(key); setSelectedDay(plans[key].days[0]); setActiveSection("activation"); setShowExercises(false); }}>
             <span className="wk-seg-icon">{icon}</span>
             <span className="wk-seg-label">{label}</span>
           </button>
@@ -548,7 +550,7 @@ export default function Workout() {
           const dayNum = num.replace("Día ", "D");
           return (
             <button key={day} className={`wk-day-chip ${selectedDay === day ? "active" : ""}`}
-              onClick={() => changeDay(day)}>
+              onClick={() => { if (selectedDay === day) { setShowExercises(true); } else { changeDay(day); } }}>
               <span className="wk-day-num">{dayNum}</span>
               <span className="wk-day-name">{name}</span>
             </button>
@@ -591,6 +593,7 @@ export default function Workout() {
         </div>
       )}
 
+      {showExercises && <>}
       {/* CORE PRIMERO EN HOMEDAYS */}
       {showCoreFirst && activeSection === "exercises" && (
         <div className="wk-card" style={{marginBottom:"8px"}}>
