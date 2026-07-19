@@ -79,7 +79,7 @@ const weeklyPlan = {
   ],
   "Día 4 · Hombros": [
     { name: "Press militar" },{ name: "Elevaciones laterales" },{ name: "Elevaciones frontales" },
-    { name: "Remo al cuello" },{ name: "Curl de tríceps" },
+    { name: "Curl de tríceps" },
   ],
   "Día 5 · Glúteos unilaterales": [
     { name: "Hip Thrust a una pierna" },{ name: "Peso muerto a una pierna" },{ name: "Step Up" },
