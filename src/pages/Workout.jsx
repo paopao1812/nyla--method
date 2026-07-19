@@ -54,7 +54,6 @@ const getDayShort = (day) => {
 const activationPlan = [
   { name: "Clamshell con banda", description: "Tumbada de lado, abre lento manteniendo tensión.", reps: "3 × 15 por lado" },
   { name: "Puente de glúteos", description: "Aprieta glúteos arriba y mantén 2 segundos.", reps: "3 × 15" },
-  { name: "Monster walk con banda", description: "Pasos laterales con banda en rodillas, espalda recta.", reps: "3 × 12 por lado" },
 ];
 
 const corePlan = [
