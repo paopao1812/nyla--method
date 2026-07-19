@@ -75,19 +75,23 @@ export default function Progress() {
       </div>
 
       {/* RACHA */}
-      <div className="wk-stats">
-        <div className="wk-stat">
-          <span className="wk-stat-n">{completedDays.length}</span>
-          <span className="wk-stat-l">SESIONES</span>
-        </div>
-        <div className="wk-stat">
-          <span className="wk-stat-n">{internalWeek}</span>
-          <span className="wk-stat-l">SEMANA</span>
-        </div>
-        <div className="wk-stat">
-          <span className="wk-stat-n">🔥</span>
-          <span className="wk-stat-l">ACTIVA</span>
-        </div>
+      <div style={{display:"flex", gap:"12px", marginBottom:"4px"}}>
+        {[
+          {n: completedDays.length, l: "Sesiones"},
+          {n: internalWeek, l: "Semana"},
+          {n: "🔥", l: "Activa"},
+        ].map((s, i) => (
+          <div key={i} style={{
+            flex:1, background:"rgba(0,0,0,0.25)",
+            border:"1px solid rgba(244,175,200,0.1)",
+            borderRadius:"14px", padding:"14px 10px",
+            textAlign:"center"
+          }}>
+            <div style={{fontFamily:"Cormorant Garamond, serif", fontSize:"24px", color:"#f5ede6", marginBottom:"4px"}}>{s.n}</div>
+            <div style={{fontSize:"9px", letterSpacing:"0.2em", color:"rgba(244,175,200,0.5)", textTransform:"uppercase"}}>{s.l}</div>
+          </div>
+        ))}
+      </div>
       </div>
 
       {/* KILOS POR EJERCICIO */}
