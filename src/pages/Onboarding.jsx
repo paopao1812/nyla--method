@@ -49,6 +49,10 @@ export default function Onboarding() {
   const { userName } = useUser();
   const navigate = useNavigate();
 
+  function back() {
+    if (step > 1) setStep(s => s - 1);
+  }
+
   function toggleDay(key) {
     setSelectedDays(prev =>
       prev.includes(key) ? prev.filter(d => d !== key) : [...prev, key]
@@ -128,6 +132,13 @@ export default function Onboarding() {
       {step === 2 && (
         <>
           <div className="ob-top">
+            {step > 1 && (
+              <button onClick={back} style={{
+                background:"none", border:"none", color:"rgba(244,175,200,0.5)",
+                fontSize:"13px", cursor:"pointer", padding:"0",
+                marginBottom:"8px", display:"flex", alignItems:"center", gap:"4px"
+              }}>← Volver</button>
+            )}
             <StepBar total={6} current={2} />
             <p className="ob-num">Paso 2 de 6 · Tu punto de partida</p>
             <p className="ob-subtitle">¿Donde estás ahora?</p>
@@ -153,6 +164,13 @@ export default function Onboarding() {
       {step === 3 && (
         <>
           <div className="ob-top">
+            {step > 1 && (
+              <button onClick={back} style={{
+                background:"none", border:"none", color:"rgba(244,175,200,0.5)",
+                fontSize:"13px", cursor:"pointer", padding:"0",
+                marginBottom:"8px", display:"flex", alignItems:"center", gap:"4px"
+              }}>← Volver</button>
+            )}
             <StepBar total={6} current={3} />
             <p className="ob-num">Paso 3 de 6 · Tu ritmo</p>
             <p className="ob-subtitle">¿Cuántos días a la semana quieres entrenar?</p>
@@ -196,6 +214,13 @@ export default function Onboarding() {
       {step === 4 && (
         <>
           <div className="ob-top">
+            {step > 1 && (
+              <button onClick={back} style={{
+                background:"none", border:"none", color:"rgba(244,175,200,0.5)",
+                fontSize:"13px", cursor:"pointer", padding:"0",
+                marginBottom:"8px", display:"flex", alignItems:"center", gap:"4px"
+              }}>← Volver</button>
+            )}
             <StepBar total={6} current={4} />
             <p className="ob-num">Paso 4 de 6 · Tu espacio</p>
             <p className="ob-subtitle">¿Dónde vas a entrenar?</p>
@@ -238,6 +263,13 @@ export default function Onboarding() {
       {step === 5 && (
         <>
           <div className="ob-top">
+            {step > 1 && (
+              <button onClick={back} style={{
+                background:"none", border:"none", color:"rgba(244,175,200,0.5)",
+                fontSize:"13px", cursor:"pointer", padding:"0",
+                marginBottom:"8px", display:"flex", alignItems:"center", gap:"4px"
+              }}>← Volver</button>
+            )}
             <StepBar total={6} current={5} />
             <p className="ob-num">Paso 5 de 6 · Tu ciclo</p>
             <p className="ob-subtitle">¿Cuándo fue tu último período?</p>
@@ -331,6 +363,13 @@ style={{
       {step === 6 && (
         <>
           <div className="ob-top">
+            {step > 1 && (
+              <button onClick={back} style={{
+                background:"none", border:"none", color:"rgba(244,175,200,0.5)",
+                fontSize:"13px", cursor:"pointer", padding:"0",
+                marginBottom:"8px", display:"flex", alignItems:"center", gap:"4px"
+              }}>← Volver</button>
+            )}
             <StepBar total={6} current={6} />
             <p className="ob-num">Paso 6 de 6 · Tu compromiso</p>
             <p className="ob-subtitle">Una promesa que te cumples. ☺️</p>

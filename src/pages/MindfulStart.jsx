@@ -198,8 +198,8 @@ export default function MindfulStart() {
         {Object.entries(MODES).map(([key, m]) => (
           <button key={key} onClick={() => startMode(key)} style={{
             padding:"20px", borderRadius:"16px",
-            background:"rgba(244,175,200,0.05)",
-            border:"1px solid rgba(244,175,200,0.15)",
+            background:"rgba(0,0,0,0.3)",
+            border:"1px solid rgba(244,175,200,0.25)",
             color:"#f5ede6", cursor:"pointer", textAlign:"left",
             transition:"all 0.2s"
           }}>
@@ -278,7 +278,7 @@ export default function MindfulStart() {
 <button onClick={() => ambience ? stopAmbience() : startAmbience()} style={{
           padding:"12px 28px", borderRadius:"12px",
           background: ambience ? "rgba(201,96,122,0.15)" : "rgba(244,175,200,0.05)",
-          border:"1px solid rgba(244,175,200,0.15)",
+          border:"1px solid rgba(244,175,200,0.25)",
           color: ambience ? "#f4afc8" : "rgba(244,175,200,0.4)",
           cursor:"pointer", fontSize:"13px"
         }}>
