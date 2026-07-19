@@ -54,15 +54,7 @@ export default function Progress() {
     window.location.reload();
   };
 
-    localStorage.removeItem("nylaCompletedDays");
-    localStorage.removeItem("nylaExerciseWeights");
-    localStorage.removeItem("nylaInternalWeek");
-    localStorage.removeItem("nylaSelectedDay");
-    localStorage.removeItem("nylaActiveSection");
-    window.location.reload();
-  };
-
-  const planLabels = {
+    const planLabels = {
     fiveDays: "5 días",
     threeDays: "3 días",
     glutesOnly: "Only Glúteos",
