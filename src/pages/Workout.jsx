@@ -182,6 +182,9 @@ export default function Workout() {
   const [selectedPlan, setSelectedPlan] = useState(() => {
     const place = localStorage.getItem("nylaPlace") || "gym";
     const saved = localStorage.getItem("nylaSelectedPlan") || "fiveDays";
+    const days = JSON.parse(localStorage.getItem("nylaDays") || "[]");
+    const numDays = days.length;
+
     if (place === "home") {
       localStorage.setItem("nylaSelectedPlan", "homeDays");
       return "homeDays";
@@ -190,7 +193,15 @@ export default function Workout() {
       localStorage.setItem("nylaSelectedPlan", "glutesOnly");
       return "glutesOnly";
     }
-    return saved;
+    // Calcular plan correcto según días
+    let correctPlan;
+    if (numDays >= 5) correctPlan = "fiveDays";
+    else if (numDays === 4) correctPlan = "fourDays";
+    else if (numDays === 3) correctPlan = "threeDays";
+    else correctPlan = saved;
+
+    localStorage.setItem("nylaSelectedPlan", correctPlan);
+    return correctPlan;
   });
 
   const [selectedDay, setSelectedDay] = useState(() =>
