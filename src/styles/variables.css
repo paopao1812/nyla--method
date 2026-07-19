@@ -1,7 +1,7 @@
 :root {
-  --color-bg:        #2d0f1e;
-  --color-bg2:       #3d1528;
-  --color-bg3:       #541e36;
+  --color-bg:        #6b1535;
+  --color-bg2:       #7d1a3e;
+  --color-bg3:       #8b2248;
   --color-rose:      #c9607a;
   --color-rose-l:    #f4afc8;
   --color-cream:     #f5ede6;
@@ -43,7 +43,7 @@ body {
 
 .ob-screen {
   min-height: 100vh;
-  background: linear-gradient(165deg, #4a1830 0%, #2d0f1e 45%);
+  background: linear-gradient(165deg, #4a1830 0%, #6b1535 45%);
   display: flex;
   flex-direction: column;
 }
