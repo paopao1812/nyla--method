@@ -146,33 +146,62 @@ const weeklyPlan = {
   ],
 };
 
-const getSets = (w) => w <= 3 ? 2 : w === 4 ? 3 : 4;
+const getSets = (w) => {
+  if (w <= 8)  return 2;
+  if (w <= 16) return 3;
+  if (w <= 24) return 3;
+  if (w <= 32) return 4;
+  if (w <= 44) return 4;
+  return 5;
+};
 const getReps = () => "6–12 reps";
 const cardioTable = [
-  { time: "15 min", incline: 3, eliptica: 3 },
-  { time: "20 min", incline: 4, eliptica: 4 },
-  { time: "20 min", incline: 5, eliptica: 5 },
-  { time: "25 min", incline: 6, eliptica: 6 },
-  { time: "25 min", incline: 7, eliptica: 7 },
-  { time: "30 min", incline: 8, eliptica: 8 },
-  { time: "30 min", incline: 9, eliptica: "8–9" },
-  { time: "30 min", incline: 10, eliptica: "9–10" },
+  { time: "15 min", incline: 3,  eliptica: 3 },      // S1-2
+  { time: "15 min", incline: 3,  eliptica: 3 },      // S3-4
+  { time: "20 min", incline: 4,  eliptica: 4 },      // S5-6
+  { time: "20 min", incline: 4,  eliptica: 4 },      // S7-8
+  { time: "20 min", incline: 5,  eliptica: 5 },      // S9-10
+  { time: "25 min", incline: 5,  eliptica: 5 },      // S11-12
+  { time: "25 min", incline: 6,  eliptica: 6 },      // S13-14
+  { time: "25 min", incline: 6,  eliptica: 6 },      // S15-16
+  { time: "25 min", incline: 7,  eliptica: 7 },      // S17-18
+  { time: "30 min", incline: 7,  eliptica: 7 },      // S19-20
+  { time: "30 min", incline: 8,  eliptica: 8 },      // S21-22
+  { time: "30 min", incline: 8,  eliptica: 8 },      // S23-24
+  { time: "30 min", incline: 9,  eliptica: "8–9" },  // S25-26
+  { time: "35 min", incline: 9,  eliptica: "8–9" },  // S27-28
+  { time: "35 min", incline: 10, eliptica: "9–10" }, // S29-30
+  { time: "35 min", incline: 10, eliptica: "9–10" }, // S31-32
+  { time: "40 min", incline: 10, eliptica: "9–10" }, // S33-34
+  { time: "40 min", incline: 11, eliptica: "10" },   // S35-36
+  { time: "40 min", incline: 11, eliptica: "10" },   // S37-38
+  { time: "45 min", incline: 12, eliptica: "10" },   // S39-40
+  { time: "45 min", incline: 12, eliptica: "10" },   // S41-42
+  { time: "45 min", incline: 12, eliptica: "10" },   // S43-44
+  { time: "45 min", incline: 12, eliptica: "10" },   // S45-46
+  { time: "45 min", incline: 12, eliptica: "10" },   // S47-48
+  { time: "45 min", incline: 12, eliptica: "10" },   // S49-50
+  { time: "45 min", incline: 12, eliptica: "10" },   // S51-52
 ];
 const getCardio = (w) => {
-  const idx = Math.min(Math.floor((w - 1) / 2), 7);
+  const idx = Math.min(Math.floor((w - 1) / 2), cardioTable.length - 1);
   return cardioTable[idx];
 };
 const getBlockLabel = (w) => {
-  if (w <= 4) return "Construyendo tu base";
-  if (w <= 8) return "Ganando fuerza";
-  if (w <= 12) return "Potencia en progreso";
+  if (w <= 8)  return "Despertar";
+  if (w <= 16) return "Construyendo";
+  if (w <= 24) return "Fuerza";
+  if (w <= 32) return "Potencia";
+  if (w <= 44) return "Transformación";
   return "Tu mejor versión";
 };
 const getMotivation = (w) => {
-  if (w <= 4) return "Estás sentando las bases. Cada repetición cuenta.";
-  if (w <= 8) return "Tu cuerpo ya nota el cambio. Sigue construyendo.";
-  if (w <= 12) return "Estás más fuerte de lo que crees. No pares.";
-  return "Has llegado lejos. NYLA sigue contigo.";
+  if (w <= 8)  return "Estás creando el hábito más poderoso de tu vida.";
+  if (w <= 16) return "Tu cuerpo ya nota el cambio. Sigue construyendo.";
+  if (w <= 24) return "Cada kilo más es una promesa que te cumples.";
+  if (w <= 32) return "Estás más fuerte de lo que crees. No pares.";
+  if (w <= 44) return "Esta es tu transformación real. Lo estás logrando.";
+  return "Has llegado lejos. NYLA siempre estará contigo. ✦";
 };
 
 export default function Workout() {
@@ -260,7 +289,7 @@ export default function Workout() {
   ).length;
   const progressPercent = (weeklyCompleted / plans[selectedPlan].days.length) * 100;
   const blockComplete = weeklyCompleted >= plans[selectedPlan].days.length;
-  const isLastBlock = internalWeek >= 16;
+  const isLastBlock = internalWeek >= 52;
 
   const toggleCompleted = () => setCompletedDays(isCompleted
     ? completedDays.filter(i => i !== dayKey)
@@ -268,7 +297,7 @@ export default function Workout() {
   );
 
   const handleAdvance = () => {
-    if (internalWeek < 16) {
+    if (internalWeek < 52) {
       setInternalWeek(w => w + 1);
       setSelectedDay(plans[selectedPlan].days[0]);
       setActiveSection("exercises");
@@ -443,8 +472,8 @@ export default function Workout() {
       {blockComplete && isLastBlock && (
         <div className="wk-final-card">
           <p className="wk-final-emoji">🌸</p>
-          <h3 className="wk-final-title">Has completado el método NYLA</h3>
-          <p className="wk-final-sub">Tu transformación es real. NYLA sigue contigo.</p>
+          <h3 className="wk-final-title">Has completado un año con NYLA 🌸</h3>
+          <p className="wk-final-sub">52 semanas. Tu transformación es real. NYLA siempre estará contigo.</p>
         </div>
       )}
 
