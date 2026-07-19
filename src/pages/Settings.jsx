@@ -168,9 +168,22 @@ export default function Settings() {
           width:"100%", padding:"12px", borderRadius:"12px",
           background:"rgba(0,0,0,0.2)", color:"#f4afc8",
           border:"1px solid rgba(244,175,200,0.2)", cursor:"pointer",
-          fontSize:"13px", letterSpacing:"0.1em"
+          fontSize:"13px", letterSpacing:"0.1em", marginBottom:"10px"
         }}>
           Editar perfil →
+        </button>
+        <button onClick={() => {
+          localStorage.removeItem("nylaSelectedPlan");
+          localStorage.removeItem("nylaPlace");
+          localStorage.removeItem("nylaDays");
+          navigate("/onboarding");
+        }} style={{
+          width:"100%", padding:"12px", borderRadius:"12px",
+          background:"linear-gradient(135deg, #8b2840, #c9607a)", color:"#fff",
+          border:"none", cursor:"pointer",
+          fontSize:"13px", letterSpacing:"0.1em"
+        }}>
+          ⚡ Actualizar mi plan de entrenamiento
         </button>
       </div>
 
