@@ -159,10 +159,11 @@ export default function Progress() {
       <div style={{padding:"16px 0 24px"}}>
         {!showResetConfirm ? (
           <button onClick={() => setShowResetConfirm(true)} style={{
-            width:"100%", padding:"14px", borderRadius:"12px",
-            background:"rgba(0,0,0,0.2)", border:"1px solid rgba(244,175,200,0.1)",
-            color:"rgba(244,175,200,0.4)", cursor:"pointer",
-            fontSize:"12px", letterSpacing:"0.15em", fontFamily:"DM Sans, sans-serif"
+            padding:"12px 24px", borderRadius:"20px",
+            background:"rgba(0,0,0,0.2)", border:"1px solid rgba(244,175,200,0.15)",
+            color:"rgba(244,175,200,0.5)", cursor:"pointer",
+            fontSize:"11px", letterSpacing:"0.2em", fontFamily:"DM Sans, sans-serif",
+            display:"block", margin:"0 auto"
           }}>
             Reiniciar progreso
           </button>
