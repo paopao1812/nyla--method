@@ -320,16 +320,17 @@ export default function Workout() {
 
   // Planes disponibles según lugar y días elegidos en onboarding
   const nylaPlace = localStorage.getItem("nylaPlace") || "gym";
-  const savedPlan = localStorage.getItem("nylaSelectedPlan") || "fiveDays";
   const availablePlans = nylaPlace === "home"
     ? ["homeDays"]
-    : savedPlan === "fourDays"
+    : nylaPlace === "glutesOnly"
+    ? ["glutesOnly"]
+    : selectedPlan === "fourDays"
     ? ["fourDays"]
-    : savedPlan === "threeDays"
+    : selectedPlan === "threeDays"
     ? ["threeDays"]
-    : savedPlan === "fiveDays"
+    : selectedPlan === "fiveDays"
     ? ["fiveDays"]
-    : ["threeDays"];
+    : [selectedPlan];
   const changeDay = (day) => {
     setSelectedDay(day);
     const isLowerDay = day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps");
