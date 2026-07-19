@@ -146,21 +146,39 @@ export default function Onboarding() {
           <div className="ob-top">
             <StepBar total={5} current={3} />
             <p className="ob-num">Paso 3 de 5 · Tu ritmo</p>
-            <p className="ob-subtitle">¿Qué días quieres entrenar?</p>
+            <p className="ob-subtitle">¿Cuántos días a la semana quieres entrenar?</p>
           </div>
           <div className="ob-body" style={{ justifyContent: "flex-start", paddingTop: 16 }}>
-            <div className="schedule-grid">
-              {DAYS_LIST.map(d => (
-                <div key={d.key} className={`day-btn ${selectedDays.includes(d.key) ? "selected" : ""}`} onClick={() => toggleDay(d.key)}>
-                  <div className="day-letter">{d.label}</div>
-                  <div className="day-dot" />
+            <div className="level-grid">
+              <div className={`level-card ${selectedDays.length === 3 ? "selected" : ""}`} onClick={() => setSelectedDays(["L","M","X"])}>
+                <div className="level-icon">📅</div>
+                <div className="level-info">
+                  <h4>3 días</h4>
+                  <p>Ideal para empezar con constancia y sin agotarte.</p>
                 </div>
-              ))}
+                <div className="level-check">✓</div>
+              </div>
+              <div className={`level-card ${selectedDays.length === 4 ? "selected" : ""}`} onClick={() => setSelectedDays(["L","M","X","J"])}>
+                <div className="level-icon">💪</div>
+                <div className="level-info">
+                  <h4>4 días</h4>
+                  <p>Buen equilibrio entre entrenamiento y recuperación.</p>
+                </div>
+                <div className="level-check">✓</div>
+              </div>
+              <div className={`level-card ${selectedDays.length === 5 ? "selected" : ""}`} onClick={() => setSelectedDays(["L","M","X","J","V"])}>
+                <div className="level-icon">🔥</div>
+                <div className="level-info">
+                  <h4>5 días</h4>
+                  <p>Para quienes quieren máxima progresión y dedicación.</p>
+                </div>
+                <div className="level-check">✓</div>
+              </div>
             </div>
             <p className="input-hint" style={{ marginTop: 16 }}>NYLA se adapta a ti 🌱</p>
           </div>
           <div className="ob-footer">
-            <button className="btn-primary" onClick={next}>CONTINUAR →</button>
+            <button className="btn-primary" onClick={next} disabled={selectedDays.length === 0}>CONTINUAR →</button>
           </div>
         </>
       )}
