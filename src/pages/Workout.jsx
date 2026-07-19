@@ -12,7 +12,7 @@ const PLAN_DAYS = {
   threeDays: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
   homeDays: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
-  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
+  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
 };
 
 const plans = {
@@ -39,7 +39,7 @@ const plans = {
   fourDays: {
     label: "Plan 4 días",
     shortLabel: "4 días",
-    days: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
+    days: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
   },
 };
 
@@ -54,6 +54,7 @@ const getDayShort = (day) => {
   if (day.includes("Cuádriceps"))           return { num: day.split("·")[0].trim(), name: "Cuádriceps" };
   if (day.includes("Hombros"))              return { num: day.split("·")[0].trim(), name: "Hombros" };
   if (day.includes("Pierna"))               return { num: day.split("·")[0].trim(), name: "Pierna" };
+  if (day === "Descanso Activo") return { num: "🌿", name: "Descanso" };
   return { num: day.split("·")[0].trim(), name: day.split("·")[1]?.trim() || "" };
 };
 
@@ -103,6 +104,7 @@ const weeklyPlan = {
     { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Patada de glúteo en polea" },
     { name: "Abducciones en máquina" },{ name: "Femoral tumbado" },
   ],
+  "Descanso Activo": [],
   "Día 1 · Cuádriceps y Glúteo": [
     { name: "Sentadilla búlgara" },{ name: "Prensa pies abajo" },
     { name: "Extensión de cuádriceps" },{ name: "Hip Thrust con barra" },
@@ -301,8 +303,9 @@ export default function Workout() {
   };
   const toggleExDone = (name) => setCompletedExercises(p => ({ ...p, [name]: !p[name] }));
 
-  const isLower = selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps");
-  const isUpper = selectedDay.includes("Espalda") || selectedDay.includes("Hombros") || selectedDay.includes("Torso");
+  const isRestDay = selectedDay === "Descanso Activo";
+  const isLower = !isRestDay && (selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps"));
+  const isUpper = !isRestDay && (selectedDay.includes("Espalda") || selectedDay.includes("Hombros") || selectedDay.includes("Torso") || selectedDay.includes("Tren Superior"));
 
   const sectionLabels = { activation: "Activación", exercises: "Ejercicios", core: "Core", cardio: "Cardio" };
   const lowerSections = ["activation", "exercises", "cardio"];
@@ -476,6 +479,38 @@ export default function Workout() {
 
       {/* SECTION TABS */}
 
+
+      {/* DESCANSO ACTIVO */}
+      {isRestDay && (
+        <div className="wk-card">
+          <h2 className="wk-card-title">🌿 Descanso Activo</h2>
+          <p className="wk-card-sub">Hoy tu cuerpo descansa, pero sigue en movimiento.</p>
+          <div className="wk-ex-list">
+            {[
+              { name: "🚶‍♀️ Caminata", desc: "45 minutos a ritmo cómodo. Ideal para recuperar." },
+              { name: "🚴 Bicicleta estática", desc: "30–45 minutos a intensidad baja o media." },
+              { name: "⚡ Bicicleta eléctrica", desc: "45–60 minutos disfrutando del trayecto." },
+              { name: "🧗 Escaladora", desc: "20–30 minutos a ritmo constante." },
+              { name: "🏃 Carrera suave", desc: "30 minutos a ritmo conversacional." },
+              { name: "🧘 Yoga o estiramientos", desc: "30–45 minutos. Perfecto para recuperar músculos." },
+            ].map((opt, i) => (
+              <div className="wk-ex" key={i}>
+                <div className="wk-ex-num">{i + 1}</div>
+                <div className="wk-ex-body">
+                  <h3>{opt.name}</h3>
+                  <p>{opt.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+          <p style={{fontSize:"12px", color:"rgba(244,175,200,0.5)", textAlign:"center", marginTop:"16px", lineHeight:"1.6"}}>
+            Elige la opción que más te apetezca hoy. Lo importante es mantenerte activa sin forzar. 🌸
+          </p>
+          <button className="wk-complete" style={{marginTop:"16px"}} onClick={handleComplete}>
+            He hecho mi descanso activo ✦
+          </button>
+        </div>
+      )}
 
       {/* ACTIVATION */}
       {isLower && activeSection === "activation" && (
