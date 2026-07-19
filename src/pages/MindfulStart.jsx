@@ -55,7 +55,7 @@ const MODES = {
 
 export default function MindfulStart() {
   const navigate = useNavigate();
-  const [screen, setScreen] = useState("choose"); // choose | active | done
+  const [screen, setScreen] = useState("choose"); // choose | intro | active | done
   const [mode, setMode] = useState(null);
   const [timeLeft, setTimeLeft] = useState(0);
   const [running, setRunning] = useState(false);
@@ -153,13 +153,21 @@ export default function MindfulStart() {
   };
 
   const startMode = (m) => {
-    // Inicializar AudioContext desde tap del usuario para iOS
     if (!audioCtxRef.current) {
       audioCtxRef.current = new (window.AudioContext || window.webkitAudioContext)();
     }
     if (audioCtxRef.current.state === "suspended") audioCtxRef.current.resume();
     setMode(m);
     setTimeLeft(MODES[m].duration);
+    if (m === "meditation") {
+      setScreen("intro");
+    } else {
+      setScreen("active");
+      setRunning(true);
+    }
+  };
+
+  const startFromIntro = () => {
     setScreen("active");
     setRunning(true);
   };
@@ -215,6 +223,59 @@ export default function MindfulStart() {
         fontSize:"12px", letterSpacing:"0.15em"
       }}>
         Omitir →
+      </button>
+    </div>
+  );
+
+  if (screen === "intro") return (
+    <div style={{
+      minHeight:"100dvh", background:"#6b1535",
+      display:"flex", flexDirection:"column",
+      alignItems:"center", justifyContent:"center",
+      padding:"48px 32px", fontFamily:"DM Sans, sans-serif",
+      color:"#f5ede6", textAlign:"center"
+    }}>
+      <p style={{fontSize:"10px", letterSpacing:"0.4em", color:"#c9607a", marginBottom:"24px", textTransform:"uppercase"}}>
+        NYLA · MEDITACIÓN
+      </p>
+      <div style={{maxWidth:"320px"}}>
+        {[
+          "Encuentra un lugar tranquilo.",
+          "Puedes hacerlo sentada o recostada, en la posición en la que te sientas más cómoda.",
+          "Cierra los ojos.",
+          "No intentes controlar tus pensamientos. Solo observa tu respiración.",
+          "Inhala lentamente por la nariz.",
+          "Exhala suavemente por la boca.",
+          "Si tu mente se distrae, vuelve a la respiración.",
+          "Este momento es solo para ti.",
+        ].map((text, i) => (
+          <p key={i} style={{
+            fontSize: i === 0 ? "20px" : "14px",
+            fontFamily: i === 0 ? "Cormorant Garamond, serif" : "DM Sans, sans-serif",
+            color: i === 0 ? "#f5ede6" : "rgba(244,175,200,0.7)",
+            lineHeight:"1.7", marginBottom:"12px"
+          }}>
+            {text}
+          </p>
+        ))}
+        <p style={{fontSize:"12px", color:"rgba(244,175,200,0.4)", marginTop:"8px", lineHeight:"1.6"}}>
+          Puedes realizar esta práctica antes de entrenar, al comenzar el día, al finalizarlo o siempre que necesites unos minutos para desconectar.
+        </p>
+      </div>
+      <button onClick={startFromIntro} style={{
+        marginTop:"40px", padding:"18px 48px", borderRadius:"16px",
+        background:"linear-gradient(135deg, #8b2840, #c9607a)",
+        color:"#fff", border:"none", cursor:"pointer",
+        fontSize:"12px", letterSpacing:"0.3em", textTransform:"uppercase",
+        boxShadow:"0 8px 24px rgba(201,96,122,0.3)"
+      }}>
+        Comenzar
+      </button>
+      <button onClick={() => setScreen("choose")} style={{
+        marginTop:"16px", background:"none", border:"none",
+        color:"rgba(244,175,200,0.3)", cursor:"pointer", fontSize:"12px"
+      }}>
+        ← Volver
       </button>
     </div>
   );
