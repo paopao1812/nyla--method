@@ -156,6 +156,39 @@ export default function Progress() {
       </div>
 
       
+      <div style={{padding:"16px 0 24px"}}>
+        {!showResetConfirm ? (
+          <button onClick={() => setShowResetConfirm(true)} style={{
+            width:"100%", padding:"14px", borderRadius:"12px",
+            background:"rgba(0,0,0,0.2)", border:"1px solid rgba(244,175,200,0.1)",
+            color:"rgba(244,175,200,0.4)", cursor:"pointer",
+            fontSize:"12px", letterSpacing:"0.15em", fontFamily:"DM Sans, sans-serif"
+          }}>
+            Reiniciar progreso
+          </button>
+        ) : (
+          <div style={{
+            background:"rgba(0,0,0,0.3)", borderRadius:"14px",
+            padding:"16px", border:"1px solid rgba(201,96,122,0.2)"
+          }}>
+            <p style={{fontSize:"14px", color:"#f5ede6", marginBottom:"12px", textAlign:"center"}}>
+              ¿Segura? Perderás todo tu progreso.
+            </p>
+            <div style={{display:"flex", gap:"10px"}}>
+              <button onClick={() => setShowResetConfirm(false)} style={{
+                flex:1, padding:"12px", borderRadius:"10px",
+                background:"rgba(244,175,200,0.1)", border:"none",
+                color:"#f5ede6", cursor:"pointer", fontSize:"13px"
+              }}>Cancelar</button>
+              <button onClick={handleReset} style={{
+                flex:1, padding:"12px", borderRadius:"10px",
+                background:"#8b2840", border:"none",
+                color:"#fff", cursor:"pointer", fontSize:"13px"
+              }}>Sí, reiniciar</button>
+            </div>
+          </div>
+        )}
+      </div>
     </section>
   );
 }
