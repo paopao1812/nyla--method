@@ -98,7 +98,7 @@ export default function Home() {
       <div className="home-header">
         <div className="home-header-row">
           <h1 className="home-title">Hola, {userName || "Gym Sister"}</h1>
-          <button className="home-profile-btn" onClick={() => navigate("/onboarding")}>
+          <button className="home-profile-btn" onClick={() => navigate("/settings")}>
             {userName?.[0]?.toUpperCase() || "P"}
           </button>
         </div>

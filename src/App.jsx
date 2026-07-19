@@ -4,6 +4,7 @@ import { UserProvider } from "./context/UserContext";
 import BottomNav from "./components/BottomNav";
 import MagicLink from "./pages/MagicLink";
 import Progress from "./pages/Progress";
+import Settings from "./pages/Settings";
 import { useEffect } from "react";
 import { trackActivity } from "./utils/trackActivity";
 
@@ -62,6 +63,7 @@ export default function App() {
           <Route path="/premium" element={<Premium />} />
           <Route path="/magic" element={<MagicLink />} />
           <Route path="/progress" element={<RequireAuth><Progress /></RequireAuth>} />
+          <Route path="/settings" element={<RequireAuth><Settings /></RequireAuth>} />
           <Route path="/success" element={<Success />} />
           
 
