@@ -17,6 +17,7 @@ import Workout from "./pages/Workout";
 import Library from "./pages/Library";
 import Meals from "./pages/Meals";
 import Affirmations from "./pages/Affirmations";
+import MindfulStart from "./pages/MindfulStart";
 import Cycle from "./pages/Cycle";
 import Premium from "./pages/Premium";
 import Success from "./pages/Success";
@@ -73,6 +74,7 @@ export default function App() {
           <Route path="/library" element={<RequireAuth><Library /></RequireAuth>} />
           <Route path="/meals" element={<RequireAuth><Meals /></RequireAuth>} />
           <Route path="/affirmations" element={<RequireAuth><Affirmations /></RequireAuth>} />
+          <Route path="/mindful" element={<RequireAuth><MindfulStart /></RequireAuth>} />
           <Route path="/cycle" element={<RequireAuth><Cycle /></RequireAuth>} />
 
           {/* Fallback */}

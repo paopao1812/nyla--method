@@ -9,7 +9,7 @@ export default function BottomNav() {
     { path: "/workout", icon: "🏋️", label: "Entrena" },
     { path: "/meals", icon: "🍓", label: "Nutrición" },
     { path: "/progress", icon: "📊", label: "Progreso" },
-    { path: "/affirmations", icon: "✨", label: "Afirmaciones" },
+    { path: "/mindful", icon: "🧘", label: "Mente" },
     { path: "/settings", icon: "👤", label: "Perfil" },
   ];
 
