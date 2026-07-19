@@ -80,6 +80,13 @@ export default function Settings() {
       fontFamily: "DM Sans, sans-serif",
       color: "#f5ede6",
     }}>
+      <button onClick={() => navigate(-1)} style={{
+        background:"none", border:"none", color:"#f4afc8",
+        fontSize:"14px", cursor:"pointer", marginBottom:"24px",
+        padding:"0", display:"flex", alignItems:"center", gap:"6px"
+      }}>
+        ← Volver
+      </button>
       <h1 style={{fontFamily:"Cormorant Garamond, serif", fontSize:"32px", marginBottom:"8px"}}>
         Ajustes
       </h1>
