@@ -19,7 +19,6 @@ export default function Progress() {
 
   const [selectedExercise, setSelectedExercise] = useState(null);
   const [showResetConfirm, setShowResetConfirm] = useState(false);
-  const [showResetConfirm, setShowResetConfirm] = useState(false);
 
   // Historial de entrenamientos
   const history = completedDays.map(key => {
@@ -55,7 +54,6 @@ export default function Progress() {
     window.location.reload();
   };
 
-  const handleReset = () => {
     localStorage.removeItem("nylaCompletedDays");
     localStorage.removeItem("nylaExerciseWeights");
     localStorage.removeItem("nylaInternalWeek");
