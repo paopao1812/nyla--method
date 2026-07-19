@@ -419,26 +419,11 @@ export default function Workout() {
         </div>
       </div>
 
-      {/* STATS */}
-      <div className="wk-stats">
-        <div className="wk-stat"><span className="wk-stat-n">{totalCompleted}</span><span className="wk-stat-l">SESIONES</span></div>
-        <div className="wk-stat"><span className="wk-stat-n">{weeklyCompleted}</span><span className="wk-stat-l">ESTA SEMANA</span></div>
-        <div className="wk-stat"><span className="wk-stat-n">🔥</span><span className="wk-stat-l">RACHA ACTIVA</span></div>
-      </div>
 
-      {/* CYCLE */}
-      {cycleInfo && (
-        <div className="wk-cycle">
-          <p className="wk-cycle-label">TU CICLO HOY</p>
-          <h3 className="wk-cycle-title">{cycleInfo.emoji} {cycleInfo.phase}</h3>
-          <p className="wk-cycle-msg">{cycleInfo.message}</p>
-        </div>
-      )}
 
-      {/* MOTIVACIÓN */}
-      <div className="wk-motivation">
-        <p className="wk-motivation-text">✦ {getMotivation(internalWeek)}</p>
-      </div>
+
+
+
 
       {/* PROGRESS */}
       <div className="wk-progress">
