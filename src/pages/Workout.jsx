@@ -440,6 +440,22 @@ export default function Workout() {
                 </p>
               );
             })()}
+            {selectedPlan === "homeDays" && (
+              <div style={{
+                background:"rgba(0,0,0,0.2)", borderRadius:"12px",
+                padding:"14px", marginBottom:"16px",
+                border:"1px solid rgba(244,175,200,0.1)"
+              }}>
+                <p style={{fontSize:"11px", letterSpacing:"0.2em", color:"#c9607a", marginBottom:"10px", textTransform:"uppercase"}}>
+                  Cardio sugerido · opcional
+                </p>
+                {["🚶‍♀️ Caminar 30–45 min","🚴 Bicicleta estática","⚡ Bicicleta eléctrica","🏃 Carrera suave","🧗 Subir escaleras","🪢 Cuerda"].map((opt, i) => (
+                  <p key={i} style={{fontSize:"13px", color:"rgba(244,175,200,0.7)", marginBottom:"6px"}}>
+                    {opt}
+                  </p>
+                ))}
+              </div>
+            )}
             <div className="wk-modal-btns">
               <button className="wk-modal-confirm" onClick={handleGoHome}>Volver a Home ✦</button>
             </div>
