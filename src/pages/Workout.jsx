@@ -12,6 +12,7 @@ const PLAN_DAYS = {
   threeDays: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
   homeDays: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
+  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
 };
 
 const plans = {
@@ -34,6 +35,11 @@ const plans = {
     label: "En Casa",
     shortLabel: "En Casa",
     days: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
+  },
+  fourDays: {
+    label: "Plan 4 días",
+    shortLabel: "4 días",
+    days: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
   },
 };
 
@@ -96,6 +102,23 @@ const weeklyPlan = {
   "Día 3 · Glúteos + Pierna": [
     { name: "Hip thrust" },{ name: "Peso muerto rumano" },{ name: "Patada de glúteo en polea" },
     { name: "Abducciones en máquina" },{ name: "Femoral tumbado" },
+  ],
+  "Día 1 · Cuádriceps y Glúteo": [
+    { name: "Sentadilla búlgara" },{ name: "Prensa pies abajo" },
+    { name: "Extensión de cuádriceps" },{ name: "Hip Thrust con barra" },
+    { name: "Abducciones en máquina" },{ name: "Gemelos en máquina" },
+  ],
+  "Día 2 · Tren Superior + Core": [
+    { name: "Jalón al pecho" },{ name: "Remo sentado" },{ name: "Press militar" },
+    { name: "Elevaciones laterales" },{ name: "Curl bíceps" },{ name: "Curl de tríceps" },
+  ],
+  "Día 3 · Glúteo y Femoral": [
+    { name: "Hip Thrust con barra" },{ name: "Peso muerto" },{ name: "Femoral tumbado" },
+    { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
+  ],
+  "Día 4 · Full Body": [
+    { name: "Sentadilla búlgara" },{ name: "Hip Thrust con barra" },{ name: "Press militar" },
+    { name: "Remo sentado" },{ name: "Peso muerto" },{ name: "Elevaciones laterales" },
   ],
   "Día 1 · Glúteos y Pierna": [
     { name: "Hip thrust con banda" },{ name: "Sentadilla sumo con mancuerna" },{ name: "Peso muerto rumano con mancuernas" },
@@ -294,7 +317,9 @@ export default function Workout() {
   const availablePlans = nylaPlace === "home"
     ? ["homeDays"]
     : numDays >= 5
-    ? ["fiveDays"]
+    ? ["fiveDays", "fourDays"]
+    : numDays >= 4
+    ? ["fourDays", "threeDays", "glutesOnly"]
     : numDays >= 3
     ? ["threeDays", "glutesOnly"]
     : ["glutesOnly"];
@@ -424,6 +449,7 @@ export default function Workout() {
           { key: "threeDays", icon: "📅", label: "3 días" },
           { key: "glutesOnly", icon: "🍑", label: "Glúteos" },
           { key: "homeDays", icon: "🏠", label: "Casa" },
+          { key: "fourDays", icon: "4️⃣", label: "4 días" },
         ].filter(p => availablePlans.includes(p.key)).map(({ key, icon, label }) => (
           <button key={key} className={`wk-segment-btn ${selectedPlan === key ? "active" : ""}`}
             onClick={() => { setSelectedPlan(key); setSelectedDay(plans[key].days[0]); setActiveSection("activation"); }}>
