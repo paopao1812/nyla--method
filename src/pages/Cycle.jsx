@@ -158,25 +158,7 @@ export default function Cycle() {
         </button>
       </div>
 
-      <nav className="bottom-nav">
-        <button className="nav-btn active" onClick={() => navigate("/cycle")}>
-          <span className="nav-icon">🌙</span>
-          <span className="nav-label">Ciclo</span>
-        </button>
-        <button className="nav-btn" onClick={() => navigate("/workout")}>
-          <span className="nav-icon">🏋️</span>
-          <span className="nav-label">Entrena</span>
-        </button>
-        <button className="nav-btn" onClick={() => navigate("/meals")}>
-          <span className="nav-icon">🍓</span>
-          <span className="nav-label">Nutrición</span>
-        </button>
-        <button className="nav-btn" onClick={() => navigate("/affirmations")}>
-          <span className="nav-icon">✨</span>
-          <span className="nav-label">Afirmaciones</span>
-        </button>
-      <button className="nav-btn" onClick={() => navigate("/progress")}><span className="nav-icon">📊</span><span className="nav-label">Progreso</span></button>
-      </nav>
+      
     </section>
   );
 }
