@@ -243,11 +243,13 @@ export default function Workout() {
 
     if (place === "home") {
       localStorage.setItem("nylaSelectedPlan", "homeDays");
+      localStorage.setItem("nylaSelectedDay", "Día 1 · Glúteos y Cuádriceps");
       localStorage.setItem("nylaActiveSection", "exercises");
       return "homeDays";
     }
     if (place === "glutesOnly") {
       localStorage.setItem("nylaSelectedPlan", "glutesOnly");
+      localStorage.setItem("nylaSelectedDay", "Día 1 · Glúteos");
       return "glutesOnly";
     }
     let correctPlan;
@@ -260,9 +262,12 @@ export default function Workout() {
     return correctPlan;
   });
 
-  const [selectedDay, setSelectedDay] = useState(() =>
-    localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos"
-  );
+  const [selectedDay, setSelectedDay] = useState(() => {
+    const place = localStorage.getItem("nylaPlace") || "gym";
+    const saved = localStorage.getItem("nylaSelectedDay") || "Día 1 · Glúteos";
+    if (place === "home") return "Día 1 · Glúteos y Cuádriceps";
+    return saved;
+  });
 
   const [activeSection, setActiveSection] = useState(() =>
     localStorage.getItem("nylaActiveSection") || "exercises"
