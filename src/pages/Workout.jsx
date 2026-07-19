@@ -359,7 +359,7 @@ export default function Workout() {
       setCompletedDays(updated);
     }
     setShowSummaryModal(true);
-  };x
+  };
 
   const handleGoHome = () => {
     const completedDaysArr = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
