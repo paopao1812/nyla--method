@@ -280,14 +280,17 @@ export default function Workout() {
 
   const changeSection = (s) => setActiveSection(s);
 
-  // Planes disponibles según días elegidos en onboarding
+  // Planes disponibles según lugar y días elegidos en onboarding
+  const nylaPlace = localStorage.getItem("nylaPlace") || "gym";
   const nylaDays = JSON.parse(localStorage.getItem("nylaDays") || "[]");
   const numDays = nylaDays.length;
-  const availablePlans = numDays >= 5
-    ? ["fiveDays", "homeDays"]
+  const availablePlans = nylaPlace === "home"
+    ? ["homeDays"]
+    : numDays >= 5
+    ? ["fiveDays"]
     : numDays >= 3
-    ? ["threeDays", "glutesOnly", "homeDays"]
-    : ["glutesOnly", "homeDays"];
+    ? ["threeDays", "glutesOnly"]
+    : ["glutesOnly"];
   const changeDay = (day) => {
     setSelectedDay(day);
     const isLowerDay = day.includes("Glúteos") || day.includes("Pierna") || day.includes("Femoral") || day.includes("Cuádriceps");
