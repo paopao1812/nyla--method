@@ -246,6 +246,51 @@ export default function Onboarding() {
                     fontFamily:"DM Sans, sans-serif", boxSizing:"border-box"
                   }}
                 />
+                {lastPeriodDate && (() => {
+                  const cycleDay = ((Math.floor((new Date() - new Date(lastPeriodDate)) / 86400000)) % 28) + 1;
+                  const phases = [
+                    {
+                      days: [1,5], emoji: "🩸", name: "Fase menstrual",
+                      color: "#c9607a",
+                      desc: "Tu cuerpo necesita descanso y movimiento suave.",
+                      recs: ["Caminar o yoga suave", "Ejercicios de movilidad", "Evita entrenamientos de alta intensidad", "Prioriza el descanso activo"]
+                    },
+                    {
+                      days: [6,13], emoji: "🌱", name: "Fase folicular",
+                      color: "#7ece9e",
+                      desc: "Energía en alza. Es tu mejor momento para entrenar fuerte.",
+                      recs: ["Entrenamiento de fuerza", "Aumenta los pesos progresivamente", "Ideal para aprender técnica nueva", "Máximo rendimiento cardiovascular"]
+                    },
+                    {
+                      days: [14,16], emoji: "💐", name: "Fase ovulatoria",
+                      color: "#f4afc8",
+                      desc: "Pico de energía y fuerza. Aprovéchalo.",
+                      recs: ["Entrena con máxima intensidad", "Prueba nuevos récords personales", "Cuida las articulaciones", "Hidratación extra importante"]
+                    },
+                    {
+                      days: [17,28], emoji: "🧸", name: "Fase lútea",
+                      color: "#c9a96e",
+                      desc: "Tu cuerpo pide más recuperación. Entrena con control.",
+                      recs: ["Reduce la intensidad si te sientes cansada", "Pilates o yoga", "Mantén la constancia sin forzar", "Prioriza el sueño y la nutrición"]
+                    }
+                  ];
+                  const phase = phases.find(p => cycleDay >= p.days[0] && cycleDay <= p.days[1]) || phases[3];
+                  return (
+                    <div style={{
+                      background:"rgba(0,0,0,0.25)", borderRadius:"14px",
+                      padding:"16px", marginTop:"12px", marginBottom:"12px",
+                      border:`1px solid ${phase.color}40`
+                    }}>
+                      <p style={{fontSize:"16px", marginBottom:"4px"}}>{phase.emoji} <strong>{phase.name}</strong></p>
+                      <p style={{fontSize:"12px", color:"rgba(244,175,200,0.7)", marginBottom:"12px"}}>Día {cycleDay} de tu ciclo</p>
+                      <p style={{fontSize:"13px", color:"#f5ede6", marginBottom:"12px", lineHeight:"1.6"}}>{phase.desc}</p>
+                      <p style={{fontSize:"11px", color:phase.color, marginBottom:"8px", letterSpacing:"0.1em", textTransform:"uppercase"}}>Te recomendamos</p>
+                      {phase.recs.map((r, i) => (
+                        <p key={i} style={{fontSize:"13px", color:"rgba(244,175,200,0.8)", marginBottom:"4px"}}>· {r}</p>
+                      ))}
+                    </div>
+                  );
+                })()}
                 <p onClick={() => setSkipCycle(true)}
                   style={{fontSize:"12px", color:"rgba(244,175,200,0.45)", textAlign:"center", cursor:"pointer", marginTop:"8px"}}>
                   Prefiero no indicarlo
