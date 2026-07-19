@@ -5,6 +5,8 @@ export default function BottomNav() {
   const location = useLocation();
   const path = location.pathname;
 
+  const userName = localStorage.getItem("nylaUserName") || "P";
+  const userInitial = (userName && userName.length > 0) ? userName[0].toUpperCase() : "P";
   const items = [
     { path: "/workout", icon: "🏋️", label: "Entrena" },
     { path: "/meals", icon: "🍓", label: "Nutrición" },
@@ -13,7 +15,7 @@ export default function BottomNav() {
     { path: "/settings", icon: null, label: "Perfil", isProfile: true },
   ];
 
-  const showNav = ["/home","/workout","/meals","/progress","/affirmations","/library","/settings"].includes(path);
+  const showNav = ["/home","/workout","/meals","/progress","/affirmations","/library","/settings","/mindful"].includes(path);
   if (!showNav) return null;
 
   return (
@@ -44,7 +46,7 @@ export default function BottomNav() {
               fontSize: "11px", fontWeight: "600", color: "#fff",
               fontFamily: "DM Sans, sans-serif"
             }}>
-              {userName[0].toUpperCase()}
+              {userInitial}
             </div>
           ) : (
             <span style={{fontSize: "20px"}}>{item.icon}</span>
