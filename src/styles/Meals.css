@@ -27,7 +27,7 @@
 
 /* ── MEAL CARDS ── */
 .ml-card {
-  background: rgba(244,175,200,0.05); border: 1px solid rgba(244,175,200,0.13);
+  background: rgba(0,0,0,0.25); border: 1px solid rgba(244,175,200,0.13);
   border-radius: 22px; padding: 18px 20px;
 }
 .ml-card-title {
@@ -42,7 +42,7 @@
 .ml-item ul { list-style: none; padding: 0; margin-bottom: 10px; display: flex; flex-direction: column; gap: 4px; }
 .ml-item ul li {
   font-size: 12px; color: rgba(244,175,200,0.6);
-  padding: 5px 10px; background: rgba(244,175,200,0.04);
+  padding: 5px 10px; background: rgba(0,0,0,0.22);
   border: 1px solid rgba(244,175,200,0.07); border-radius: 8px;
   display: flex; align-items: center; gap: 8px;
 }
@@ -56,7 +56,7 @@
 
 /* ── CALCULADORA ── */
 .ml-calc-card {
-  background: linear-gradient(140deg, rgba(139,40,64,0.2), rgba(244,175,200,0.04));
+  background: linear-gradient(140deg, rgba(139,40,64,0.2), rgba(0,0,0,0.22));
   border: 1px solid rgba(201,96,122,0.25);
   border-radius: 22px;
   padding: 22px 20px;
@@ -95,7 +95,7 @@
   padding: 13px 16px;
   border-radius: 12px;
   border: 1.5px solid rgba(244,175,200,0.18);
-  background: rgba(244,175,200,0.05);
+  background: rgba(0,0,0,0.25);
   color: #f5ede6;
   font-size: 16px;
   font-family: 'Cormorant Garamond', serif;
@@ -120,7 +120,7 @@
   text-align: left;
   border: 1px solid rgba(244,175,200,0.15);
   color: rgba(244,175,200,0.5);
-  background: rgba(244,175,200,0.04);
+  background: rgba(0,0,0,0.22);
   cursor: pointer;
   transition: all 0.2s ease;
 }

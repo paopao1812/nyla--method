@@ -33,7 +33,7 @@ background-image: radial-gradient(ellipse 60% 25% at 50% 0%, rgba(107,21,53,0.5)
 
 /* Cards */
 .cycle-card {
-  background: rgba(244,175,200,0.05);
+  background: rgba(0,0,0,0.25);
   border: 1px solid rgba(244,175,200,0.15);
   border-radius: 22px;
   padding: 20px;
@@ -88,7 +88,7 @@ background-image: radial-gradient(ellipse 60% 25% at 50% 0%, rgba(107,21,53,0.5)
 
 .cycle-info-box {
   padding: 12px 14px;
-  background: rgba(244,175,200,0.04);
+  background: rgba(0,0,0,0.22);
   border: 1px solid rgba(244,175,200,0.1);
   border-radius: 12px;
   margin-bottom: 8px;
@@ -113,7 +113,7 @@ background-image: radial-gradient(ellipse 60% 25% at 50% 0%, rgba(107,21,53,0.5)
 .cycle-nutrition ul li {
   font-size: 12px; color: rgba(244,175,200,0.6);
   padding: 6px 10px;
-  background: rgba(244,175,200,0.04);
+  background: rgba(0,0,0,0.22);
   border: 1px solid rgba(244,175,200,0.08);
   border-radius: 8px;
 }

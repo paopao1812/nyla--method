@@ -55,7 +55,7 @@
 /* STATS */
 .wk-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
 .wk-stat {
-  background: rgba(244,175,200,0.05);
+  background: rgba(0,0,0,0.25);
   border: 1px solid rgba(244,175,200,0.12);
   border-radius: 20px; padding: 18px 10px;
   display: flex; flex-direction: column; align-items: center; gap: 6px; text-align: center;
@@ -65,7 +65,7 @@
 
 /* CYCLE */
 .wk-cycle {
-  background: linear-gradient(135deg, rgba(201,96,122,0.09), rgba(244,175,200,0.03));
+  background: linear-gradient(135deg, rgba(0,0,0,0.2), rgba(0,0,0,0.18));
   border: 1px solid rgba(244,175,200,0.13); border-radius: 20px;
   padding: 18px 20px; text-align: center;
 }
@@ -75,7 +75,7 @@
 
 /* PROGRESS */
 .wk-progress {
-  background: rgba(244,175,200,0.05); border: 1px solid rgba(244,175,200,0.12);
+  background: rgba(0,0,0,0.25); border: 1px solid rgba(244,175,200,0.12);
   border-radius: 20px; padding: 16px 18px;
 }
 .wk-progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -96,7 +96,7 @@
   font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase;
   font-weight: 500; font-family: 'DM Sans', sans-serif;
   border: 1px solid rgba(244,175,200,0.15); color: rgba(244,175,200,0.5);
-  background: rgba(244,175,200,0.05); cursor: pointer; white-space: nowrap; transition: all 0.2s;
+  background: rgba(0,0,0,0.25); cursor: pointer; white-space: nowrap; transition: all 0.2s;
 }
 .wk-pill.active { background: rgba(201,96,122,0.22); border-color: #c9607a; color: #f4afc8; }
 
@@ -105,7 +105,7 @@
 .wk-weeks { display: grid; grid-template-columns: repeat(8,1fr); gap: 6px; }
 .wk-week {
   aspect-ratio: 1; border-radius: 10px;
-  border: 1px solid rgba(244,175,200,0.12); background: rgba(244,175,200,0.04);
+  border: 1px solid rgba(244,175,200,0.12); background: rgba(0,0,0,0.22);
   font-size: 12px; color: rgba(244,175,200,0.4); cursor: pointer;
   display: flex; align-items: center; justify-content: center;
   font-family: 'Cormorant Garamond', serif; transition: all 0.2s;
@@ -119,13 +119,13 @@
   font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase;
   font-weight: 500; font-family: 'DM Sans', sans-serif;
   border: 1px solid rgba(244,175,200,0.15); color: rgba(244,175,200,0.5);
-  background: rgba(244,175,200,0.05); cursor: pointer; transition: all 0.2s;
+  background: rgba(0,0,0,0.25); cursor: pointer; transition: all 0.2s;
 }
 .wk-section-pills button.active { background: linear-gradient(135deg,#8b2840,#c9607a); border-color: transparent; color: #fff; }
 
 /* CONTENT CARD */
 .wk-card {
-  background: rgba(244,175,200,0.05); border: 1px solid rgba(244,175,200,0.13);
+  background: rgba(0,0,0,0.25); border: 1px solid rgba(244,175,200,0.13);
   border-radius: 22px; padding: 20px;
 }
 .wk-card-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: #f4afc8; margin-bottom: 4px; }
@@ -133,7 +133,7 @@
 .wk-ex-list { display: flex; flex-direction: column; gap: 10px; }
 .wk-ex {
   display: flex; align-items: flex-start; gap: 12px;
-  padding: 14px; background: rgba(244,175,200,0.03);
+  padding: 14px; background: rgba(0,0,0,0.18);
   border: 1px solid rgba(244,175,200,0.09); border-radius: 16px;
 }
 .wk-ex-num {
@@ -148,7 +148,7 @@
 .wk-input {
   width: 100%; margin-top: 8px; padding: 9px 13px;
   border-radius: 10px; border: 1px solid rgba(244,175,200,0.15);
-  background: rgba(244,175,200,0.04); color: #f5ede6;
+  background: rgba(0,0,0,0.22); color: #f5ede6;
   font-size: 13px; font-family: 'DM Sans', sans-serif;
   color-scheme: dark; outline: none; transition: border-color 0.2s;
 }
@@ -157,7 +157,7 @@
 
 /* CARDIO */
 .wk-cardio {
-  background: linear-gradient(135deg,rgba(139,40,64,0.25),rgba(244,175,200,0.04));
+  background: linear-gradient(135deg,rgba(139,40,64,0.25),rgba(0,0,0,0.22));
   border: 1px solid rgba(201,96,122,0.25); border-radius: 22px; padding: 20px;
 }
 .wk-cardio-eyebrow { font-size: 9px; letter-spacing: 0.32em; text-transform: uppercase; color: #c9607a; margin-bottom: 6px; }
@@ -165,7 +165,7 @@
 .wk-cardio-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 14px; }
 .wk-cardio-stats div {
   display: flex; flex-direction: column; gap: 5px;
-  background: rgba(244,175,200,0.05); border: 1px solid rgba(244,175,200,0.1);
+  background: rgba(0,0,0,0.25); border: 1px solid rgba(244,175,200,0.1);
   border-radius: 12px; padding: 12px 10px; text-align: center;
 }
 .wk-cardio-stats span { font-size: 9px; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(244,175,200,0.45); }
@@ -220,7 +220,7 @@
   font-family: 'DM Sans', sans-serif;
   border: 1px solid rgba(244,175,200,0.2);
   color: rgba(244,175,200,0.6);
-  background: rgba(244,175,200,0.04);
+  background: rgba(0,0,0,0.22);
   cursor: pointer;
   transition: all 0.2s;
 }
@@ -242,7 +242,7 @@
 
 /* MOTIVACIÓN */
 .wk-motivation {
-  background: linear-gradient(135deg, rgba(201,96,122,0.08), rgba(244,175,200,0.03));
+  background: linear-gradient(135deg, rgba(201,96,122,0.08), rgba(0,0,0,0.18));
   border: 1px solid rgba(244,175,200,0.12);
   border-radius: 18px;
   padding: 14px 18px;
@@ -374,7 +374,7 @@
 
 /* ── FINAL CARD ── */
 .wk-final-card {
-  background: linear-gradient(135deg, rgba(201,96,122,0.12), rgba(244,175,200,0.05));
+  background: linear-gradient(135deg, rgba(201,96,122,0.12), rgba(0,0,0,0.25));
   border: 1px solid rgba(244,175,200,0.2);
   border-radius: 24px;
   padding: 32px 24px;
@@ -399,7 +399,7 @@
 
 /* MOTIVATION */
 .wk-motivation {
-  background: linear-gradient(135deg, rgba(201,96,122,0.08), rgba(244,175,200,0.03));
+  background: linear-gradient(135deg, rgba(201,96,122,0.08), rgba(0,0,0,0.18));
   border: 1px solid rgba(244,175,200,0.12);
   border-radius: 18px;
   padding: 14px 18px;
@@ -418,7 +418,7 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 6px;
-  background: rgba(244,175,200,0.04);
+  background: rgba(0,0,0,0.22);
   border: 1px solid rgba(244,175,200,0.12);
   border-radius: 14px;
   padding: 4px;
@@ -462,7 +462,7 @@
   padding: 8px 4px;
   border-radius: 12px;
   border: 1px solid rgba(244,175,200,0.12);
-  background: rgba(244,175,200,0.04);
+  background: rgba(0,0,0,0.22);
   cursor: pointer;
   transition: all 0.2s ease;
   min-width: 0;
@@ -517,7 +517,7 @@
   font-family: 'DM Sans', sans-serif;
   border: 1px solid rgba(244,175,200,0.12);
   color: rgba(244,175,200,0.45);
-  background: rgba(244,175,200,0.04);
+  background: rgba(0,0,0,0.22);
   cursor: pointer;
   transition: all 0.2s ease;
   text-align: center;
