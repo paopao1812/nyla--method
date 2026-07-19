@@ -11,7 +11,7 @@ const PLAN_DAYS = {
   fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
   threeDays: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
-  homeDays: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
+  homeDays: ["Día 1 · Glúteos y Cuádriceps","Día 2 · Torso","Día 3 · Glúteos y Femoral"],
   fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
 };
 
@@ -34,7 +34,7 @@ const plans = {
   homeDays: {
     label: "En Casa",
     shortLabel: "En Casa",
-    days: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
+    days: ["Día 1 · Glúteos y Cuádriceps","Día 2 · Torso","Día 3 · Glúteos y Femoral"],
   },
   fourDays: {
     label: "Plan 4 días",
@@ -122,18 +122,25 @@ const weeklyPlan = {
     { name: "Sentadilla búlgara" },{ name: "Hip Thrust con barra" },{ name: "Press militar" },
     { name: "Remo sentado" },{ name: "Peso muerto" },{ name: "Elevaciones laterales" },
   ],
-  "Día 1 · Glúteos y Pierna": [
-    { name: "Hip thrust con banda" },{ name: "Sentadilla búlgara con mancuernas" },
-    { name: "Sentadilla sumo con mancuerna" },{ name: "Abducción de cadera con banda" },
+  "Día 1 · Glúteos y Cuádriceps": [
+    { name: "Hip thrust con banda" },
+    { name: "Sentadilla Goblet con mancuerna" },
+    { name: "Sentadilla búlgara con mancuerna" },
+    { name: "Patada de glúteo con banda" },
+    { name: "Abducción de cadera con banda" },
   ],
-  "Día 2 · Tren Superior": [
-    { name: "Remo con mancuerna" },{ name: "Press de hombros con mancuernas" },
-    { name: "Curl de bíceps con mancuernas" },{ name: "Extensión de tríceps con mancuerna" },
-    { name: "Pullover con mancuerna" },
+  "Día 2 · Torso": [
+    { name: "Remo con mancuerna" },
+    { name: "Press de hombros con mancuerna" },
+    { name: "Remo unilateral con mancuerna" },
+    { name: "Curl de bíceps con mancuerna" },
+    { name: "Extensión de tríceps con mancuerna" },
   ],
-  "Día 3 · Glúteos + Core": [
-    { name: "Peso muerto con mancuerna" },{ name: "Zancada hacia atrás con mancuerna" },
-    { name: "Puente de glúteos con banda" },{ name: "Patada de glúteo con banda" },
+  "Día 3 · Glúteos y Femoral": [
+    { name: "Peso muerto rumano con mancuerna" },
+    { name: "Zancada hacia atrás con mancuerna" },
+    { name: "Hip thrust una pierna con banda" },
+    { name: "Patada de glúteo con banda" },
     { name: "Abducción de cadera con banda" },
   ],
   "Día 2 · Glúteos + Femoral": [
@@ -146,7 +153,15 @@ const weeklyPlan = {
   ],
 };
 
-const getSets = (w) => {
+const getSets = (w, plan) => {
+  if (plan === "homeDays") {
+    if (w <= 8)  return 3;
+    if (w <= 16) return 3;
+    if (w <= 24) return 4;
+    if (w <= 32) return 4;
+    if (w <= 44) return 4;
+    return 5;
+  }
   if (w <= 8)  return 2;
   if (w <= 16) return 3;
   if (w <= 24) return 3;
@@ -154,7 +169,17 @@ const getSets = (w) => {
   if (w <= 44) return 4;
   return 5;
 };
-const getReps = () => "6–12 reps";
+const getReps = (w, plan) => {
+  if (plan === "homeDays") {
+    if (w <= 8)  return "12–15 reps";
+    if (w <= 16) return "15–20 reps · tempo 3-0-1";
+    if (w <= 24) return "12–15 reps · pausa 2s arriba";
+    if (w <= 32) return "15–20 reps · tempo 3-1-1";
+    if (w <= 44) return "20 reps · unilateral progresivo";
+    return "20 reps · máxima tensión";
+  }
+  return "6–12 reps";
+};
 const cardioTable = [
   { time: "15 min", incline: 3,  eliptica: 3 },      // S1-2
   { time: "15 min", incline: 3,  eliptica: 3 },      // S3-4
@@ -278,7 +303,7 @@ export default function Workout() {
   };
 
   const cycleInfo = getCycleInfo();
-  const sets = getSets(internalWeek);
+  const sets = getSets(internalWeek, selectedPlan);
   const cardio = getCardio(internalWeek);
   const exercises = weeklyPlan[selectedDay] || [];
   const dayKey = useMemo(() => `${selectedPlan}-${internalWeek}-${selectedDay}`, [selectedPlan, internalWeek, selectedDay]);
@@ -353,7 +378,8 @@ export default function Workout() {
   const isRestDay = selectedDay === "Descanso Activo";
   const isLower = !isRestDay && selectedPlan !== "homeDays" && (selectedDay.includes("Glúteos") || selectedDay.includes("Pierna") || selectedDay.includes("Femoral") || selectedDay.includes("Cuádriceps"));
   const isUpper = !isRestDay && (selectedDay.includes("Espalda") || selectedDay.includes("Hombros") || selectedDay.includes("Torso") || selectedDay.includes("Tren Superior"));
-  const showCore = !isRestDay && (isLower || selectedPlan === "homeDays");
+  const showCore = !isRestDay && (isLower || isUpper || selectedPlan === "homeDays");
+  const showCoreFirst = selectedPlan === "homeDays";
 
   const sectionLabels = { activation: "Activación", exercises: "Ejercicios", core: "Core", cardio: "Cardio" };
   const lowerSections = ["activation", "exercises", "cardio"];
@@ -544,6 +570,36 @@ export default function Workout() {
         </div>
       )}
 
+      {/* CORE PRIMERO EN HOMEDAYS */}
+      {showCoreFirst && activeSection === "exercises" && (
+        <div className="wk-card" style={{marginBottom:"8px"}}>
+          <h2 className="wk-card-title">Activación de Core</h2>
+          <p className="wk-card-sub">5 min · Siempre antes de empezar</p>
+          <div className="wk-ex-list">
+            {corePlan.map((ex, i) => (
+              <div className="wk-ex" key={i}>
+                <div className="wk-ex-num">{i + 1}</div>
+                <div className="wk-ex-body">
+                  <div style={{display:"flex",justifyContent:"space-between",alignItems:"center"}}>
+                    <h3>{ex.name}</h3>
+                    {VIDEO_MAP[ex.name] && (
+                      <button className="wk-video-btn" onClick={() => setActiveVideo(activeVideo === ex.name ? null : ex.name)}>
+                        {activeVideo === ex.name ? "✕" : "▶"}
+                      </button>
+                    )}
+                  </div>
+                  {activeVideo === ex.name && VIDEO_MAP[ex.name] && (
+                    <video src={VIDEO_MAP[ex.name]} controls playsInline autoPlay muted controlsList="nodownload"
+                      style={{width:"100%",borderRadius:"10px",marginBottom:"8px"}} />
+                  )}
+                  <p>{ex.reps}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
       {/* ACTIVATION */}
       {isLower && activeSection === "activation" && (
         <div className="wk-card">
@@ -609,7 +665,7 @@ export default function Workout() {
                         style={{width:"100%",borderRadius:"10px",marginBottom:"8px"}}
                       />
                     )}
-                    <p>{sets} series · {getReps()}</p>
+                    <p>{sets} series · {getReps(internalWeek, selectedPlan)}</p>
                     <input className="wk-input" type="number" placeholder="Peso usado (kg)"
                       value={exerciseWeights[`${selectedPlan}-${internalWeek}-${selectedDay}-${ex.name}`] || ""}
                       onChange={e => updateWeight(ex.name, e.target.value)} />
@@ -669,15 +725,18 @@ export default function Workout() {
       {activeSection === "cardio" && (
         selectedPlan === "homeDays" ? (
           <div className="wk-cardio">
-            <p className="wk-cardio-eyebrow">MOVIMIENTO DIARIO</p>
-            <h2 className="wk-cardio-title">🚶‍♀️ Pasos diarios</h2>
-            <div className="wk-cardio-stats">
-              <div><span>Objetivo mínimo</span><strong>10.000</strong></div>
-              <div><span>Objetivo ideal</span><strong>15.000</strong></div>
-            </div>
-            <p style={{textAlign:"center", padding:"0 16px", opacity:0.7, fontSize:"14px"}}>
-              Caminar es la forma más efectiva de mantenerte activa en casa. Distribuye los pasos a lo largo del día.
+            <p className="wk-cardio-eyebrow">CARDIO SUGERIDO · OPCIONAL</p>
+            <h2 className="wk-cardio-title">Muévete a tu ritmo 🌿</h2>
+            <p style={{textAlign:"center", padding:"0 16px", opacity:0.6, fontSize:"13px", marginBottom:"16px", lineHeight:"1.6"}}>
+              La fuerza es el objetivo principal. El cardio es un extra si te apetece.
             </p>
+            <div className="wk-ex-list" style={{marginBottom:"16px"}}>
+              {["🚶‍♀️ Caminar 30–45 min","🚴 Bicicleta estática","⚡ Bicicleta eléctrica","🏃 Carrera suave","🧗 Subir escaleras","🪢 Cuerda (opcional)"].map((opt, i) => (
+                <div className="wk-ex" key={i} style={{padding:"10px 14px"}}>
+                  <p style={{fontSize:"13px", color:"rgba(244,175,200,0.8)"}}>{opt}</p>
+                </div>
+              ))}
+            </div>
             <button className="wk-complete" onClick={handleComplete}>
               Finalizar entrenamiento ✦
             </button>
