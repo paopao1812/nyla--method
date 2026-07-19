@@ -267,6 +267,8 @@ export default function Workout() {
       localStorage.setItem("nylaSelectedPlan", selectedPlan);
       const isLowerDay = nextDay.includes("Glúteos") || nextDay.includes("Pierna") || nextDay.includes("Femoral") || nextDay.includes("Cuádriceps");
       localStorage.setItem("nylaActiveSection", isLowerDay ? "activation" : "exercises");
+      setSelectedDay(nextDay);
+      setActiveSection(isLowerDay ? "activation" : "exercises");
     } else {
       localStorage.removeItem("nylaSelectedDay");
       localStorage.removeItem("nylaActiveSection");
@@ -318,6 +320,20 @@ export default function Workout() {
               <span>🔥 {sets} series</span>
             </div>
             <p className="wk-modal-motivation">{getMotivation(internalWeek)}</p>
+            {(() => {
+              const completedDaysArr = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
+              const days = PLAN_DAYS[selectedPlan] || [];
+              const nextDay = days.find(d => !completedDaysArr.includes(`${selectedPlan}-${internalWeek}-${d}`));
+              return nextDay ? (
+                <p style={{fontSize:"13px", color:"rgba(244,175,200,0.7)", marginBottom:"8px"}}>
+                  Siguiente: {nextDay.split("·")[1]?.trim() || nextDay} 💪
+                </p>
+              ) : (
+                <p style={{fontSize:"13px", color:"rgba(244,175,200,0.7)", marginBottom:"8px"}}>
+                  ¡Has completado toda la semana! 🌸
+                </p>
+              );
+            })()}
             <div className="wk-modal-btns">
               <button className="wk-modal-confirm" onClick={handleGoHome}>Volver a Home ✦</button>
             </div>
