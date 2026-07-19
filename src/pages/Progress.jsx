@@ -92,7 +92,6 @@ export default function Progress() {
           </div>
         ))}
       </div>
-      </div>
 
       {/* KILOS POR EJERCICIO */}
       {exerciseNames.length > 0 && (
