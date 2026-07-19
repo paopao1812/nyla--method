@@ -139,7 +139,9 @@ export default function Settings() {
                 background:"rgba(0,0,0,0.2)", border:"1px solid rgba(244,175,200,0.2)",
                 borderRadius:"10px", padding:"10px 14px", color:"#f5ede6",
                 fontSize:"16px", width:"100%", marginBottom:"12px",
-                fontFamily:"DM Sans, sans-serif"
+                fontFamily:"DM Sans, sans-serif",
+                boxSizing:"border-box", maxWidth:"100%",
+                WebkitAppearance:"none", appearance:"none"
               }}
             />
             <button onClick={handleSave} style={{
