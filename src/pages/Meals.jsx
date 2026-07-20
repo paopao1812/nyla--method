@@ -5,22 +5,28 @@ import "../styles/Meals.css";
 
 const meals = {
   Desayunos: [
-    { title: "Desayuno clásico fuerte", items: ["3 huevos enteros","150 g claras","2 tostadas integrales","½ aguacate"], protein: "32 g proteína", calories: "520 kcal" },
-    { title: "Yogur + proteína", items: ["250 g yogur griego natural","1 scoop proteína whey","80 g frutos rojos","15 g crema de cacahuete"], protein: "35 g proteína", calories: "430 kcal" },
-    { title: "Tostadas con atún", items: ["1 lata de atún en agua","2 tostadas integrales","30 g queso fresco light","Tomate"], protein: "30 g proteína", calories: "390 kcal" },
+    { title:"Tortilla de claras con tostadas", items:["4 claras","1 huevo entero","2 tostadas integrales","½ aguacate"], steps:["Bate claras con huevo, sazona.","Cocina en sartén 3 min.","Tuesta el pan y aplasta el aguacate.","Sirve junto."], time:"10 min", protein:30, carbs:26, fat:14, calories:490 },
+    { title:"Yogur griego con avena y fruta", items:["250 g yogur griego 0%","40 g avena","1 banana","10 g crema de cacahuete"], steps:["Pon la avena en un bol.","Añade el yogur encima.","Corta la banana y añádela.","Añade crema de cacahuete y canela."], time:"5 min", protein:28, carbs:48, fat:8, calories:420 },
+    { title:"Tostadas de atún con tomate", items:["1 lata atún en agua","2 tostadas integrales","1 tomate","30 g queso fresco batido"], steps:["Escurre el atún y mezcla con queso.","Corta el tomate.","Monta las tostadas con tomate y atún.","Chorrito de aceite encima."], time:"5 min", protein:30, carbs:30, fat:7, calories:390 },
+    { title:"Avena con huevo y plátano", items:["50 g avena","1 huevo","1 plátano","200 ml leche semidesnatada"], steps:["Cuece la avena en leche 3–4 min.","Fríe el huevo.","Sirve avena con plátano troceado y huevo."], time:"10 min", protein:22, carbs:52, fat:8, calories:410 },
   ],
   Almuerzos: [
-    { title: "Pollo + arroz", items: ["150 g pechuga de pollo","120 g arroz cocido","Verduras","10 g aceite de oliva"], protein: "35 g proteína", calories: "540 kcal" },
-    { title: "Carne + patata", items: ["150 g carne magra","250 g patata","Ensalada"], protein: "32 g proteína", calories: "560 kcal" },
-    { title: "Atún + pasta", items: ["1½ latas de atún en agua","100 g pasta cocida","Tomate natural","Queso ligero"], protein: "33 g proteína", calories: "500 kcal" },
+    { title:"Pollo con arroz y brócoli", items:["150 g pechuga de pollo","120 g arroz cocido","150 g brócoli","10 g aceite de oliva"], steps:["Cuece el arroz.","Cuece el brócoli al vapor 5 min.","Cocina el pollo en sartén con ajo 8 min.","Sirve todo junto."], time:"25 min", protein:36, carbs:46, fat:11, calories:540 },
+    { title:"Salmón con patata y espinacas", items:["150 g salmón","200 g patata","100 g espinacas","10 g aceite de oliva"], steps:["Cuece la patata 15 min.","Cocina el salmón 4 min por lado.","Saltea espinacas 2 min.","Sirve junto con limón."], time:"25 min", protein:32, carbs:30, fat:18, calories:520 },
+    { title:"Ternera con boniato", items:["150 g ternera magra picada","200 g boniato","Pimientos","10 g aceite de oliva"], steps:["Cuece el boniato 15 min o microondas 8 min.","Saltea ternera con pimientos 8 min.","Sirve ternera sobre el boniato."], time:"25 min", protein:33, carbs:40, fat:12, calories:550 },
+    { title:"Pasta integral con atún", items:["90 g pasta integral","2 latas atún en agua","200 g tomate triturado","Ajo"], steps:["Cuece la pasta.","Sofríe ajo 1 min.","Añade tomate y cocina 5 min.","Mezcla con atún y pasta."], time:"20 min", protein:38, carbs:52, fat:8, calories:510 },
+    { title:"Bowl de garbanzos con huevo", items:["200 g garbanzos cocidos","2 huevos","Espinacas","Tomate cherry","10 g aceite"], steps:["Cuece los huevos 7 min.","Saltea garbanzos con espinacas 3 min.","Añade tomate cherry.","Sirve con huevos partidos."], time:"15 min", protein:28, carbs:38, fat:14, calories:510 },
   ],
   Meriendas: [
-    { title: "Shake simple", items: ["1 scoop whey","250 ml leche alta proteína","1 banana"], protein: "32 g proteína", calories: "330 kcal" },
-    { title: "Sandwich proteína", items: ["100 g pavo","2 rebanadas pan integral","Queso light"], protein: "30 g proteína", calories: "370 kcal" },
+    { title:"Yogur con frutos secos", items:["200 g yogur griego 0%","15 g nueces","1 manzana"], steps:["Pon el yogur en un bol.","Añade nueces troceadas.","Acompaña con manzana cortada."], time:"2 min", protein:18, carbs:28, fat:10, calories:310 },
+    { title:"Tostadas de pavo y queso", items:["2 tostadas integrales","80 g pavo","30 g queso fresco batido","Tomate"], steps:["Unta el queso en las tostadas.","Añade pavo y tomate.","Listo."], time:"3 min", protein:22, carbs:26, fat:5, calories:320 },
+    { title:"Requesón con fruta y avena", items:["200 g requesón","30 g avena","1 naranja"], steps:["Mezcla requesón con avena.","Añade naranja troceada.","Espolvorea canela."], time:"3 min", protein:20, carbs:32, fat:4, calories:300 },
   ],
   Cenas: [
-    { title: "Huevos + atún", items: ["2 huevos","1 lata atún en agua","Verduras","1 tostada integral"], protein: "32 g proteína", calories: "420 kcal" },
-    { title: "Pollo + verduras", items: ["150 g pollo","Verduras al horno","150 g patata"], protein: "35 g proteína", calories: "460 kcal" },
+    { title:"Merluza al horno con verduras", items:["200 g merluza","Calabacín","Tomate","Pimientos","10 g aceite"], steps:["Precalienta horno 180°C.","Coloca merluza y verduras en bandeja.","Riega con aceite y limón.","Hornea 18–20 min."], time:"25 min", protein:34, carbs:10, fat:8, calories:320 },
+    { title:"Tortilla de verduras", items:["3 huevos","2 claras","Champiñones","Espinacas","Pimientos"], steps:["Saltea verduras 5 min.","Bate huevos y añade verduras.","Cuaja a fuego bajo 4–5 min.","Da la vuelta y cocina 2 min."], time:"15 min", protein:28, carbs:8, fat:14, calories:380 },
+    { title:"Pollo con verduras salteadas", items:["150 g pechuga de pollo","Brócoli","Zanahoria","Champiñones","Salsa de soja"], steps:["Corta el pollo en tiras.","Saltea el pollo 5 min.","Saltea verduras 5 min.","Mezcla con salsa de soja."], time:"15 min", protein:35, carbs:12, fat:8, calories:380 },
+    { title:"Ensalada completa con atún", items:["2 latas atún en agua","2 huevos cocidos","Lechuga","Tomate","Pepino"], steps:["Cuece los huevos 10 min.","Prepara la base de lechuga.","Añade atún y huevos.","Aliña con aceite y limón."], time:"15 min", protein:38, carbs:8, fat:14, calories:390 },
   ],
 };
 
