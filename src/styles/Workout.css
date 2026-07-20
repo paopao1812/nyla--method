@@ -77,9 +77,10 @@
 
 /* DAY GRID */
 .wk-day-grid {
-  display: flex; gap: 8px;
+  display: flex; gap: 6px;
   overflow-x: auto; padding: 2px 0;
   scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  width: 100%;
 }
 .wk-day-grid::-webkit-scrollbar { display: none; }
 
@@ -96,8 +97,8 @@
   background: rgba(201,96,122,0.18);
   border-color: #c9607a; color: #f4afc8;
 }
-.wk-day-num { font-size: clamp(14px, 4vw, 18px); font-family: 'Cormorant Garamond', serif; }
-.wk-day-name { font-size: 8px; letter-spacing: 0.03em; opacity: 0.8; max-width: 52px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.wk-day-num { font-size: clamp(13px, 3.5vw, 16px); font-family: 'Cormorant Garamond', serif; }
+.wk-day-name { font-size: 8px; letter-spacing: 0; opacity: 0.8; max-width: 44px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* CARD */
 .wk-card {
