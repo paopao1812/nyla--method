@@ -70,15 +70,27 @@ function CalorieCalculator() {
     const kcalMin = Math.round(libras * min);
     const kcalMax = Math.round(libras * max);
     const kcal = Math.round((kcalMin + kcalMax) / 2);
-    let proteinPct, carbsPct, fatPct;
-    if (objetivo === "Perder grasa") { proteinPct=0.35; carbsPct=0.35; fatPct=0.30; }
-    else if (objetivo === "Mantener peso") { proteinPct=0.30; carbsPct=0.40; fatPct=0.30; }
-    else { proteinPct=0.30; carbsPct=0.45; fatPct=0.25; }
+
+    // Proteína por kg de peso corporal (fórmula correcta)
+    let proteinPerKg;
+    if (objetivo === "Perder grasa")        proteinPerKg = 1.2;
+    else if (objetivo === "Mantener peso")  proteinPerKg = 1.6;
+    else                                    proteinPerKg = 2.2;
+
+    const protein = Math.round(kg * proteinPerKg);
+    const proteinKcal = protein * 4;
+
+    // Grasas: 25% de las calorías totales
+    const fat = Math.round((kcal * 0.25) / 9);
+    const fatKcal = fat * 9;
+
+    // Carbos: resto de calorías
+    const carbs = Math.round((kcal - proteinKcal - fatKcal) / 4);
+
     setResult({
       min: kcalMin, max: kcalMax, kcal,
-      protein: Math.round((kcal * proteinPct) / 4),
-      carbs: Math.round((kcal * carbsPct) / 4),
-      fat: Math.round((kcal * fatPct) / 9),
+      protein, carbs, fat,
+      proteinPerKg,
     });
   };
 
