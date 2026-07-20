@@ -823,30 +823,79 @@ export default function Workout() {
             </p>
             {!selectedCardio ? (
               <>
-                <p style={{fontSize:"13px", color:"rgba(244,175,200,0.6)", marginBottom:"14px"}}>
-                  ¿Qué máquina vas a usar hoy?
+                <div style={{
+                  background:"rgba(0,0,0,0.15)", borderRadius:"12px",
+                  padding:"14px", marginBottom:"16px",
+                  border:"1px solid rgba(244,175,200,0.08)"
+                }}>
+                  <p style={{fontSize:"12px", color:"rgba(244,175,200,0.5)", lineHeight:"1.7", fontStyle:"italic"}}>
+                    No necesitas terminar agotada. El cardio después de las pesas complementa tu entrenamiento y mejora tu salud. No compite con tu sesión de fuerza.
+                  </p>
+                </div>
+                <p style={{fontSize:"11px", letterSpacing:"0.2em", color:"#c9607a", textTransform:"uppercase", marginBottom:"12px"}}>
+                  ¿Qué máquina vas a usar?
                 </p>
                 {[
-                  { icon:"🚶‍♀️", name:"Caminadora", detail:`Inclinación ${cardio.incline}% · máx 5.5 km/h` },
-                  { icon:"🚴", name:"Bicicleta estática", detail:`Resistencia ${cardio.eliptica}` },
-                  { icon:"🔄", name:"Elíptica", detail:`Resistencia ${cardio.eliptica}` },
-                  { icon:"🧗", name:"Escaladora", detail:`Nivel ${Math.min(Math.floor(internalWeek/4)+3,12)}` },
+                  {
+                    icon:"🚶‍♀️", name:"Cinta de caminar",
+                    time: cardio.time,
+                    incline: `${cardio.incline}%`,
+                    intensity: "RPE 4–5",
+                    config: `Velocidad 4–5.5 km/h · Inclinación ${cardio.incline}%`,
+                    goal:"Quema de grasa y recuperación activa. Ritmo conversacional."
+                  },
+                  {
+                    icon:"🚴", name:"Bicicleta estática",
+                    time: cardio.time,
+                    incline: null,
+                    intensity: "RPE 4–5",
+                    config: `Resistencia ${cardio.eliptica} · Cadencia 70–90 rpm`,
+                    goal:"Bajo impacto articular. Ideal para días de pierna intensa."
+                  },
+                  {
+                    icon:"🔄", name:"Elíptica",
+                    time: cardio.time,
+                    incline: null,
+                    intensity: "RPE 4–5",
+                    config: `Resistencia ${cardio.eliptica} · Movimiento fluido y constante`,
+                    goal:"Trabaja tren superior e inferior. Sin impacto."
+                  },
+                  {
+                    icon:"🧗", name:"Escaladora",
+                    time: cardio.time,
+                    incline: null,
+                    intensity: "RPE 5–6",
+                    config: `Nivel ${Math.min(Math.floor(internalWeek/4)+3,12)} · Pasos lentos y controlados`,
+                    goal:"Alta activación de glúteos y piernas. Ritmo lento y sostenido."
+                  },
                 ].map((machine, i) => (
                   <button key={i} onClick={() => startCardioTimer(machine)} style={{
-                    width:"100%", padding:"14px 16px", marginBottom:"10px",
-                    background:"rgba(0,0,0,0.2)", borderRadius:"12px",
-                    border:"1px solid rgba(244,175,200,0.12)",
-                    display:"flex", alignItems:"center", gap:"12px",
+                    width:"100%", padding:"16px", marginBottom:"10px",
+                    background:"rgba(0,0,0,0.2)", borderRadius:"14px",
+                    border:"1px solid rgba(244,175,200,0.1)",
+                    display:"flex", alignItems:"flex-start", gap:"14px",
                     textAlign:"left", cursor:"pointer"
                   }}>
-                    <span style={{fontSize:"24px"}}>{machine.icon}</span>
-                    <div>
-                      <p style={{fontSize:"14px", color:"#f5ede6", fontFamily:"Cormorant Garamond, serif"}}>{machine.name}</p>
-                      <p style={{fontSize:"11px", color:"rgba(244,175,200,0.5)"}}>{cardio.time} · {machine.detail}</p>
+                    <span style={{fontSize:"28px", marginTop:"2px"}}>{machine.icon}</span>
+                    <div style={{flex:1}}>
+                      <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"6px"}}>
+                        <p style={{fontSize:"15px", color:"#f5ede6", fontFamily:"Cormorant Garamond, serif"}}>{machine.name}</p>
+                        <span style={{fontSize:"11px", background:"rgba(201,96,122,0.15)", color:"#c9607a", padding:"3px 8px", borderRadius:"10px"}}>{machine.time}</span>
+                      </div>
+                      <p style={{fontSize:"11px", color:"rgba(244,175,200,0.6)", marginBottom:"4px"}}>{machine.config}</p>
+                      <p style={{fontSize:"11px", color:"rgba(244,175,200,0.4)", fontStyle:"italic"}}>{machine.goal}</p>
+                      <span style={{fontSize:"10px", color:"#c9607a", letterSpacing:"0.1em"}}>{machine.intensity} · Intensidad cómoda</span>
                     </div>
-                    <span style={{marginLeft:"auto", color:"#c9607a", fontSize:"18px"}}>→</span>
                   </button>
                 ))}
+                <button onClick={handleComplete} style={{
+                  width:"100%", padding:"14px", marginTop:"6px",
+                  background:"none", border:"none",
+                  color:"rgba(244,175,200,0.35)", fontSize:"12px",
+                  letterSpacing:"0.15em", cursor:"pointer"
+                }}>
+                  Omitir cardio y finalizar →
+                </button>
               </>
             ) : (
               <>
