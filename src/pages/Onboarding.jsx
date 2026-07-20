@@ -66,14 +66,9 @@ export default function Onboarding() {
   }
 
   function next() {
-    // Saltar paso de lugar si no son 3 días (auto-asignar gym)
+    // Saltar paso de lugar si no son 3 días
     if (step === 3 && selectedDays.length !== 3) {
-      if (selectedDays.length >= 5) {
-        // Para 5 días, no auto-asignar, dejar que el paso 4 muestre gym/glúteos
-        setStep(4);
-        return;
-      }
-      // Para 4 días, auto-asignar gym y saltar
+      // 4 días y 5 días → auto-asignar gym y saltar paso 4
       setSelectedPlace("gym");
       setStep(5);
       return;
