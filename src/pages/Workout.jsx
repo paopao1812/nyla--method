@@ -1,5 +1,5 @@
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { trackActivity } from "../utils/trackActivity";
 import { VIDEO_MAP } from "../data/videoMap";
 import { useNavigate } from "react-router-dom";
@@ -288,6 +288,11 @@ export default function Workout() {
   const [completedExercises, setCompletedExercises] = useState({});
   const [activeVideo, setActiveVideo] = useState(null);
   const [showExercises, setShowExercises] = useState(false);
+  const [selectedCardio, setSelectedCardio] = useState(null);
+  const [cardioRunning, setCardioRunning] = useState(false);
+  const [cardioTimeLeft, setCardioTimeLeft] = useState(0);
+  const [cardioDone, setCardioDone] = useState(false);
+  const cardioTimerRef = useRef(null);
   const [showAdvanceModal, setShowAdvanceModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
@@ -411,6 +416,29 @@ export default function Workout() {
     : selectedPlan === "fiveDays"
     ? ["fiveDays"]
     : [selectedPlan];
+  const startCardioTimer = (machine) => {
+    const [min, ] = cardio.time.split(" ");
+    const seconds = parseInt(min) * 60;
+    setSelectedCardio(machine);
+    setCardioTimeLeft(seconds);
+    setCardioRunning(true);
+    setCardioDone(false);
+    clearInterval(cardioTimerRef.current);
+    cardioTimerRef.current = setInterval(() => {
+      setCardioTimeLeft(t => {
+        if (t <= 1) {
+          clearInterval(cardioTimerRef.current);
+          setCardioRunning(false);
+          setCardioDone(true);
+          return 0;
+        }
+        return t - 1;
+      });
+    }, 1000);
+  };
+
+  const fmtCardio = (s) => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
+
   const changeDay = (day) => {
     setSelectedDay(day);
     setShowExercises(false);
@@ -793,36 +821,83 @@ export default function Workout() {
             <p style={{fontSize:"12px", color:"rgba(244,175,200,0.5)", marginBottom:"12px"}}>
               Intensidad cómoda y constante. Tiempo: <strong style={{color:"#f4afc8"}}>{cardio.time}</strong>
             </p>
-            {[
-              { icon:"🚶‍♀️", name:"Caminadora inclinada", stats:[{l:"Tiempo",v:cardio.time},{l:"Inclinación",v:cardio.incline+"%"}] },
-              { icon:"🚴", name:"Bicicleta estática", stats:[{l:"Tiempo",v:cardio.time},{l:"Resistencia",v:cardio.eliptica}] },
-              { icon:"🔄", name:"Elíptica", stats:[{l:"Tiempo",v:cardio.time},{l:"Resistencia",v:cardio.eliptica}] },
-              { icon:"🧗", name:"Escaladora", stats:[{l:"Tiempo",v:cardio.time},{l:"Nivel",v:Math.min(Math.floor(internalWeek/4)+3,12)}] },
-            ].map((machine, i) => (
-              <div key={i} style={{
-                background:"rgba(0,0,0,0.2)", borderRadius:"12px",
-                padding:"14px", marginBottom:"10px",
-                border:"1px solid rgba(244,175,200,0.08)"
-              }}>
-                <p style={{fontSize:"15px", fontFamily:"Cormorant Garamond, serif", marginBottom:"10px"}}>
-                  {machine.icon} {machine.name}
+            {!selectedCardio ? (
+              <>
+                <p style={{fontSize:"13px", color:"rgba(244,175,200,0.6)", marginBottom:"14px"}}>
+                  ¿Qué máquina vas a usar hoy?
                 </p>
-                <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px"}}>
-                  {machine.stats.map((s, j) => (
-                    <div key={j} style={{background:"rgba(0,0,0,0.2)", borderRadius:"8px", padding:"10px", textAlign:"center"}}>
-                      <div style={{fontSize:"10px", color:"rgba(244,175,200,0.5)", textTransform:"uppercase", letterSpacing:"0.1em", marginBottom:"4px"}}>{s.l}</div>
-                      <div style={{fontSize:"18px", fontFamily:"Cormorant Garamond, serif"}}>{s.v}</div>
+                {[
+                  { icon:"🚶‍♀️", name:"Caminadora", detail:`Inclinación ${cardio.incline}% · máx 5.5 km/h` },
+                  { icon:"🚴", name:"Bicicleta estática", detail:`Resistencia ${cardio.eliptica}` },
+                  { icon:"🔄", name:"Elíptica", detail:`Resistencia ${cardio.eliptica}` },
+                  { icon:"🧗", name:"Escaladora", detail:`Nivel ${Math.min(Math.floor(internalWeek/4)+3,12)}` },
+                ].map((machine, i) => (
+                  <button key={i} onClick={() => startCardioTimer(machine)} style={{
+                    width:"100%", padding:"14px 16px", marginBottom:"10px",
+                    background:"rgba(0,0,0,0.2)", borderRadius:"12px",
+                    border:"1px solid rgba(244,175,200,0.12)",
+                    display:"flex", alignItems:"center", gap:"12px",
+                    textAlign:"left", cursor:"pointer"
+                  }}>
+                    <span style={{fontSize:"24px"}}>{machine.icon}</span>
+                    <div>
+                      <p style={{fontSize:"14px", color:"#f5ede6", fontFamily:"Cormorant Garamond, serif"}}>{machine.name}</p>
+                      <p style={{fontSize:"11px", color:"rgba(244,175,200,0.5)"}}>{cardio.time} · {machine.detail}</p>
                     </div>
-                  ))}
+                    <span style={{marginLeft:"auto", color:"#c9607a", fontSize:"18px"}}>→</span>
+                  </button>
+                ))}
+              </>
+            ) : (
+              <>
+                <div style={{textAlign:"center", padding:"20px 0"}}>
+                  <p style={{fontSize:"12px", letterSpacing:"0.3em", color:"#c9607a", marginBottom:"8px", textTransform:"uppercase"}}>
+                    {selectedCardio.icon} {selectedCardio.name}
+                  </p>
+                  <div style={{
+                    fontSize:"48px", fontFamily:"Cormorant Garamond, serif",
+                    color: cardioDone ? "#c9607a" : "#f5ede6", marginBottom:"8px"
+                  }}>
+                    {cardioDone ? "✦" : fmtCardio(cardioTimeLeft)}
+                  </div>
+                  <p style={{fontSize:"13px", color:"rgba(244,175,200,0.5)"}}>
+                    {cardioDone ? "¡Cardio completado!" : cardioRunning ? "En progreso..." : "Pausado"}
+                  </p>
                 </div>
-              </div>
-            ))}
-            <small style={{display:"block", textAlign:"center", marginBottom:"16px", color:"rgba(244,175,200,0.4)", fontSize:"11px"}}>
-              Velocidad máx. caminadora: 5.5 · Inclinación máx: 12
-            </small>
-            <button className="wk-complete" onClick={handleComplete}>
-              Cardio completado ✦
-            </button>
+                <div style={{display:"flex", gap:"10px", marginBottom:"16px"}}>
+                  {!cardioDone && (
+                    <button onClick={() => {
+                      if (cardioRunning) {
+                        clearInterval(cardioTimerRef.current);
+                        setCardioRunning(false);
+                      } else {
+                        startCardioTimer(selectedCardio);
+                      }
+                    }} style={{
+                      flex:1, padding:"14px", borderRadius:"12px",
+                      background:"rgba(201,96,122,0.15)",
+                      border:"1px solid rgba(201,96,122,0.3)",
+                      color:"#f4afc8", fontSize:"13px", cursor:"pointer"
+                    }}>
+                      {cardioRunning ? "⏸ Pausar" : "▶ Continuar"}
+                    </button>
+                  )}
+                  <button onClick={() => { clearInterval(cardioTimerRef.current); setSelectedCardio(null); setCardioDone(false); }} style={{
+                    flex:1, padding:"14px", borderRadius:"12px",
+                    background:"rgba(0,0,0,0.2)",
+                    border:"1px solid rgba(244,175,200,0.1)",
+                    color:"rgba(244,175,200,0.4)", fontSize:"13px", cursor:"pointer"
+                  }}>
+                    Cambiar máquina
+                  </button>
+                </div>
+                {cardioDone && (
+                  <button className="wk-complete" onClick={handleComplete}>
+                    Cardio completado ✦
+                  </button>
+                )}
+              </>
+            )}
           </div>
         )
       )}
