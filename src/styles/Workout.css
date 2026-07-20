@@ -45,10 +45,10 @@
 .wk-progress { background: rgba(0,0,0,0.2); border-radius: 14px; padding: 14px 16px; }
 .wk-progress-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
 .wk-progress-label { font-size: clamp(16px, 4.5vw, 20px); font-family: 'Cormorant Garamond', serif; }
-.wk-progress-count { font-size: 12px; color: rgba(244,175,200,0.5); }
+.wk-progress-count { font-size: 12px; color: rgba(244,175,200,0.75); }
 .wk-bar { height: 3px; background: rgba(244,175,200,0.1); border-radius: 3px; overflow: hidden; margin-bottom: 8px; }
 .wk-bar-fill { height: 100%; background: linear-gradient(90deg, #8b2840, #f4afc8); border-radius: 3px; transition: width 0.5s ease; }
-.wk-progress-msg { font-size: 11px; font-style: italic; color: rgba(244,175,200,0.4); }
+.wk-progress-msg { font-size: 11px; font-style: italic; color: rgba(244,175,200,0.65); }
 
 /* SEGMENT */
 .wk-segment {
@@ -88,7 +88,7 @@
   padding: 8px 10px; border-radius: 12px; flex-shrink: 0;
   background: rgba(0,0,0,0.25);
   border: 1px solid rgba(244,175,200,0.1);
-  color: rgba(244,175,200,0.5);
+  color: rgba(244,175,200,0.75);
   min-width: 52px; min-height: 52px;
   transition: all 0.2s;
 }
@@ -110,7 +110,7 @@
   font-size: clamp(20px, 5.5vw, 26px);
   font-weight: 300; margin-bottom: 4px;
 }
-.wk-card-sub { font-size: 11px; color: rgba(244,175,200,0.5); font-style: italic; margin-bottom: 14px; }
+.wk-card-sub { font-size: 11px; color: rgba(244,175,200,0.75); font-style: italic; margin-bottom: 14px; }
 
 /* EXERCISE LIST */
 .wk-ex-list { display: flex; flex-direction: column; gap: 10px; }
@@ -132,7 +132,7 @@
 }
 .wk-ex-body { flex: 1; min-width: 0; }
 .wk-ex-body h3 { font-size: clamp(13px, 3.5vw, 15px); font-weight: 500; color: #f5ede6; margin-bottom: 3px; }
-.wk-ex-body p { font-size: 11px; color: rgba(244,175,200,0.5); margin-bottom: 6px; line-height: 1.45; }
+.wk-ex-body p { font-size: 11px; color: rgba(244,175,200,0.75); margin-bottom: 6px; line-height: 1.45; }
 
 /* INPUT */
 .wk-input {
@@ -148,7 +148,7 @@
 .wk-input::placeholder { color: rgba(244,175,200,0.25); }
 .wk-input:focus { outline: none; border-color: #c9607a; }
 
-.wk-prev-weight { font-size: 11px; color: rgba(244,175,200,0.4); margin-top: 4px; }
+.wk-prev-weight { font-size: 11px; color: rgba(244,175,200,0.65); margin-top: 4px; }
 
 /* VIDEO BTN */
 .wk-video-btn {
@@ -203,9 +203,9 @@
   background: rgba(0,0,0,0.2); border-radius: 10px; padding: 12px;
   display: flex; flex-direction: column; gap: 4px;
 }
-.wk-cardio-stats span { font-size: 10px; color: rgba(244,175,200,0.5); letter-spacing: 0.1em; text-transform: uppercase; }
+.wk-cardio-stats span { font-size: 10px; color: rgba(244,175,200,0.75); letter-spacing: 0.1em; text-transform: uppercase; }
 .wk-cardio-stats strong { font-size: clamp(16px, 4.5vw, 22px); font-family: 'Cormorant Garamond', serif; }
-.wk-cardio small { font-size: 11px; color: rgba(244,175,200,0.45); line-height: 1.55; }
+.wk-cardio small { font-size: 11px; color: rgba(244,175,200,0.7); line-height: 1.55; }
 .wk-cardio-divider { height: 1px; background: rgba(255,255,255,0.08); }
 
 /* MODAL */
@@ -234,7 +234,7 @@
 .wk-modal-sub { font-size: 13px; color: rgba(244,175,200,0.6); line-height: 1.6; }
 .wk-modal-stats { display: flex; gap: 16px; flex-wrap: wrap; }
 .wk-modal-stats span { font-size: 13px; color: rgba(244,175,200,0.7); }
-.wk-modal-motivation { font-size: 13px; font-style: italic; color: rgba(244,175,200,0.5); line-height: 1.6; }
+.wk-modal-motivation { font-size: 13px; font-style: italic; color: rgba(244,175,200,0.75); line-height: 1.6; }
 .wk-modal-btns { display: flex; flex-direction: column; gap: 10px; margin-top: 8px; }
 .wk-modal-confirm {
   width: 100%; padding: 16px;
@@ -250,7 +250,7 @@
   border-radius: 50px;
   background: rgba(0,0,0,0.2);
   border: 1px solid rgba(244,175,200,0.15);
-  color: rgba(244,175,200,0.5);
+  color: rgba(244,175,200,0.75);
   font-size: 11px; letter-spacing: 0.2em;
   min-height: 48px;
 }
@@ -263,7 +263,7 @@
   font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
   background: rgba(0,0,0,0.2);
   border: 1px solid rgba(244,175,200,0.12);
-  color: rgba(244,175,200,0.5);
+  color: rgba(244,175,200,0.75);
   min-height: 44px; white-space: nowrap;
   transition: all 0.2s;
 }
@@ -278,7 +278,7 @@
 .wk-week {
   padding: 6px 14px; border-radius: 20px; flex-shrink: 0;
   font-size: 11px; border: 1px solid rgba(244,175,200,0.12);
-  background: rgba(244,175,200,0.05); color: rgba(244,175,200,0.5);
+  background: rgba(244,175,200,0.05); color: rgba(244,175,200,0.75);
   min-height: 36px; white-space: nowrap;
 }
 .wk-week.active {
@@ -313,7 +313,7 @@
 .nav-btn {
   display: flex; flex-direction: column; align-items: center; gap: 3px;
   background: none; border: none;
-  color: rgba(244,175,200,0.5); opacity: 0.5;
+  color: rgba(244,175,200,0.75); opacity: 0.5;
   padding: 4px 8px; min-width: 44px; min-height: 44px;
   justify-content: center;
 }
@@ -332,7 +332,7 @@
   font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase;
   background: rgba(0,0,0,0.2);
   border: 1px solid rgba(244,175,200,0.12);
-  color: rgba(244,175,200,0.5);
+  color: rgba(244,175,200,0.75);
   min-height: 44px; white-space: nowrap;
   transition: all 0.2s;
 }

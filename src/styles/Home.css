@@ -25,7 +25,7 @@
   line-height: 1.1;
 }
 
-.home-subtitle { font-size: clamp(12px, 3.5vw, 14px); color: rgba(244,175,200,0.5); }
+.home-subtitle { font-size: clamp(12px, 3.5vw, 14px); color: rgba(244,175,200,0.75); }
 
 .home-profile-btn {
   width: 44px; height: 44px;
@@ -59,7 +59,7 @@
   font-weight: 300; color: #f5ede6;
 }
 
-.home-main-card p { font-size: 13px; color: rgba(244,175,200,0.5); }
+.home-main-card p { font-size: 13px; color: rgba(244,175,200,0.75); }
 
 .home-card-btn {
   margin-top: 12px;
@@ -89,7 +89,7 @@
   font-size: clamp(20px, 5vw, 26px); font-weight: 400;
 }
 
-.home-progress-row span { font-size: 12px; color: rgba(244,175,200,0.5); }
+.home-progress-row span { font-size: 12px; color: rgba(244,175,200,0.75); }
 
 .home-progress-bar {
   height: 4px; background: rgba(244,175,200,0.1);
@@ -102,7 +102,7 @@
   border-radius: 3px; transition: width 0.5s ease;
 }
 
-.home-progress-text { font-size: 11px; font-style: italic; color: rgba(244,175,200,0.4); }
+.home-progress-text { font-size: 11px; font-style: italic; color: rgba(244,175,200,0.65); }
 
 /* Quote */
 .home-quote-card {
@@ -142,7 +142,7 @@
 
 .home-reminder-content { flex: 1; }
 .home-reminder-title { font-size: 14px; font-weight: 500; margin-bottom: 3px; }
-.home-reminder-sub { font-size: 12px; color: rgba(244,175,200,0.5); }
+.home-reminder-sub { font-size: 12px; color: rgba(244,175,200,0.75); }
 .home-reminder-actions { display: flex; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
 
 .home-reminder-btn-primary {
@@ -156,6 +156,6 @@
   padding: 8px 16px; border-radius: 20px;
   background: rgba(244,175,200,0.08);
   border: 1px solid rgba(244,175,200,0.15);
-  color: rgba(244,175,200,0.5); font-size: 11px;
+  color: rgba(244,175,200,0.75); font-size: 11px;
   min-height: 36px;
 }
