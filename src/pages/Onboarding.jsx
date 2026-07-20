@@ -44,6 +44,12 @@ export default function Onboarding() {
   const [selectedLevel, setSelectedLevel] = useState(null);
   const [selectedDays, setSelectedDays] = useState(["M", "J"]);
   const [selectedPlace, setSelectedPlace] = useState(null);
+
+  // Auto-seleccionar gym cuando cambian los días
+  useEffect(() => {
+    if (selectedDays.length === 4) setSelectedPlace("gym");
+    else if (selectedDays.length !== 3 && selectedDays.length !== 5) setSelectedPlace(null);
+  }, [selectedDays]);
   const [lastPeriodDate, setLastPeriodDate] = useState("");
   const [skipCycle, setSkipCycle] = useState(false);
   const { userName } = useUser();
