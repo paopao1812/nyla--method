@@ -37,154 +37,246 @@ const supplements = [
   { title: "Magnesio", text: "Puede apoyar descanso, sistema nervioso, recuperación y fatiga.", dose: "Consultar dosis adecuada" },
 ];
 
-// ─── Calculadora ───────────────────────────────────────────
-const FACTORS = {
-  "Perder grasa": {
-    "Sedentaria":             [10, 12],
-    "Moderadamente activa":   [12, 14],
-    "Muy activa":             [14, 15],
-  },
-  "Mantener peso": {
-    "Sedentaria":             [12, 14],
-    "Moderadamente activa":   [14, 16],
-    "Muy activa":             [16, 18],
-  },
-  "Ganar masa muscular": {
-    "Sedentaria":             [16, 18],
-    "Moderadamente activa":   [18, 20],
-    "Muy activa":             [20, 22],
-  },
+// ─── Calculadora basada en evidencia científica ────────────────────────────
+// Fuentes: ISSN 2017, ACSM, Academy of Nutrition and Dietetics, ESPEN
+const ACTIVITY_FACTORS = {
+  "Sedentaria":           1.2,
+  "Moderadamente activa": 1.55,
+  "Muy activa":           1.725,
+};
+
+const MACRO_TARGETS = {
+  "Perder grasa":       { proteinPerKg: 2.0, fatPerKg: 0.9,  label: "Déficit calórico moderado" },
+  "Mantener peso":      { proteinPerKg: 1.8, fatPerKg: 1.1,  label: "Mantenimiento" },
+  "Ganar masa muscular":{ proteinPerKg: 2.0, fatPerKg: 1.1,  label: "Superávit calórico moderado" },
 };
 
 function CalorieCalculator() {
   const [peso, setPeso] = useState("");
+  const [altura, setAltura] = useState("");
+  const [edad, setEdad] = useState("");
   const [objetivo, setObjetivo] = useState("Perder grasa");
   const [actividad, setActividad] = useState("Moderadamente activa");
   const [result, setResult] = useState(null);
+  const [showMenu, setShowMenu] = useState(false);
 
   const calcular = () => {
     const kg = parseFloat(peso);
+    const cm = parseFloat(altura);
+    const yr = parseFloat(edad);
     if (!kg || kg <= 0) return;
-    const libras = kg * 2.2;
-    const [min, max] = FACTORS[objetivo][actividad];
-    const kcalMin = Math.round(libras * min);
-    const kcalMax = Math.round(libras * max);
-    const kcal = Math.round((kcalMin + kcalMax) / 2);
 
-    // Proteína por kg de peso corporal (fórmula correcta)
-    let proteinPerKg;
-    if (objetivo === "Perder grasa")        proteinPerKg = 1.2;
-    else if (objetivo === "Mantener peso")  proteinPerKg = 1.6;
-    else                                    proteinPerKg = 2.2;
+    // TMB Mifflin-St Jeor para mujeres (más precisa que método de libras)
+    // Si no tiene altura/edad, usa estimación por peso
+    let tmb;
+    if (cm && yr) {
+      tmb = (10 * kg) + (6.25 * cm) - (5 * yr) - 161;
+    } else {
+      tmb = kg * 22; // estimación simplificada
+    }
 
-    const protein = Math.round(kg * proteinPerKg);
-    const proteinKcal = protein * 4;
+    const tdee = Math.round(tmb * ACTIVITY_FACTORS[actividad]);
 
-    // Grasas: 25% de las calorías totales
-    const fat = Math.round((kcal * 0.25) / 9);
-    const fatKcal = fat * 9;
+    // Ajuste calórico según objetivo
+    let kcal;
+    if (objetivo === "Perder grasa")        kcal = tdee - 300; // déficit moderado
+    else if (objetivo === "Ganar masa muscular") kcal = tdee + 200; // superávit moderado
+    else                                    kcal = tdee;
 
-    // Carbos: resto de calorías
-    const carbs = Math.round((kcal - proteinKcal - fatKcal) / 4);
+    const targets = MACRO_TARGETS[objetivo];
 
-    setResult({
-      min: kcalMin, max: kcalMax, kcal,
-      protein, carbs, fat,
-      proteinPerKg,
-    });
+    // Proteína: por kg peso corporal (ISSN, ACSM)
+    const protein = Math.round(kg * targets.proteinPerKg);
+
+    // Grasas: por kg peso corporal (mínimo hormonal femenino)
+    const fat = Math.round(kg * targets.fatPerKg);
+
+    // Carbos: calorías restantes
+    const remainingKcal = kcal - (protein * 4) - (fat * 9);
+    const carbs = Math.max(0, Math.round(remainingKcal / 4));
+
+    setResult({ kcal, tdee, protein, fat, carbs, objetivo, kg,
+      proteinPerKg: targets.proteinPerKg, fatPerKg: targets.fatPerKg });
+    setShowMenu(false);
   };
+
+  const macroExplanations = result ? {
+    protein: {
+      icon: "🥩",
+      title: "Proteína",
+      value: result.protein,
+      range: `${Math.round(result.kg * 1.6)}–${Math.round(result.kg * 2.4)} g`,
+      why: objetivo === "Perder grasa"
+        ? "En déficit calórico necesitas más proteína para no perder músculo mientras pierdes grasa."
+        : objetivo === "Ganar masa muscular"
+        ? "La proteína es el material con el que tu cuerpo construye músculo. Sin suficiente, el entrenamiento no se traduce en resultados."
+        : "Mantener un buen aporte proteico protege tu músculo y te mantiene saciada.",
+      color: "#c9607a",
+    },
+    fat: {
+      icon: "🥑",
+      title: "Grasas",
+      value: result.fat,
+      range: `${Math.round(result.kg * 0.8)}–${Math.round(result.kg * 1.2)} g`,
+      why: "Las grasas son esenciales para tus hormonas femeninas. Por debajo de 0.8 g/kg pueden aparecer alteraciones del ciclo menstrual.",
+      color: "#c4a060",
+    },
+    carbs: {
+      icon: "🍚",
+      title: "Carbohidratos",
+      value: result.carbs,
+      range: `${Math.round(result.carbs * 0.85)}–${Math.round(result.carbs * 1.15)} g`,
+      why: "Los carbos son tu combustible principal para entrenar. Se calculan con las calorías que quedan después de asignar proteína y grasas.",
+      color: "#a0c4a0",
+    },
+  } : null;
 
   return (
     <div className="ml-calc-card">
       <p className="ml-calc-eyebrow">CALCULADORA</p>
-      <h2 className="ml-calc-title">Calorías diarias</h2>
-      <p className="ml-calc-sub">Obtén una estimación personalizada según tu objetivo y nivel de actividad.</p>
+      <h2 className="ml-calc-title">Tus macros diarios</h2>
+      <p className="ml-calc-sub">Basada en evidencia científica (ISSN · ACSM · Academy of Nutrition and Dietetics)</p>
 
-      {/* Peso */}
       <div className="ml-calc-field">
         <label className="ml-calc-label">Peso (kg)</label>
-        <input
-          className="ml-calc-input"
-          type="number"
-          placeholder="Ej. 62"
-          value={peso}
-          onChange={e => { setPeso(e.target.value); setResult(null); }}
-          min="30"
-          max="200"
-        />
+        <input className="ml-calc-input" type="number" placeholder="Ej: 65" value={peso}
+          onChange={e => setPeso(e.target.value)} />
       </div>
 
-      {/* Objetivo */}
+      <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:"10px"}}>
+        <div className="ml-calc-field">
+          <label className="ml-calc-label">Altura (cm) <span style={{fontSize:"9px",opacity:0.5}}>opcional</span></label>
+          <input className="ml-calc-input" type="number" placeholder="Ej: 165" value={altura}
+            onChange={e => setAltura(e.target.value)} />
+        </div>
+        <div className="ml-calc-field">
+          <label className="ml-calc-label">Edad <span style={{fontSize:"9px",opacity:0.5}}>opcional</span></label>
+          <input className="ml-calc-input" type="number" placeholder="Ej: 28" value={edad}
+            onChange={e => setEdad(e.target.value)} />
+        </div>
+      </div>
+
       <div className="ml-calc-field">
         <label className="ml-calc-label">Objetivo</label>
-        <div className="ml-calc-options">
-          {Object.keys(FACTORS).map(opt => (
-            <button
-              key={opt}
-              className={`ml-calc-opt ${objetivo === opt ? "active" : ""}`}
-              onClick={() => { setObjetivo(opt); setResult(null); }}
-            >
-              {opt}
-            </button>
+        <div style={{display:"flex", flexDirection:"column", gap:"8px"}}>
+          {["Perder grasa","Mantener peso","Ganar masa muscular"].map(o => (
+            <button key={o} onClick={() => setObjetivo(o)} style={{
+              padding:"12px 16px", borderRadius:"12px", textAlign:"left",
+              background: objetivo === o ? "rgba(201,96,122,0.2)" : "rgba(0,0,0,0.2)",
+              border: objetivo === o ? "1px solid #c9607a" : "1px solid rgba(244,175,200,0.15)",
+              color: objetivo === o ? "#f4afc8" : "rgba(244,175,200,0.7)",
+              fontSize:"13px", cursor:"pointer", minHeight:"44px"
+            }}>{o}</button>
           ))}
         </div>
       </div>
 
-      {/* Actividad */}
       <div className="ml-calc-field">
         <label className="ml-calc-label">Nivel de actividad</label>
-        <div className="ml-calc-options">
-          {["Sedentaria","Moderadamente activa","Muy activa"].map(opt => (
-            <button
-              key={opt}
-              className={`ml-calc-opt ${actividad === opt ? "active" : ""}`}
-              onClick={() => { setActividad(opt); setResult(null); }}
-            >
-              {opt}
+        <div style={{display:"flex", flexDirection:"column", gap:"8px"}}>
+          {[
+            {k:"Sedentaria", desc:"Sin ejercicio o muy poco"},
+            {k:"Moderadamente activa", desc:"Entrenas 3–5 días/semana"},
+            {k:"Muy activa", desc:"Entrenas 6–7 días/semana"},
+          ].map(({k, desc}) => (
+            <button key={k} onClick={() => setActividad(k)} style={{
+              padding:"12px 16px", borderRadius:"12px", textAlign:"left",
+              background: actividad === k ? "rgba(201,96,122,0.2)" : "rgba(0,0,0,0.2)",
+              border: actividad === k ? "1px solid #c9607a" : "1px solid rgba(244,175,200,0.15)",
+              color: actividad === k ? "#f4afc8" : "rgba(244,175,200,0.7)",
+              fontSize:"13px", cursor:"pointer", minHeight:"44px"
+            }}>
+              <span style={{display:"block"}}>{k}</span>
+              <span style={{fontSize:"11px", opacity:0.6}}>{desc}</span>
             </button>
           ))}
         </div>
       </div>
 
-      {/* Botón calcular */}
-      <button className="ml-calc-btn" onClick={calcular} disabled={!peso}>
-        Calcular
+      <button onClick={calcular} className="ml-calc-btn">
+        Calcular mis macros →
       </button>
 
-      {/* Resultado */}
-      {result && (
-        <div className="ml-calc-result">
-          <p className="ml-calc-result-label">Calorías estimadas</p>
-          <p className="ml-calc-result-value">{result.min.toLocaleString()} – {result.max.toLocaleString()}</p>
-          <p className="ml-calc-result-unit">kcal por día</p>
-          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:"10px",margin:"16px 0"}}>
-            {[
-              {label:"Proteína",value:result.protein,color:"#c9607a"},
-              {label:"Carbos",value:result.carbs,color:"#a0c4a0"},
-              {label:"Grasas",value:result.fat,color:"#c4a060"},
-            ].map((m,i) => (
-              <div key={i} style={{background:"rgba(0,0,0,0.2)",borderRadius:"12px",padding:"12px 8px",textAlign:"center",border:`1px solid ${m.color}40`}}>
-                <div style={{fontSize:"22px",fontFamily:"Cormorant Garamond, serif",color:m.color,marginBottom:"2px"}}>{m.value}g</div>
-                <div style={{fontSize:"10px",color:"rgba(244,175,200,0.8)",letterSpacing:"0.1em",textTransform:"uppercase"}}>{m.label}</div>
-              </div>
-            ))}
+      {result && macroExplanations && (
+        <div style={{marginTop:"20px", display:"flex", flexDirection:"column", gap:"12px"}}>
+          <div style={{textAlign:"center", marginBottom:"4px"}}>
+            <p style={{fontSize:"20px", fontFamily:"Cormorant Garamond, serif", color:"#f5ede6"}}>{result.kcal.toLocaleString()} kcal/día</p>
+            <p style={{fontSize:"11px", color:"rgba(244,175,200,0.6)"}}>Gasto estimado: {result.tdee.toLocaleString()} kcal · {MACRO_TARGETS[objetivo].label}</p>
           </div>
-          <p style={{fontSize:"11px",color:"rgba(244,175,200,0.6)",lineHeight:"1.7",fontStyle:"italic",marginBottom:"12px"}}>
-            💡 Prioriza la proteína. Es el macro más importante para preservar músculo y construirlo cuando entrenas.
-          </p>
+
+          {Object.values(macroExplanations).map((m, i) => (
+            <div key={i} style={{
+              background:"rgba(0,0,0,0.25)", borderRadius:"16px", padding:"16px",
+              border:`1px solid ${m.color}30`
+            }}>
+              <div style={{display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"8px"}}>
+                <div style={{display:"flex", alignItems:"center", gap:"8px"}}>
+                  <span style={{fontSize:"20px"}}>{m.icon}</span>
+                  <span style={{fontSize:"14px", fontFamily:"Cormorant Garamond, serif", color:"#f5ede6"}}>{m.title}</span>
+                </div>
+                <div style={{textAlign:"right"}}>
+                  <span style={{fontSize:"22px", fontFamily:"Cormorant Garamond, serif", color:m.color}}>{m.value}g</span>
+                  <p style={{fontSize:"10px", color:"rgba(244,175,200,0.5)"}}>{m.range}/día</p>
+                </div>
+              </div>
+              <p style={{fontSize:"12px", color:"rgba(244,175,200,0.7)", lineHeight:"1.6"}}>{m.why}</p>
+            </div>
+          ))}
+
+          <div style={{
+            background:"rgba(0,0,0,0.15)", borderRadius:"12px", padding:"14px",
+            border:"1px solid rgba(244,175,200,0.08)"
+          }}>
+            <p style={{fontSize:"11px", color:"rgba(244,175,200,0.6)", lineHeight:"1.7", fontStyle:"italic"}}>
+              💡 Estos valores son una guía orientativa. Ajústalos según cómo responde tu cuerpo. Si no ves resultados en 3–4 semanas, revisa tu adherencia antes de cambiar los números.
+            </p>
+          </div>
+
+          <button onClick={() => {
+            localStorage.setItem("nylaMacros", JSON.stringify({
+              kcal: result.kcal, protein: result.protein,
+              carbs: result.carbs, fat: result.fat, objetivo
+            }));
+            setShowMenu(!showMenu);
+          }} style={{
+            width:"100%", padding:"16px", borderRadius:"50px",
+            background:"linear-gradient(135deg, #8b2840, #c9607a)",
+            color:"#fff", border:"none", fontSize:"11px",
+            letterSpacing:"0.2em", textTransform:"uppercase",
+            minHeight:"52px", cursor:"pointer",
+            boxShadow:"0 6px 20px rgba(201,96,122,0.3)"
+          }}>
+            ¿Cómo llegar a estos gramos? ✦
+          </button>
+
+          {showMenu && (
+            <div style={{display:"flex", flexDirection:"column", gap:"10px"}}>
+              {[
+                {icon:"📋", title:"Ver menú del día", desc:"NYLA te genera un menú completo con recetas del recetario"},
+                {icon:"🍽️", title:"Construir mi día", desc:"Elige tus propias recetas y ve sumando macros"},
+                {icon:"➕", title:"Completar lo que me falta", desc:"Descubre qué recetas te ayudan a llegar a tus macros"},
+              ].map((opt, i) => (
+                <button key={i} style={{
+                  padding:"16px", borderRadius:"14px", textAlign:"left",
+                  background:"rgba(0,0,0,0.2)",
+                  border:"1px solid rgba(244,175,200,0.12)",
+                  cursor:"pointer", display:"flex", gap:"12px", alignItems:"center"
+                }}>
+                  <span style={{fontSize:"24px"}}>{opt.icon}</span>
+                  <div>
+                    <p style={{fontSize:"14px", color:"#f5ede6", fontFamily:"Cormorant Garamond, serif", marginBottom:"3px"}}>{opt.title}</p>
+                    <p style={{fontSize:"11px", color:"rgba(244,175,200,0.6)"}}>{opt.desc}</p>
+                  </div>
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       )}
-
-      {/* Aviso */}
-      <div className="ml-calc-disclaimer">
-        <span>ℹ️</span>
-        <p>Esta estimación es una guía general y no sustituye el asesoramiento de un profesional de la nutrición.</p>
-      </div>
     </div>
   );
 }
 
-// ─── Pantalla principal ────────────────────────────────────
 export default function Meals() {
   const navigate = useNavigate();
 
