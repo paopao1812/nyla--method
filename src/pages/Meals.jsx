@@ -61,9 +61,18 @@ function CalorieCalculator() {
     if (!kg || kg <= 0) return;
     const libras = kg * 2.2;
     const [min, max] = FACTORS[objetivo][actividad];
+    const kcalMin = Math.round(libras * min);
+    const kcalMax = Math.round(libras * max);
+    const kcal = Math.round((kcalMin + kcalMax) / 2);
+    let proteinPct, carbsPct, fatPct;
+    if (objetivo === "Perder grasa") { proteinPct=0.35; carbsPct=0.35; fatPct=0.30; }
+    else if (objetivo === "Mantener peso") { proteinPct=0.30; carbsPct=0.40; fatPct=0.30; }
+    else { proteinPct=0.30; carbsPct=0.45; fatPct=0.25; }
     setResult({
-      min: Math.round(libras * min),
-      max: Math.round(libras * max),
+      min: kcalMin, max: kcalMax, kcal,
+      protein: Math.round((kcal * proteinPct) / 4),
+      carbs: Math.round((kcal * carbsPct) / 4),
+      fat: Math.round((kcal * fatPct) / 9),
     });
   };
 
@@ -130,6 +139,21 @@ function CalorieCalculator() {
           <p className="ml-calc-result-label">Calorías estimadas</p>
           <p className="ml-calc-result-value">{result.min.toLocaleString()} – {result.max.toLocaleString()}</p>
           <p className="ml-calc-result-unit">kcal por día</p>
+          <div style={{display:"grid",gridTemplateColumns:"1fr 1fr 1fr",gap:"10px",margin:"16px 0"}}>
+            {[
+              {label:"Proteína",value:result.protein,color:"#c9607a"},
+              {label:"Carbos",value:result.carbs,color:"#a0c4a0"},
+              {label:"Grasas",value:result.fat,color:"#c4a060"},
+            ].map((m,i) => (
+              <div key={i} style={{background:"rgba(0,0,0,0.2)",borderRadius:"12px",padding:"12px 8px",textAlign:"center",border:`1px solid ${m.color}40`}}>
+                <div style={{fontSize:"22px",fontFamily:"Cormorant Garamond, serif",color:m.color,marginBottom:"2px"}}>{m.value}g</div>
+                <div style={{fontSize:"10px",color:"rgba(244,175,200,0.8)",letterSpacing:"0.1em",textTransform:"uppercase"}}>{m.label}</div>
+              </div>
+            ))}
+          </div>
+          <p style={{fontSize:"11px",color:"rgba(244,175,200,0.6)",lineHeight:"1.7",fontStyle:"italic",marginBottom:"12px"}}>
+            💡 Prioriza la proteína. Es el macro más importante para preservar músculo y construirlo cuando entrenas.
+          </p>
         </div>
       )}
 
