@@ -351,6 +351,11 @@ export default function Workout() {
 
   const handleComplete = () => {
     trackActivity();
+    // Registrar cardio completado si estamos en esa sección
+    if (activeSection === "cardio") {
+      const cardioKey = `cardio-${selectedPlan}-${internalWeek}-${selectedDay}`;
+      localStorage.setItem(cardioKey, new Date().toISOString());
+    }
     const key = `${selectedPlan}-${internalWeek}-${selectedDay}`;
     const current = JSON.parse(localStorage.getItem("nylaCompletedDays") || "[]");
     if (!current.includes(key)) {
@@ -784,21 +789,39 @@ export default function Workout() {
           </div>
         ) : (
           <div className="wk-cardio">
-            <p className="wk-cardio-eyebrow">CARDIO DESPUÉS DE PESAS · SEMANA {internalWeek}</p>
-            <h2 className="wk-cardio-title">🚶‍♀️ Caminadora inclinada</h2>
-            <div className="wk-cardio-stats">
-              <div><span>Tiempo</span><strong>{cardio.time}</strong></div>
-              <div><span>Inclinación</span><strong>{cardio.incline}%</strong></div>
-            </div>
-            <div className="wk-cardio-divider" />
-            <h2 className="wk-cardio-title">🔄 Elíptica</h2>
-            <div className="wk-cardio-stats">
-              <div><span>Tiempo</span><strong>{cardio.time}</strong></div>
-              <div><span>Resistencia</span><strong>{cardio.eliptica}</strong></div>
-            </div>
-            <small>Elige una opción. Intensidad cómoda y constante.</small>
+            <p className="wk-cardio-eyebrow">CARDIO · SEMANA {internalWeek} · ELIGE UNA OPCIÓN</p>
+            <p style={{fontSize:"12px", color:"rgba(244,175,200,0.5)", marginBottom:"12px"}}>
+              Intensidad cómoda y constante. Tiempo: <strong style={{color:"#f4afc8"}}>{cardio.time}</strong>
+            </p>
+            {[
+              { icon:"🚶‍♀️", name:"Caminadora inclinada", stats:[{l:"Tiempo",v:cardio.time},{l:"Inclinación",v:cardio.incline+"%"}] },
+              { icon:"🚴", name:"Bicicleta estática", stats:[{l:"Tiempo",v:cardio.time},{l:"Resistencia",v:cardio.eliptica}] },
+              { icon:"🔄", name:"Elíptica", stats:[{l:"Tiempo",v:cardio.time},{l:"Resistencia",v:cardio.eliptica}] },
+              { icon:"🧗", name:"Escaladora", stats:[{l:"Tiempo",v:cardio.time},{l:"Nivel",v:Math.min(Math.floor(internalWeek/4)+3,12)}] },
+            ].map((machine, i) => (
+              <div key={i} style={{
+                background:"rgba(0,0,0,0.2)", borderRadius:"12px",
+                padding:"14px", marginBottom:"10px",
+                border:"1px solid rgba(244,175,200,0.08)"
+              }}>
+                <p style={{fontSize:"15px", fontFamily:"Cormorant Garamond, serif", marginBottom:"10px"}}>
+                  {machine.icon} {machine.name}
+                </p>
+                <div style={{display:"grid", gridTemplateColumns:"1fr 1fr", gap:"8px"}}>
+                  {machine.stats.map((s, j) => (
+                    <div key={j} style={{background:"rgba(0,0,0,0.2)", borderRadius:"8px", padding:"10px", textAlign:"center"}}>
+                      <div style={{fontSize:"10px", color:"rgba(244,175,200,0.5)", textTransform:"uppercase", letterSpacing:"0.1em", marginBottom:"4px"}}>{s.l}</div>
+                      <div style={{fontSize:"18px", fontFamily:"Cormorant Garamond, serif"}}>{s.v}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+            <small style={{display:"block", textAlign:"center", marginBottom:"16px", color:"rgba(244,175,200,0.4)", fontSize:"11px"}}>
+              Velocidad máx. caminadora: 5.5 · Inclinación máx: 12
+            </small>
             <button className="wk-complete" onClick={handleComplete}>
-              Finalizar entrenamiento ✦
+              Cardio completado ✦
             </button>
           </div>
         )
