@@ -620,8 +620,13 @@ export default function Workout() {
           <p style={{fontSize:"12px", color:"rgba(244,175,200,0.5)", textAlign:"center", marginTop:"16px", lineHeight:"1.6"}}>
             Elige la opción que más te apetezca hoy. Lo importante es mantenerte activa sin forzar. 🌸
           </p>
-          <button className="wk-complete" style={{marginTop:"16px"}} onClick={handleComplete}>
-            He hecho mi descanso activo ✦
+          <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => {
+            // Marcar día de descanso como completado sin afectar el progreso real
+            setShowSummaryModal(false);
+            window.scrollTo(0,0);
+            setShowExercises(false);
+          }}>
+            Entendido ✦
           </button>
         </div>
       )}
@@ -691,7 +696,7 @@ export default function Workout() {
       )}
 
       {/* EXERCISES */}
-      {activeSection === "exercises" && (
+      {activeSection === "exercises" && !isRestDay && (
         <div className="wk-card">
           <h2 className="wk-card-title">{selectedDay}</h2>
           <p className="wk-card-sub">{sets} series · 6–12 reps por ejercicio</p>
