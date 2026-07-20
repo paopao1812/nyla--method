@@ -51,6 +51,32 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: error.message });
     }
 
+    // Notificar a Pao por email via Resend
+    try {
+      await fetch("https://api.resend.com/emails", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${process.env.RESEND_API_KEY}`,
+        },
+        body: JSON.stringify({
+          from: "NYLA <nyla@nylabypao.com>",
+          to: "paolavalenciavictoria@gmail.com",
+          subject: "✦ Nueva usuaria en NYLA",
+          html: `
+            <div style="font-family: sans-serif; padding: 24px; background: #1a0610; color: #f5ede6; border-radius: 12px;">
+              <h2 style="color: #c9607a;">Nueva usuaria en NYLA ✦</h2>
+              <p><strong>Email:</strong> ${email.toLowerCase()}</p>
+              <p><strong>Trial hasta:</strong> ${trialEnd.toLocaleDateString("es-ES", {day:"2-digit", month:"long", year:"numeric"})}</p>
+              <p><strong>Fecha de registro:</strong> ${now.toLocaleDateString("es-ES", {day:"2-digit", month:"long", year:"numeric", hour:"2-digit", minute:"2-digit"})}</p>
+            </div>
+          `
+        }),
+      });
+    } catch (emailErr) {
+      console.error("Error enviando notificación:", emailErr);
+    }
+
     return res.status(200).json({ 
       authorized: true, 
       trial: true,

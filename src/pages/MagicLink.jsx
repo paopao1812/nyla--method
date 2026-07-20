@@ -4,7 +4,10 @@ import { supabase } from "../supabase";
 import "../styles/PremiumSuccess.css";
 
 export default function MagicLink() {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("email") || "";
+  });
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [error, setError] = useState("");
