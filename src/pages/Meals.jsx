@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Meals.css";
 
@@ -30,12 +30,154 @@ const meals = {
   ],
 };
 
-const supplements = [
-  { title: "Proteína Whey", text: "Ayuda a llegar a la proteína diaria, favorece recuperación y saciedad.", dose: "1 scoop · 20–25 g proteína" },
-  { title: "Creatina monohidrato", text: "Apoya fuerza, rendimiento, recuperación y energía muscular.", dose: "3–5 g diarios" },
-  { title: "Omega 3", text: "Puede apoyar salud cardiovascular, inflamación, cerebro y recuperación.", dose: "Según indicación del producto o profesional" },
-  { title: "Magnesio", text: "Puede apoyar descanso, sistema nervioso, recuperación y fatiga.", dose: "Consultar dosis adecuada" },
+const supplementGroups = [
+  {
+    group: "Suplementación básica",
+    desc: "Respaldados por amplia evidencia científica para mujeres que entrenan fuerza.",
+    items: [
+      {
+        title: "Proteína Whey Isolate",
+        icon: "🥛",
+        what: "Proteína de suero de leche en su forma más purificada. Contiene mayor porcentaje de proteína y muy poca lactosa.",
+        why: "Ayuda a llegar a tu objetivo diario de proteína cuando la alimentación sola no es suficiente. Favorece la recuperación muscular y la saciedad.",
+        when: "Después del entrenamiento o en cualquier momento del día donde necesites un aporte proteico rápido.",
+        dose: "1 scoop aporta entre 20 y 30 g de proteína. Ajusta según lo que te falte para llegar a tu objetivo diario.",
+        note: "La proteína en polvo no es obligatoria. Es un complemento práctico, no un requisito.",
+        caution: "Si tienes intolerancia a la lactosa severa, consulta con tu médico o elige una proteína vegetal.",
+        who: "Cualquier mujer que entrene fuerza y le cueste llegar a su proteína diaria solo con alimentos.",
+      },
+      {
+        title: "Creatina Monohidrato",
+        icon: "⚡",
+        what: "Uno de los suplementos más estudiados en la historia del deporte. Ayuda a tu músculo a producir energía durante esfuerzos intensos.",
+        why: "Mejora la fuerza, el rendimiento en el entrenamiento y puede acelerar la recuperación. Los efectos son acumulativos.",
+        when: "En cualquier momento del día. La hora no importa tanto como la consistencia. Tómala todos los días, entrenes o no.",
+        dose: "3–5 g diarios. No es necesaria la fase de carga.",
+        note: "Es normal retener algo de agua muscular los primeros días. No es grasa, es hidratación del músculo.",
+        caution: "Si tienes problemas renales, consulta con tu médico antes de tomarla.",
+        who: "Mujeres que llevan al menos 2–3 meses entrenando con regularidad y quieren mejorar su rendimiento.",
+      },
+    ]
+  },
+  {
+    group: "Salud y bienestar",
+    desc: "Suplementos que pueden apoyar tu salud general. Siempre con criterio y sin excesos.",
+    items: [
+      {
+        title: "Omega 3",
+        icon: "🐟",
+        what: "Ácidos grasos esenciales que el cuerpo no puede producir por sí solo. Se obtienen principalmente del pescado azul.",
+        why: "Puede apoyar la salud cardiovascular, la función cerebral y reducir la inflamación derivada del entrenamiento.",
+        when: "Con las comidas para mejorar su absorción.",
+        dose: "La dosis depende del producto. Busca uno que aporte al menos 1 g de EPA+DHA por día.",
+        note: "Si comes pescado azul 2–3 veces por semana, puede que no lo necesites.",
+        caution: "Si tomas anticoagulantes, consulta con tu médico.",
+        who: "Especialmente útil si consumes poco pescado azul en tu dieta habitual.",
+      },
+      {
+        title: "Magnesio",
+        icon: "🌙",
+        what: "Mineral esencial implicado en más de 300 funciones del organismo, incluyendo la función muscular, el sistema nervioso y el descanso.",
+        why: "Muchas personas no llegan a los niveles óptimos a través de la alimentación. Puede mejorar la calidad del sueño y la recuperación.",
+        when: "Por la noche, antes de dormir.",
+        dose: "No hay una dosis universal. Depende del tipo y de tus necesidades. Consulta el prospecto del producto.",
+        note: "Existen distintas formas de magnesio con diferentes usos.",
+        caution: "El citrato puede tener efecto laxante en dosis altas.",
+        who: "Mujeres con dificultades para dormir, calambres musculares frecuentes o alto nivel de estrés.",
+        subtypes: [
+          { name: "Bisglicinato", best: "Descanso · estrés · recuperación" },
+          { name: "Citrato", best: "Función muscular · estreñimiento ocasional" },
+          { name: "Treonato", best: "Función cognitiva · cerebro" },
+          { name: "Malato", best: "Energía · personas con sensación de fatiga" },
+        ]
+      },
+      {
+        title: "Vitamina D",
+        icon: "☀️",
+        what: "Vitamina liposoluble que el cuerpo sintetiza principalmente a través de la exposición solar.",
+        why: "Esencial para la salud ósea, la función muscular y el sistema inmune. El déficit es muy común en personas con poca exposición al sol.",
+        when: "Con una comida que contenga grasas, para mejorar su absorción.",
+        dose: "No recomendamos una dosis estándar. Hazte una analítica y ajusta según tus niveles reales.",
+        note: "No suplementes sistemáticamente sin saber tus niveles. Más no siempre es mejor.",
+        caution: "En dosis muy altas puede ser tóxica. Siempre bajo supervisión si tomas dosis altas.",
+        who: "Personas con poca exposición solar, que viven en latitudes nórdicas o con niveles bajos confirmados en analítica.",
+      },
+    ]
+  },
 ];
+
+
+function SupplementCard({ supp }) {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <div style={{
+      background:"rgba(0,0,0,0.25)", borderRadius:"16px",
+      border:"1px solid rgba(244,175,200,0.1)",
+      overflow:"hidden"
+    }}>
+      <button onClick={() => setOpen(o => !o)} style={{
+        width:"100%", padding:"16px", display:"flex",
+        justifyContent:"space-between", alignItems:"center",
+        background:"none", border:"none", cursor:"pointer", textAlign:"left"
+      }}>
+        <div style={{display:"flex", alignItems:"center", gap:"12px"}}>
+          <span style={{fontSize:"24px"}}>{supp.icon}</span>
+          <span style={{fontFamily:"Cormorant Garamond, serif", fontSize:"17px", color:"#f5ede6"}}>{supp.title}</span>
+        </div>
+        <span style={{color:"#c9607a", fontSize:"18px"}}>{open ? "−" : "+"}</span>
+      </button>
+      {open && (
+        <div style={{padding:"0 16px 16px", display:"flex", flexDirection:"column", gap:"12px"}}>
+          {[
+            {label:"¿Qué es?", value:supp.what},
+            {label:"¿Para qué sirve?", value:supp.why},
+            {label:"¿Cuándo tomarlo?", value:supp.when},
+            {label:"Dosis orientativa", value:supp.dose},
+          ].map((item, i) => (
+            <div key={i}>
+              <p style={{fontSize:"10px", letterSpacing:"0.2em", color:"#c9607a", textTransform:"uppercase", marginBottom:"4px"}}>{item.label}</p>
+              <p style={{fontSize:"13px", color:"rgba(244,175,200,0.8)", lineHeight:"1.6"}}>{item.value}</p>
+            </div>
+          ))}
+          {supp.subtypes && (
+            <div>
+              <p style={{fontSize:"10px", letterSpacing:"0.2em", color:"#c9607a", textTransform:"uppercase", marginBottom:"8px"}}>Tipos de magnesio</p>
+              {supp.subtypes.map((st, i) => (
+                <div key={i} style={{
+                  background:"rgba(0,0,0,0.2)", borderRadius:"10px",
+                  padding:"10px 12px", marginBottom:"6px",
+                  display:"flex", justifyContent:"space-between", alignItems:"center"
+                }}>
+                  <span style={{fontSize:"13px", color:"#f5ede6", fontWeight:"500"}}>{st.name}</span>
+                  <span style={{fontSize:"11px", color:"rgba(244,175,200,0.6)"}}>{st.best}</span>
+                </div>
+              ))}
+            </div>
+          )}
+          <div style={{
+            background:"rgba(201,96,122,0.08)", borderRadius:"10px",
+            padding:"10px 12px", border:"1px solid rgba(201,96,122,0.15)"
+          }}>
+            <p style={{fontSize:"11px", color:"rgba(244,175,200,0.6)", lineHeight:"1.6"}}>
+              ⚠️ {supp.caution}
+            </p>
+          </div>
+          <div style={{
+            background:"rgba(0,0,0,0.15)", borderRadius:"10px", padding:"10px 12px"
+          }}>
+            <p style={{fontSize:"11px", color:"rgba(244,175,200,0.5)", lineHeight:"1.6", fontStyle:"italic"}}>
+              💡 {supp.note}
+            </p>
+          </div>
+          <div>
+            <p style={{fontSize:"10px", letterSpacing:"0.2em", color:"rgba(244,175,200,0.5)", textTransform:"uppercase", marginBottom:"4px"}}>¿A quién puede beneficiar?</p>
+            <p style={{fontSize:"12px", color:"rgba(244,175,200,0.7)", lineHeight:"1.6"}}>{supp.who}</p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
 
 // ─── Calculadora basada en evidencia científica ────────────────────────────
 // Fuentes: ISSN 2017, ACSM, Academy of Nutrition and Dietetics, ESPEN
@@ -313,13 +455,29 @@ export default function Meals() {
       ))}
 
       {/* ── SUPLEMENTACIÓN ── */}
-      <div className="ml-card">
-        <h2 className="ml-card-title">Suplementación básica</h2>
-        {supplements.map(s => (
-          <div className="ml-item" key={s.title}>
-            <h3>{s.title}</h3>
-            <p>{s.text}</p>
-            <div className="ml-macros"><span>{s.dose}</span></div>
+      <div style={{display:"flex",flexDirection:"column",gap:"16px"}}>
+        {/* Aviso importante */}
+        <div style={{
+          background:"rgba(201,96,122,0.08)", borderRadius:"14px",
+          padding:"16px", border:"1px solid rgba(201,96,122,0.2)"
+        }}>
+          <p style={{fontSize:"12px", color:"rgba(244,175,200,0.8)", lineHeight:"1.7", fontStyle:"italic"}}>
+            🌿 La alimentación, el entrenamiento, el descanso y la gestión del estrés son la base. Los suplementos son un complemento, nunca un sustituto.
+          </p>
+          <p style={{fontSize:"11px", color:"rgba(244,175,200,0.5)", marginTop:"8px", lineHeight:"1.6"}}>
+            La información mostrada es educativa y no sustituye el consejo de un profesional de la salud.
+          </p>
+        </div>
+
+        {supplementGroups.map((group, gi) => (
+          <div key={gi} style={{display:"flex", flexDirection:"column", gap:"12px"}}>
+            <div>
+              <h2 style={{fontFamily:"Cormorant Garamond, serif", fontSize:"22px", color:"#f4afc8", marginBottom:"4px"}}>{group.group}</h2>
+              <p style={{fontSize:"12px", color:"rgba(244,175,200,0.6)"}}>{group.desc}</p>
+            </div>
+            {group.items.map((s, si) => (
+              <SupplementCard key={si} supp={s} />
+            ))}
           </div>
         ))}
       </div>
