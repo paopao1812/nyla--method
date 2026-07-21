@@ -117,21 +117,24 @@ export default function Progress() {
               <p style={{fontSize:"13px", opacity:0.6, marginBottom:"12px"}}>
                 {selectedExercise}
               </p>
-              <div style={{display:"flex", alignItems:"flex-end", gap:"8px", height:"80px"}}>
-                {exercisesWithWeights[selectedExercise].map((d, i) => {
-                  const max = Math.max(...exercisesWithWeights[selectedExercise].map(x => x.weight));
-                  const h = max > 0 ? (d.weight / max) * 70 : 10;
-                  return (
-                    <div key={i} style={{display:"flex", flexDirection:"column", alignItems:"center", gap:"4px"}}>
-                      <span style={{fontSize:"10px", opacity:0.7, display:"block", textAlign:"center"}}>{d.weight}kg</span>
-                      <div style={{
-                        width:"28px", height:`${h}px`, borderRadius:"4px 4px 0 0",
-                        background:"linear-gradient(to top, #c9607a, #e8a0b0)"
-                      }}/>
-                      <span style={{fontSize:"10px", opacity:0.5, display:"block", textAlign:"center"}}>S{d.week}</span>
-                    </div>
-                  );
-                })}
+              <div style={{overflowX:"auto", paddingBottom:"8px"}}>
+                <div style={{display:"flex", alignItems:"flex-end", gap:"12px", height:"110px", minWidth:"fit-content", paddingTop:"24px"}}>
+                  {exercisesWithWeights[selectedExercise].map((d, i) => {
+                    const max = Math.max(...exercisesWithWeights[selectedExercise].map(x => x.weight));
+                    const h = max > 0 ? (d.weight / max) * 70 : 10;
+                    return (
+                      <div key={i} style={{display:"flex", flexDirection:"column", alignItems:"center", gap:"4px", flexShrink:0}}>
+                        <span style={{fontSize:"10px", color:"rgba(244,175,200,0.8)", marginBottom:"2px"}}>{d.weight}kg</span>
+                        <div style={{
+                          width:"32px", height:`${h}px`, borderRadius:"4px 4px 0 0",
+                          background:"linear-gradient(to top, #c9607a, #e8a0b0)",
+                          minHeight:"8px"
+                        }}/>
+                        <span style={{fontSize:"10px", color:"rgba(244,175,200,0.5)"}}>S{d.week}</span>
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           )}
