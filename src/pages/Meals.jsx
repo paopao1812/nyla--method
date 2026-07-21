@@ -301,9 +301,11 @@ export default function Meals() {
             <div className="ml-item" key={meal.title}>
               <h3>{meal.title}</h3>
               <ul>{meal.items.map(i => <li key={i}>{i}</li>)}</ul>
-              <div className="ml-macros">
-                <span>{meal.protein}</span>
-                <span>{meal.calories}</span>
+              <div style={{display:"flex", gap:"8px", flexWrap:"wrap", marginTop:"8px"}}>
+                <span style={{fontSize:"11px", background:"rgba(201,96,122,0.15)", color:"#c9607a", padding:"3px 8px", borderRadius:"8px"}}>P {meal.protein}g</span>
+                <span style={{fontSize:"11px", background:"rgba(160,196,160,0.15)", color:"#a0c4a0", padding:"3px 8px", borderRadius:"8px"}}>C {meal.carbs}g</span>
+                <span style={{fontSize:"11px", background:"rgba(196,160,96,0.15)", color:"#c4a060", padding:"3px 8px", borderRadius:"8px"}}>G {meal.fat}g</span>
+                <span style={{fontSize:"11px", background:"rgba(244,175,200,0.1)", color:"rgba(244,175,200,0.7)", padding:"3px 8px", borderRadius:"8px"}}>{meal.calories} kcal</span>
               </div>
             </div>
           ))}
