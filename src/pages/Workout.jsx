@@ -378,10 +378,12 @@ export default function Workout() {
     if (nextDay) {
       localStorage.setItem("nylaSelectedDay", nextDay);
       localStorage.setItem("nylaSelectedPlan", selectedPlan);
-      const isLowerDay = nextDay.includes("Glúteos") || nextDay.includes("Pierna") || nextDay.includes("Femoral") || nextDay.includes("Cuádriceps");
-      localStorage.setItem("nylaActiveSection", isLowerDay ? "activation" : "exercises");
+      const isRestDay = nextDay === "Descanso Activo";
+      const isLowerDay = !isRestDay && (nextDay.includes("Glúteos") || nextDay.includes("Pierna") || nextDay.includes("Femoral") || nextDay.includes("Cuádriceps"));
+      const nextSection = isRestDay ? "exercises" : isLowerDay ? "activation" : "exercises";
+      localStorage.setItem("nylaActiveSection", nextSection);
       setSelectedDay(nextDay);
-      setActiveSection(isLowerDay ? "activation" : "exercises");
+      setActiveSection(nextSection);
     } else {
       localStorage.removeItem("nylaSelectedDay");
       localStorage.removeItem("nylaActiveSection");
@@ -620,12 +622,7 @@ export default function Workout() {
           <p style={{fontSize:"12px", color:"rgba(244,175,200,0.5)", textAlign:"center", marginTop:"16px", lineHeight:"1.6"}}>
             Elige la opción que más te apetezca hoy. Lo importante es mantenerte activa sin forzar. 🌸
           </p>
-          <button className="wk-complete" style={{marginTop:"16px"}} onClick={() => {
-            // Marcar día de descanso como completado sin afectar el progreso real
-            setShowSummaryModal(false);
-            window.scrollTo(0,0);
-            setShowExercises(false);
-          }}>
+          <button className="wk-complete" style={{marginTop:"16px"}} onClick={handleComplete}>
             Entendido ✦
           </button>
         </div>

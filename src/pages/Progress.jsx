@@ -123,12 +123,12 @@ export default function Progress() {
                   const h = max > 0 ? (d.weight / max) * 70 : 10;
                   return (
                     <div key={i} style={{display:"flex", flexDirection:"column", alignItems:"center", gap:"4px"}}>
-                      <span style={{fontSize:"10px", opacity:0.7}}>{d.weight}kg</span>
+                      <span style={{fontSize:"10px", opacity:0.7, display:"block", textAlign:"center"}}>{d.weight}kg</span>
                       <div style={{
                         width:"28px", height:`${h}px`, borderRadius:"4px 4px 0 0",
                         background:"linear-gradient(to top, #c9607a, #e8a0b0)"
                       }}/>
-                      <span style={{fontSize:"10px", opacity:0.5}}>S{d.week}</span>
+                      <span style={{fontSize:"10px", opacity:0.5, display:"block", textAlign:"center"}}>S{d.week}</span>
                     </div>
                   );
                 })}
