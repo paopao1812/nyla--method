@@ -427,9 +427,21 @@ export default function Meals() {
       <p className="ml-eyebrow">IDEAS PARA NUTRIRTE</p>
       <p className="ml-subtitle">La proteína es tu gran aliada para construir músculo, recuperarte mejor y sentirte saciada.</p>
 
-      <div className="ml-note">
-        <p>Estas ideas son educativas y generales. Si tienes una condición médica, necesidades específicas o quieres un plan personalizado, consulta con un profesional en nutrición o salud.</p>
-        <p>Tu bienestar siempre es prioridad.</p>
+      <div style={{
+        background:"linear-gradient(135deg, rgba(107,21,53,0.7), rgba(61,14,37,0.9))",
+        borderRadius:"16px", padding:"20px",
+        border:"2px solid rgba(201,96,122,0.5)",
+        boxShadow:"0 4px 24px rgba(201,96,122,0.2)"
+      }}>
+        <p style={{fontSize:"13px", fontFamily:"Cormorant Garamond, serif", color:"#f4afc8", marginBottom:"10px", fontStyle:"italic", fontSize:"16px"}}>
+          ⚠️ Información importante
+        </p>
+        <p style={{fontSize:"13px", color:"rgba(244,175,200,0.95)", lineHeight:"1.8", marginBottom:"8px"}}>
+          Estas recomendaciones son educativas y generales. Si tienes una condición médica, necesidades específicas o quieres un plan personalizado, consulta con un profesional en nutrición o salud.
+        </p>
+        <p style={{fontSize:"12px", color:"#c9607a", fontWeight:"500"}}>
+          Tu bienestar siempre es prioridad. ✦
+        </p>
       </div>
 
       {/* ── CALCULADORA ── */}
