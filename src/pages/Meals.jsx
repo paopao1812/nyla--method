@@ -453,6 +453,18 @@ export default function Meals() {
           <h2 className="ml-card-title">{cat}</h2>
           {list.map(meal => (
             <div className="ml-item" key={meal.title}>
+              {/* Espacio para foto del plato */}
+              <div style={{
+                width:"100%", height:"160px", borderRadius:"12px",
+                background:"rgba(0,0,0,0.2)",
+                border:"1px dashed rgba(244,175,200,0.2)",
+                display:"flex", alignItems:"center", justifyContent:"center",
+                marginBottom:"12px", overflow:"hidden"
+              }}>
+                <p style={{fontSize:"11px", color:"rgba(244,175,200,0.3)", letterSpacing:"0.2em", textTransform:"uppercase"}}>
+                  📷 Foto del plato
+                </p>
+              </div>
               <h3>{meal.title}</h3>
               <ul>{meal.items.map(i => <li key={i}>{i}</li>)}</ul>
               <div style={{display:"flex", gap:"8px", flexWrap:"wrap", marginTop:"8px"}}>
