@@ -172,19 +172,7 @@ export default function Settings() {
         }}>
           Editar perfil →
         </button>
-        <button onClick={() => {
-          localStorage.removeItem("nylaSelectedPlan");
-          localStorage.removeItem("nylaPlace");
-          localStorage.removeItem("nylaDays");
-          navigate("/onboarding");
-        }} style={{
-          width:"100%", padding:"12px", borderRadius:"12px",
-          background:"linear-gradient(135deg, #8b2840, #c9607a)", color:"#fff",
-          border:"none", cursor:"pointer",
-          fontSize:"13px", letterSpacing:"0.1em"
-        }}>
-          ⚡ Actualizar mi plan de entrenamiento
-        </button>
+
       </div>
 
       {/* INFO */}

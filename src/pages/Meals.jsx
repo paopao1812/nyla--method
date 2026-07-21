@@ -458,14 +458,20 @@ export default function Meals() {
       <div style={{display:"flex",flexDirection:"column",gap:"16px"}}>
         {/* Aviso importante */}
         <div style={{
-          background:"rgba(201,96,122,0.08)", borderRadius:"14px",
-          padding:"16px", border:"1px solid rgba(201,96,122,0.2)"
+          background:"linear-gradient(135deg, rgba(107,21,53,0.6), rgba(61,14,37,0.8))",
+          borderRadius:"16px", padding:"20px",
+          border:"1px solid rgba(201,96,122,0.4)",
+          boxShadow:"0 4px 20px rgba(201,96,122,0.15)"
         }}>
-          <p style={{fontSize:"12px", color:"rgba(244,175,200,0.8)", lineHeight:"1.7", fontStyle:"italic"}}>
-            🌿 La alimentación, el entrenamiento, el descanso y la gestión del estrés son la base. Los suplementos son un complemento, nunca un sustituto.
+          <p style={{fontSize:"14px", fontFamily:"Cormorant Garamond, serif", color:"#f4afc8", marginBottom:"10px", fontStyle:"italic"}}>
+            🌿 La alimentación, el entrenamiento, el descanso y la gestión del estrés son la base.
           </p>
-          <p style={{fontSize:"11px", color:"rgba(244,175,200,0.5)", marginTop:"8px", lineHeight:"1.6"}}>
-            La información mostrada es educativa y no sustituye el consejo de un profesional de la salud.
+          <p style={{fontSize:"13px", color:"rgba(244,175,200,0.9)", lineHeight:"1.7", marginBottom:"10px"}}>
+            Los suplementos son un complemento, nunca un sustituto.
+          </p>
+          <div style={{height:"1px", background:"rgba(201,96,122,0.3)", margin:"10px 0"}}/>
+          <p style={{fontSize:"11px", color:"rgba(244,175,200,0.7)", lineHeight:"1.6"}}>
+            ⚠️ La información mostrada es educativa y no sustituye el consejo de un profesional de la salud.
           </p>
         </div>
 
