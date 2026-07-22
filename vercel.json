@@ -2,7 +2,16 @@
   "crons": [
     {
       "path": "/api/send-daily-notification",
-      "schedule": "0 * * * *"
+      "schedule": "0 13 * * *"
+    }
+  ]
+}
+EOFcat > vercel.json << 'EOF'
+{
+  "crons": [
+    {
+      "path": "/api/send-daily-notification",
+      "schedule": "0 13 * * *"
     }
   ]
 }

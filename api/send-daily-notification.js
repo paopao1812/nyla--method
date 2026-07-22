@@ -18,19 +18,6 @@ function getDayOfYear(date) {
   return Math.floor(diff / (1000 * 60 * 60 * 24));
 }
 
-function getLocalHour(timezone) {
-  try {
-    const formatter = new Intl.DateTimeFormat("en-US", {
-      timeZone: timezone,
-      hour: "numeric",
-      hour12: false,
-    });
-    return parseInt(formatter.format(new Date()));
-  } catch {
-    return null;
-  }
-}
-
 export default async function handler(req, res) {
   try {
     const { data: subscriptions, error } = await supabase
@@ -51,17 +38,8 @@ export default async function handler(req, res) {
 
     let sent = 0;
     let failed = 0;
-    let skipped = 0;
 
     for (const sub of subscriptions || []) {
-      const localHour = getLocalHour(sub.timezone || "America/Mexico_City");
-      const preferredHour = sub.notif_hour ?? 8;
-
-      if (localHour !== preferredHour) {
-        skipped++;
-        continue;
-      }
-
       try {
         await webpush.sendNotification(sub.subscription, payload);
         sent++;
@@ -80,7 +58,6 @@ export default async function handler(req, res) {
       ok: true,
       sent,
       failed,
-      skipped,
       total: subscriptions?.length || 0,
     });
   } catch (err) {
