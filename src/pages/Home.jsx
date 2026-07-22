@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
+import CyclePhaseCard from "../components/CyclePhaseCard";
 import "../styles/Home.css";
 
 const PLAN_DAYS = {
@@ -99,8 +100,6 @@ export default function Home() {
         <p className="home-subtitle">Hoy entrenas con intención, fuerza y claridad.</p>
       </div>
 
-
-
       <div className="home-progress-card">
         <p className="home-card-label">Tu progreso</p>
         <div className="home-progress-row">
@@ -113,6 +112,9 @@ export default function Home() {
         <p className="home-progress-text">Un paso más cerca de tu versión más fuerte.</p>
       </div>
 
+      <CyclePhaseCard />
+
+
       <div className="home-main-card" onClick={goWorkout} role="button">
         <p className="home-card-label">Entrenamiento de hoy</p>
         <h2>{next ? next.dayName : "Glúteos y fuerza base"}</h2>
@@ -121,8 +123,6 @@ export default function Home() {
           {next?.hasStarted ? "CONTINUAR ENTRENAMIENTO" : "EMPEZAR ENTRENAMIENTO"}
         </button>
       </div>
-
-
 
       <div className="home-quote-card">
         <p>"No necesitas hacerlo perfecto. Solo volver a ti, una vez más."</p>
