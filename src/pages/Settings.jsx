@@ -1,9 +1,23 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
+const VAPID_PUBLIC_KEY = "BICHU6u1icSRgNQrRxUQEIdhos8xTdhZ0bCBj3nU4HA0OchdUwIlSqe-7VOWAup2SW08AFAlbbNH0J0nAHifOTY";
+
+function urlBase64ToUint8Array(base64String) {
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
+  const rawData = window.atob(base64);
+  const outputArray = new Uint8Array(rawData.length);
+  for (let i = 0; i < rawData.length; ++i) {
+    outputArray[i] = rawData.charCodeAt(i);
+  }
+  return outputArray;
+}
+
 export default function Settings() {
   const navigate = useNavigate();
   const userName = localStorage.getItem("nylaUserName") || "tú";
+  const userEmail = localStorage.getItem("nylaUserEmail") || "";
   const [notificationsOn, setNotificationsOn] = useState(() =>
     localStorage.getItem("nylaNotifications") === "true"
   );
@@ -12,6 +26,7 @@ export default function Settings() {
   );
   const [permissionStatus, setPermissionStatus] = useState("default");
   const [saved, setSaved] = useState(false);
+  const [subscribing, setSubscribing] = useState(false);
 
   useEffect(() => {
     if ("Notification" in window) {
@@ -29,33 +44,64 @@ export default function Settings() {
     return permission === "granted";
   };
 
-  const scheduleNotification = (hour) => {
-    if (!("serviceWorker" in navigator)) return;
-    const [h, m] = hour.split(":").map(Number);
-    const now = new Date();
-    const next = new Date();
-    next.setHours(h, m, 0, 0);
-    if (next <= now) next.setDate(next.getDate() + 1);
-    const delay = next.getTime() - now.getTime();
+  const subscribeToPush = async (hour) => {
+    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+      console.warn("Push no soportado en este navegador.");
+      return false;
+    }
+    if (!userEmail) {
+      console.warn("No hay email guardado, no se puede suscribir a push.");
+      return false;
+    }
 
-    setTimeout(() => {
-      if (Notification.permission === "granted") {
-        new Notification("NYLA Method 💪", {
-          body: `Hola ${userName}, es hora de entrenar. ¡Vamos, te estoy esperando! ✦`,
-          icon: "/icon-192.png",
+    setSubscribing(true);
+    try {
+      const registration = await navigator.serviceWorker.ready;
+
+      let subscription = await registration.pushManager.getSubscription();
+      if (!subscription) {
+        subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: urlBase64ToUint8Array(VAPID_PUBLIC_KEY),
         });
       }
-      scheduleNotification(hour);
-    }, delay);
+
+      const [h] = hour.split(":").map(Number);
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+
+      const response = await fetch("/api/save-subscription", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: userEmail,
+          subscription,
+          notifHour: h,
+          timezone,
+        }),
+      });
+
+      if (!response.ok) throw new Error("Error guardando suscripción en el servidor");
+
+      setSubscribing(false);
+      return true;
+    } catch (err) {
+      console.error("Error suscribiendo a push:", err);
+      setSubscribing(false);
+      return false;
+    }
   };
 
   const handleToggle = async () => {
     if (!notificationsOn) {
       const granted = await requestPermission();
       if (granted) {
-        setNotificationsOn(true);
-        localStorage.setItem("nylaNotifications", "true");
-        scheduleNotification(notifHour);
+        const success = await subscribeToPush(notifHour);
+        if (success) {
+          setNotificationsOn(true);
+          localStorage.setItem("nylaNotifications", "true");
+        } else {
+          alert("Hubo un problema activando las notificaciones. Intenta de nuevo.");
+        }
       }
     } else {
       setNotificationsOn(false);
@@ -63,9 +109,11 @@ export default function Settings() {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     localStorage.setItem("nylaNotifHour", notifHour);
-    if (notificationsOn) scheduleNotification(notifHour);
+    if (notificationsOn) {
+      await subscribeToPush(notifHour);
+    }
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -104,13 +152,14 @@ export default function Settings() {
           <div>
             <p style={{fontSize:"15px", fontWeight:"500"}}>Recordatorio de entrenamiento</p>
             <p style={{fontSize:"12px", opacity:0.5, marginTop:"3px"}}>
-              Te avisamos cada día a la hora que elijas
+              Te avisamos cada día a la hora que elijas, con un mensaje distinto cada vez
             </p>
           </div>
-          <button onClick={handleToggle} style={{
+          <button onClick={handleToggle} disabled={subscribing} style={{
             width:"48px", height:"28px", borderRadius:"14px",
             background: notificationsOn ? "#c9607a" : "rgba(244,175,200,0.2)",
-            border:"none", cursor:"pointer", position:"relative", transition:"all 0.2s"
+            border:"none", cursor: subscribing ? "wait" : "pointer", position:"relative", transition:"all 0.2s",
+            opacity: subscribing ? 0.6 : 1
           }}>
             <div style={{
               width:"22px", height:"22px", borderRadius:"50%", background:"#fff",
@@ -144,13 +193,14 @@ export default function Settings() {
                 WebkitAppearance:"none", appearance:"none"
               }}
             />
-            <button onClick={handleSave} style={{
+            <button onClick={handleSave} disabled={subscribing} style={{
               width:"100%", padding:"12px", borderRadius:"12px",
               background:"linear-gradient(135deg, #8b2840, #c9607a)",
-              color:"#fff", border:"none", cursor:"pointer",
-              fontSize:"13px", letterSpacing:"0.2em", textTransform:"uppercase"
+              color:"#fff", border:"none", cursor: subscribing ? "wait" : "pointer",
+              fontSize:"13px", letterSpacing:"0.2em", textTransform:"uppercase",
+              opacity: subscribing ? 0.6 : 1
             }}>
-              {saved ? "✓ Guardado" : "Guardar hora"}
+              {subscribing ? "Guardando..." : saved ? "✓ Guardado" : "Guardar hora"}
             </button>
           </>
         )}
@@ -172,7 +222,6 @@ export default function Settings() {
         }}>
           Editar perfil →
         </button>
-
       </div>
 
       {/* INFO */}
@@ -181,10 +230,7 @@ export default function Settings() {
         padding:"16px", border:"1px solid rgba(244,175,200,0.1)"
       }}>
         <p style={{fontSize:"12px", opacity:0.5, lineHeight:"1.6"}}>
-          El mensaje que recibirás será:<br/>
-          <em style={{color:"#f4afc8"}}>
-            "Hola {userName}, es hora de entrenar. ¡Vamos, te estoy esperando! ✦"
-          </em>
+          Cada día recibirás un mensaje distinto: de amor propio, motivación, disciplina o constancia — con un recordatorio para entrenar.
         </p>
       </div>
     </div>
