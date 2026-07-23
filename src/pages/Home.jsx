@@ -6,10 +6,10 @@ import CyclePhaseCard from "../components/CyclePhaseCard";
 import "../styles/Home.css";
 
 const PLAN_DAYS = {
-  fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
-  threeDays: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna"],
+  fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales","Descanso Activo"],
+  threeDays: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna","Descanso Activo"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
-  homeDays: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
+  homeDays: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core","Descanso Activo"],
   fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Torso A","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
 };
 

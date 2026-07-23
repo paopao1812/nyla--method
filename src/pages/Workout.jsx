@@ -8,10 +8,10 @@ import "../styles/Workout.css";
 import "../styles/RestTimer.css";
 
 const PLAN_DAYS = {
-  fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
-  threeDays: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
+  fiveDays: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales","Descanso Activo"],
+  threeDays: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna","Descanso Activo"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
-  homeDays: ["Día 1 · Glúteos y Cuádriceps","Día 2 · Torso","Día 3 · Glúteos y Femoral"],
+  homeDays: ["Día 1 · Glúteos y Cuádriceps","Día 2 · Torso","Día 3 · Glúteos y Femoral","Descanso Activo"],
   fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Torso A","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
 };
 
@@ -19,12 +19,12 @@ const plans = {
   fiveDays: {
     label: "Plan 5 días",
     shortLabel: "5 días",
-    days: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales"],
+    days: ["Día 1 · Glúteos","Día 2 · Espalda y Bíceps","Día 3 · Cuádriceps o Descanso","Día 4 · Hombros","Día 5 · Glúteos unilaterales","Descanso Activo"],
   },
   threeDays: {
     label: "Plan 3 días",
     shortLabel: "3 días",
-    days: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
+    days: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna","Descanso Activo"],
   },
   glutesOnly: {
     label: "Only Glúteos",
@@ -34,7 +34,7 @@ const plans = {
   homeDays: {
     label: "En Casa",
     shortLabel: "En Casa",
-    days: ["Día 1 · Glúteos y Cuádriceps","Día 2 · Torso","Día 3 · Glúteos y Femoral"],
+    days: ["Día 1 · Glúteos y Cuádriceps","Día 2 · Torso","Día 3 · Glúteos y Femoral","Descanso Activo"],
   },
   fourDays: {
     label: "Plan 4 días",
@@ -79,7 +79,7 @@ const weeklyPlan = {
     { name: "Remo sentado" },{ name: "Hiperextensiones" },{ name: "Curl bíceps" },
   ],
   "Día 3 · Cuádriceps o Descanso": [
-    { name: "Aductores en máquina" },{ name: "Sentadilla búlgara" },
+    { name: "Aducciones en máquina" },{ name: "Sentadilla búlgara" },
     { name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },
     { name: "Extensión de cuádriceps" },{ name: "Gemelos en máquina" },
   ],
@@ -92,7 +92,7 @@ const weeklyPlan = {
     { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
   ],
   "Día 1 · Cuádriceps": [
-    { name: "Aductores en máquina" },{ name: "Sentadilla búlgara" },
+    { name: "Aducciones en máquina" },{ name: "Sentadilla búlgara" },
     { name: "Sentadilla Goblet con talones elevados" },{ name: "Prensa pies abajo" },
     { name: "Extensión de piernas" },{ name: "Gemelos en máquina" },
   ],
@@ -108,7 +108,7 @@ const weeklyPlan = {
   "Día 1 · Cuádriceps y Glúteo": [
     { name: "Sentadilla búlgara" },{ name: "Prensa pies abajo" },
     { name: "Extensión de cuádriceps" },{ name: "Hip Thrust con barra" },
-    { name: "Abducciones en máquina" },{ name: "Gemelos en máquina" },
+    { name: "Aducciones en máquina" },{ name: "Gemelos en máquina" },
   ],
   "Día 2 · Torso A": [
     { name: "Jalón al pecho" },{ name: "Remo sentado" },{ name: "Press militar" },
@@ -557,7 +557,7 @@ export default function Workout() {
             <p className="wk-modal-sub">Tu progresión se actualizará. Los pesos y series evolucionan contigo.</p>
             <div className="wk-modal-btns">
               <button className="wk-modal-cancel" onClick={() => setShowAdvanceModal(false)}>Cancelar</button>
-              <button className="wk-modal-confirm" onClick={handleAdvance}>✨ Continuar</button>
+              <button className="wk-modal-confirm" onClick={handleAdvance}>Continuar</button>
             </div>
           </div>
         </div>
@@ -595,7 +595,7 @@ export default function Workout() {
       </div>
 
       {blockComplete && !isLastBlock && (
-        <button className="wk-advance-btn" onClick={() => setShowAdvanceModal(true)}>✨ Siguiente nivel</button>
+        <button className="wk-advance-btn" onClick={() => setShowAdvanceModal(true)}>Siguiente nivel</button>
       )}
       {blockComplete && isLastBlock && (
         <div className="wk-final-card">
