@@ -293,6 +293,8 @@ export default function Workout() {
   const [cardioTimeLeft, setCardioTimeLeft] = useState(0);
   const [cardioDone, setCardioDone] = useState(false);
   const cardioTimerRef = useRef(null);
+  const [cardioEndTime, setCardioEndTime] = useState(null);
+  const [cardioDuration, setCardioDuration] = useState(null);
   const [showAdvanceModal, setShowAdvanceModal] = useState(false);
   const [showSummaryModal, setShowSummaryModal] = useState(false);
 
@@ -303,6 +305,21 @@ export default function Workout() {
   useEffect(() => { localStorage.setItem("nylaSelectedPlan", selectedPlan); }, [selectedPlan]);
   useEffect(() => { localStorage.setItem("nylaSelectedDay", selectedDay); }, [selectedDay]);
   useEffect(() => { localStorage.setItem("nylaActiveSection", activeSection); }, [activeSection]);
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && cardioRunning && cardioEndTime) {
+        const remaining = Math.max(0, Math.round((cardioEndTime - Date.now()) / 1000));
+        setCardioTimeLeft(remaining);
+        if (remaining <= 0) {
+          clearInterval(cardioTimerRef.current);
+          setCardioRunning(false);
+          setCardioDone(true);
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [cardioRunning, cardioEndTime]);
 
   const getCycleInfo = () => {
     if (!lastPeriodDate) return null;
@@ -418,25 +435,51 @@ export default function Workout() {
     : selectedPlan === "fiveDays"
     ? ["fiveDays"]
     : [selectedPlan];
-  const startCardioTimer = (machine) => {
+  const startCardioTimer = (machine, customDuration) => {
     const [min, ] = cardio.time.split(" ");
-    const seconds = parseInt(min) * 60;
+    const durationMin = customDuration || cardioDuration || parseInt(min);
+    const seconds = durationMin * 60;
+    const endTime = Date.now() + seconds * 1000;
+
     setSelectedCardio(machine);
+    setCardioDuration(durationMin);
+    setCardioEndTime(endTime);
     setCardioTimeLeft(seconds);
     setCardioRunning(true);
     setCardioDone(false);
     clearInterval(cardioTimerRef.current);
+
     cardioTimerRef.current = setInterval(() => {
-      setCardioTimeLeft(t => {
-        if (t <= 1) {
-          clearInterval(cardioTimerRef.current);
-          setCardioRunning(false);
-          setCardioDone(true);
-          return 0;
-        }
-        return t - 1;
-      });
+      const remaining = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+      setCardioTimeLeft(remaining);
+      if (remaining <= 0) {
+        clearInterval(cardioTimerRef.current);
+        setCardioRunning(false);
+        setCardioDone(true);
+      }
     }, 1000);
+  };
+
+  const resumeCardioTimer = () => {
+    const newEndTime = Date.now() + cardioTimeLeft * 1000;
+    setCardioEndTime(newEndTime);
+    setCardioRunning(true);
+    clearInterval(cardioTimerRef.current);
+    cardioTimerRef.current = setInterval(() => {
+      const remaining = Math.max(0, Math.round((newEndTime - Date.now()) / 1000));
+      setCardioTimeLeft(remaining);
+      if (remaining <= 0) {
+        clearInterval(cardioTimerRef.current);
+        setCardioRunning(false);
+        setCardioDone(true);
+      }
+    }, 1000);
+  };
+
+  const finishCardioNow = () => {
+    clearInterval(cardioTimerRef.current);
+    setCardioRunning(false);
+    setCardioDone(true);
   };
 
   const fmtCardio = (s) => `${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}`;
@@ -834,6 +877,22 @@ export default function Workout() {
                     No necesitas terminar agotada. El cardio después de las pesas complementa tu entrenamiento y mejora tu salud. No compite con tu sesión de fuerza.
                   </p>
                 </div>
+                <p style={{fontSize:"11px", letterSpacing:"0.2em", color:"#c9607a", textTransform:"uppercase", marginBottom:"10px"}}>
+                  ¿Cuánto tiempo quieres hacer?
+                </p>
+                <div style={{display:"flex", gap:"8px", marginBottom:"18px"}}>
+                  {[15, 25, 35, 45].map((min) => (
+                    <button key={min} onClick={() => setCardioDuration(min)} style={{
+                      flex:1, padding:"10px 0", borderRadius:"10px",
+                      background: (cardioDuration || parseInt(cardio.time)) === min ? "rgba(201,96,122,0.3)" : "rgba(0,0,0,0.2)",
+                      border: (cardioDuration || parseInt(cardio.time)) === min ? "1px solid rgba(201,96,122,0.6)" : "1px solid rgba(244,175,200,0.1)",
+                      color: (cardioDuration || parseInt(cardio.time)) === min ? "#f4afc8" : "rgba(244,175,200,0.5)",
+                      fontSize:"13px", cursor:"pointer"
+                    }}>
+                      {min} min
+                    </button>
+                  ))}
+                </div>
                 <p style={{fontSize:"11px", letterSpacing:"0.2em", color:"#c9607a", textTransform:"uppercase", marginBottom:"12px"}}>
                   ¿Qué máquina vas a usar?
                 </p>
@@ -922,7 +981,7 @@ export default function Workout() {
                         clearInterval(cardioTimerRef.current);
                         setCardioRunning(false);
                       } else {
-                        startCardioTimer(selectedCardio);
+                        resumeCardioTimer();
                       }
                     }} style={{
                       flex:1, padding:"14px", borderRadius:"12px",
@@ -931,6 +990,16 @@ export default function Workout() {
                       color:"#f4afc8", fontSize:"13px", cursor:"pointer"
                     }}>
                       {cardioRunning ? "⏸ Pausar" : "▶ Continuar"}
+                    </button>
+                  )}
+                  {!cardioDone && (
+                    <button onClick={finishCardioNow} style={{
+                      flex:1, padding:"14px", borderRadius:"12px",
+                      background:"rgba(160,196,160,0.15)",
+                      border:"1px solid rgba(160,196,160,0.4)",
+                      color:"#a0c4a0", fontSize:"13px", cursor:"pointer"
+                    }}>
+                      ✓ Finalizar cardio
                     </button>
                   )}
                   <button onClick={() => { clearInterval(cardioTimerRef.current); setSelectedCardio(null); setCardioDone(false); }} style={{
