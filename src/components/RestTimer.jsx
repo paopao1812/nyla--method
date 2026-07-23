@@ -49,24 +49,26 @@ export default function RestTimer() {
     setDone(false);
   }, []);
 
+  const endTimeRef = useRef(null);
+
   const start = useCallback((dur) => {
     clearInterval(intervalRef.current);
     setDone(false);
     setTimeLeft(dur);
     setRunning(true);
     setShowPicker(false);
+    const endTime = Date.now() + dur * 1000;
+    endTimeRef.current = endTime;
     intervalRef.current = setInterval(() => {
-      setTimeLeft(prev => {
-        if (prev <= 1) {
-          clearInterval(intervalRef.current);
-          setRunning(false);
-          setDone(true);
-          playBeep();
-          if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300]);
-          return 0;
-        }
-        return prev - 1;
-      });
+      const remaining = Math.max(0, Math.round((endTime - Date.now()) / 1000));
+      setTimeLeft(remaining);
+      if (remaining <= 0) {
+        clearInterval(intervalRef.current);
+        setRunning(false);
+        setDone(true);
+        playBeep();
+        if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300]);
+      }
     }, 1000);
   }, []);
 
@@ -84,6 +86,24 @@ export default function RestTimer() {
   };
 
   useEffect(() => () => clearInterval(intervalRef.current), []);
+
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible" && running && endTimeRef.current) {
+        const remaining = Math.max(0, Math.round((endTimeRef.current - Date.now()) / 1000));
+        setTimeLeft(remaining);
+        if (remaining <= 0) {
+          clearInterval(intervalRef.current);
+          setRunning(false);
+          setDone(true);
+          playBeep();
+          if (navigator.vibrate) navigator.vibrate([300, 100, 300, 100, 300]);
+        }
+      }
+    };
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", handleVisibilityChange);
+  }, [running]);
 
   const fmt = (s) => `${String(Math.floor(s / 60)).padStart(2,"0")}:${String(s % 60).padStart(2,"0")}`;
   const progress = timeLeft !== null ? timeLeft / duration : 1;

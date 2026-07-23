@@ -50,6 +50,17 @@ export default function Cycle() {
           onChange={handleDateChange}
           max={new Date().toISOString().split("T")[0]}
         />
+        {lastPeriodDate && (
+          <button
+            className="cycle-clear-btn"
+            onClick={() => {
+              setLastPeriodDate("");
+              localStorage.removeItem("nylaLastPeriodDate");
+            }}
+          >
+            No quiero indicarlo esta vez
+          </button>
+        )}
       </div>
 
       {cycleInfo && (
