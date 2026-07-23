@@ -12,7 +12,7 @@ const PLAN_DAYS = {
   threeDays: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
   homeDays: ["Día 1 · Glúteos y Cuádriceps","Día 2 · Torso","Día 3 · Glúteos y Femoral"],
-  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
+  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
 };
 
 const plans = {
@@ -39,7 +39,7 @@ const plans = {
   fourDays: {
     label: "Plan 4 días",
     shortLabel: "4 días",
-    days: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Full Body"],
+    days: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
   },
 };
 
@@ -118,9 +118,10 @@ const weeklyPlan = {
     { name: "Hip Thrust con barra" },{ name: "Peso muerto" },{ name: "Femoral tumbado" },
     { name: "Patada de glúteo en polea" },{ name: "Abducciones en máquina" },
   ],
-  "Día 4 · Full Body": [
-    { name: "Sentadilla búlgara" },{ name: "Hip Thrust con barra" },{ name: "Press militar" },
-    { name: "Remo sentado" },{ name: "Peso muerto" },{ name: "Elevaciones laterales" },
+  "Día 4 · Torso B": [
+    { name: "Remo en punta unilateral" },{ name: "Press de banca en máquina" },
+    { name: "Press Arnold" },{ name: "Face pull" },
+    { name: "Curl martillo" },{ name: "Extensión de tríceps en polea" },
   ],
   "Día 1 · Glúteos y Cuádriceps": [
     { name: "Hip thrust con banda" },
