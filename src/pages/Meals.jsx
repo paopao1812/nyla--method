@@ -5,28 +5,28 @@ import "../styles/Meals.css";
 
 const meals = {
   Desayunos: [
-    { title:"Tortilla de claras con tostadas", items:["4 claras","1 huevo entero","2 tostadas integrales","½ aguacate"], steps:["Bate claras con huevo, sazona.","Cocina en sartén 3 min.","Tuesta el pan y aplasta el aguacate.","Sirve junto."], time:"10 min", protein:30, carbs:26, fat:14, calories:490 },
-    { title:"Yogur griego con avena y fruta", items:["250 g yogur griego 0%","40 g avena","1 banana","10 g crema de cacahuete"], steps:["Pon la avena en un bol.","Añade el yogur encima.","Corta la banana y añádela.","Añade crema de cacahuete y canela."], time:"5 min", protein:28, carbs:48, fat:8, calories:420 },
-    { title:"Tostadas de atún con tomate", items:["1 lata atún en agua","2 tostadas integrales","1 tomate","30 g queso fresco batido"], steps:["Escurre el atún y mezcla con queso.","Corta el tomate.","Monta las tostadas con tomate y atún.","Chorrito de aceite encima."], time:"5 min", protein:30, carbs:30, fat:7, calories:390 },
-    { title:"Avena con huevo y plátano", items:["50 g avena","1 huevo","1 plátano","200 ml leche semidesnatada"], steps:["Cuece la avena en leche 3–4 min.","Fríe el huevo.","Sirve avena con plátano troceado y huevo."], time:"10 min", protein:22, carbs:52, fat:8, calories:410 },
+    { title:"Tortilla de claras con tostadas", items:["4 claras","1 huevo entero","2 tostadas integrales","½ aguacate"], steps:["Bate claras con huevo, sazona.","Cocina en sartén 3 min.","Tuesta el pan y aplasta el aguacate.","Sirve junto."], time:"10 min", protein:30, carbs:26, fat:14, calories:490, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739346/ChatGPT_Image_21_jul_2026_20_03_14_cmcot3.png" },
+    { title:"Yogur griego con avena y fruta", items:["250 g yogur griego 0%","40 g avena","1 banana","10 g crema de cacahuete"], steps:["Pon la avena en un bol.","Añade el yogur encima.","Corta la banana y añádela.","Añade crema de cacahuete y canela."], time:"5 min", protein:28, carbs:48, fat:8, calories:420, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739344/ChatGPT_Image_21_jul_2026_20_06_24_jcx2tw.png" },
+    { title:"Tostadas de atún con tomate", items:["1 lata atún en agua","2 tostadas integrales","1 tomate","30 g queso fresco batido"], steps:["Escurre el atún y mezcla con queso.","Corta el tomate.","Monta las tostadas con tomate y atún.","Chorrito de aceite encima."], time:"5 min", protein:30, carbs:30, fat:7, calories:390, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784818792/ChatGPT_Image_23_jul_2026_16_59_10_dkjiac.png" },
+    { title:"Avena con huevo y plátano", items:["50 g avena","1 huevo","1 plátano","200 ml leche semidesnatada"], steps:["Cuece la avena en leche 3–4 min.","Fríe el huevo.","Sirve avena con plátano troceado y huevo."], time:"10 min", protein:22, carbs:52, fat:8, calories:410, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739346/ChatGPT_Image_21_jul_2026_20_12_18_qrrcyy.png" },
   ],
   Almuerzos: [
-    { title:"Pollo con arroz y brócoli", items:["150 g pechuga de pollo","120 g arroz cocido","150 g brócoli","10 g aceite de oliva"], steps:["Cuece el arroz.","Cuece el brócoli al vapor 5 min.","Cocina el pollo en sartén con ajo 8 min.","Sirve todo junto."], time:"25 min", protein:36, carbs:46, fat:11, calories:540 },
-    { title:"Salmón con patata y espinacas", items:["150 g salmón","200 g patata","100 g espinacas","10 g aceite de oliva"], steps:["Cuece la patata 15 min.","Cocina el salmón 4 min por lado.","Saltea espinacas 2 min.","Sirve junto con limón."], time:"25 min", protein:32, carbs:30, fat:18, calories:520 },
-    { title:"Ternera con boniato", items:["150 g ternera magra picada","200 g boniato","Pimientos","10 g aceite de oliva"], steps:["Cuece el boniato 15 min o microondas 8 min.","Saltea ternera con pimientos 8 min.","Sirve ternera sobre el boniato."], time:"25 min", protein:33, carbs:40, fat:12, calories:550 },
-    { title:"Pasta integral con atún", items:["90 g pasta integral","2 latas atún en agua","200 g tomate triturado","Ajo"], steps:["Cuece la pasta.","Sofríe ajo 1 min.","Añade tomate y cocina 5 min.","Mezcla con atún y pasta."], time:"20 min", protein:38, carbs:52, fat:8, calories:510 },
-    { title:"Bowl de garbanzos con huevo", items:["200 g garbanzos cocidos","2 huevos","Espinacas","Tomate cherry","10 g aceite"], steps:["Cuece los huevos 7 min.","Saltea garbanzos con espinacas 3 min.","Añade tomate cherry.","Sirve con huevos partidos."], time:"15 min", protein:28, carbs:38, fat:14, calories:510 },
+    { title:"Pollo con arroz y brócoli", items:["150 g pechuga de pollo","120 g arroz cocido","150 g brócoli","10 g aceite de oliva"], steps:["Cuece el arroz.","Cuece el brócoli al vapor 5 min.","Cocina el pollo en sartén con ajo 8 min.","Sirve todo junto."], time:"25 min", protein:36, carbs:46, fat:11, calories:540, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739347/ChatGPT_Image_21_jul_2026_20_13_31_poey34.png" },
+    { title:"Salmón con patata y espinacas", items:["150 g salmón","200 g patata","100 g espinacas","10 g aceite de oliva"], steps:["Cuece la patata 15 min.","Cocina el salmón 4 min por lado.","Saltea espinacas 2 min.","Sirve junto con limón."], time:"25 min", protein:32, carbs:30, fat:18, calories:520, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739346/ChatGPT_Image_21_jul_2026_20_14_41_peepei.png" },
+    { title:"Ternera con boniato", items:["150 g ternera magra picada","200 g boniato","Pimientos","10 g aceite de oliva"], steps:["Cuece el boniato 15 min o microondas 8 min.","Saltea ternera con pimientos 8 min.","Sirve ternera sobre el boniato."], time:"25 min", protein:33, carbs:40, fat:12, calories:550, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739346/ChatGPT_Image_21_jul_2026_20_16_47_hmwrw4.png" },
+    { title:"Pasta integral con atún", items:["90 g pasta integral","2 latas atún en agua","200 g tomate triturado","Ajo"], steps:["Cuece la pasta.","Sofríe ajo 1 min.","Añade tomate y cocina 5 min.","Mezcla con atún y pasta."], time:"20 min", protein:38, carbs:52, fat:8, calories:510, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739345/ChatGPT_Image_22_jul_2026_16_49_56_hi6wzu.png" },
+    { title:"Bowl de garbanzos con huevo", items:["200 g garbanzos cocidos","2 huevos","Espinacas","Tomate cherry","10 g aceite"], steps:["Cuece los huevos 7 min.","Saltea garbanzos con espinacas 3 min.","Añade tomate cherry.","Sirve con huevos partidos."], time:"15 min", protein:28, carbs:38, fat:14, calories:510, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739345/ChatGPT_Image_22_jul_2026_16_47_57_y7enll.png" },
   ],
   Meriendas: [
-    { title:"Yogur con frutos secos", items:["200 g yogur griego 0%","15 g nueces","1 manzana"], steps:["Pon el yogur en un bol.","Añade nueces troceadas.","Acompaña con manzana cortada."], time:"2 min", protein:18, carbs:28, fat:10, calories:310 },
-    { title:"Tostadas de pavo y queso", items:["2 tostadas integrales","80 g pavo","30 g queso fresco batido","Tomate"], steps:["Unta el queso en las tostadas.","Añade pavo y tomate.","Listo."], time:"3 min", protein:22, carbs:26, fat:5, calories:320 },
-    { title:"Requesón con fruta y avena", items:["200 g requesón","30 g avena","1 naranja"], steps:["Mezcla requesón con avena.","Añade naranja troceada.","Espolvorea canela."], time:"3 min", protein:20, carbs:32, fat:4, calories:300 },
+    { title:"Yogur con frutos secos", items:["200 g yogur griego 0%","15 g nueces","1 manzana"], steps:["Pon el yogur en un bol.","Añade nueces troceadas.","Acompaña con manzana cortada."], time:"2 min", protein:18, carbs:28, fat:10, calories:310, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739347/ChatGPT_Image_22_jul_2026_16_53_10_vqbduv.png" },
+    { title:"Tostadas de pavo y queso", items:["2 tostadas integrales","80 g pavo","30 g queso fresco batido","Tomate"], steps:["Unta el queso en las tostadas.","Añade pavo y tomate.","Listo."], time:"3 min", protein:22, carbs:26, fat:5, calories:320, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739347/ChatGPT_Image_22_jul_2026_16_53_10_vqbduv.png" },
+    { title:"Requesón con fruta y avena", items:["200 g requesón","30 g avena","1 naranja"], steps:["Mezcla requesón con avena.","Añade naranja troceada.","Espolvorea canela."], time:"3 min", protein:20, carbs:32, fat:4, calories:300, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739351/ChatGPT_Image_22_jul_2026_16_54_10_hpwcyh.png" },
   ],
   Cenas: [
-    { title:"Merluza al horno con verduras", items:["200 g merluza","Calabacín","Tomate","Pimientos","10 g aceite"], steps:["Precalienta horno 180°C.","Coloca merluza y verduras en bandeja.","Riega con aceite y limón.","Hornea 18–20 min."], time:"25 min", protein:34, carbs:10, fat:8, calories:320 },
-    { title:"Tortilla de verduras", items:["3 huevos","2 claras","Champiñones","Espinacas","Pimientos"], steps:["Saltea verduras 5 min.","Bate huevos y añade verduras.","Cuaja a fuego bajo 4–5 min.","Da la vuelta y cocina 2 min."], time:"15 min", protein:28, carbs:8, fat:14, calories:380 },
-    { title:"Pollo con verduras salteadas", items:["150 g pechuga de pollo","Brócoli","Zanahoria","Champiñones","Salsa de soja"], steps:["Corta el pollo en tiras.","Saltea el pollo 5 min.","Saltea verduras 5 min.","Mezcla con salsa de soja."], time:"15 min", protein:35, carbs:12, fat:8, calories:380 },
-    { title:"Ensalada completa con atún", items:["2 latas atún en agua","2 huevos cocidos","Lechuga","Tomate","Pepino"], steps:["Cuece los huevos 10 min.","Prepara la base de lechuga.","Añade atún y huevos.","Aliña con aceite y limón."], time:"15 min", protein:38, carbs:8, fat:14, calories:390 },
+    { title:"Merluza al horno con verduras", items:["200 g merluza","Calabacín","Tomate","Pimientos","10 g aceite"], steps:["Precalienta horno 180°C.","Coloca merluza y verduras en bandeja.","Riega con aceite y limón.","Hornea 18–20 min."], time:"25 min", protein:34, carbs:10, fat:8, calories:320, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739348/ChatGPT_Image_22_jul_2026_16_55_44_zvska2.png" },
+    { title:"Tortilla de verduras", items:["3 huevos","2 claras","Champiñones","Espinacas","Pimientos"], steps:["Saltea verduras 5 min.","Bate huevos y añade verduras.","Cuaja a fuego bajo 4–5 min.","Da la vuelta y cocina 2 min."], time:"15 min", protein:28, carbs:8, fat:14, calories:380, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739351/ChatGPT_Image_22_jul_2026_16_58_06_non75v.png" },
+    { title:"Pollo con verduras salteadas", items:["150 g pechuga de pollo","Brócoli","Zanahoria","Champiñones","Salsa de soja"], steps:["Corta el pollo en tiras.","Saltea el pollo 5 min.","Saltea verduras 5 min.","Mezcla con salsa de soja."], time:"15 min", protein:35, carbs:12, fat:8, calories:380, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739351/Pollo%20con%20verduras%20salteadas.png" },
+    { title:"Ensalada completa con atún", items:["2 latas atún en agua","2 huevos cocidos","Lechuga","Tomate","Pepino"], steps:["Cuece los huevos 10 min.","Prepara la base de lechuga.","Añade atún y huevos.","Aliña con aceite y limón."], time:"15 min", protein:38, carbs:8, fat:14, calories:390, image:"https://res.cloudinary.com/dhinbr3np/image/upload/v1784739347/ChatGPT_Image_21_jul_2026_20_13_31_poey34.png" },
   ],
 };
 
@@ -461,9 +461,17 @@ export default function Meals() {
                 display:"flex", alignItems:"center", justifyContent:"center",
                 marginBottom:"12px", overflow:"hidden"
               }}>
-                <p style={{fontSize:"11px", color:"rgba(244,175,200,0.3)", letterSpacing:"0.2em", textTransform:"uppercase"}}>
-                  📷 Foto del plato
-                </p>
+                {meal.image ? (
+                  <img
+                    src={meal.image}
+                    alt={meal.title}
+                    style={{ width:"100%", height:"100%", objectFit:"cover", borderRadius:"12px" }}
+                  />
+                ) : (
+                  <p style={{fontSize:"11px", color:"rgba(244,175,200,0.3)", letterSpacing:"0.2em", textTransform:"uppercase"}}>
+                    📷 Foto del plato
+                  </p>
+                )}
               </div>
               <h3>{meal.title}</h3>
               <ul>{meal.items.map(i => <li key={i}>{i}</li>)}</ul>
