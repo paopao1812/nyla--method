@@ -12,7 +12,7 @@ const PLAN_DAYS = {
   threeDays: ["Día 1 · Cuádriceps","Día 2 · Tren Superior","Día 3 · Glúteos + Pierna"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
   homeDays: ["Día 1 · Glúteos y Cuádriceps","Día 2 · Torso","Día 3 · Glúteos y Femoral"],
-  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
+  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Torso A","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
 };
 
 const plans = {
@@ -39,7 +39,7 @@ const plans = {
   fourDays: {
     label: "Plan 4 días",
     shortLabel: "4 días",
-    days: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
+    days: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Torso A","Descanso Activo","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
   },
 };
 
@@ -110,7 +110,7 @@ const weeklyPlan = {
     { name: "Extensión de cuádriceps" },{ name: "Hip Thrust con barra" },
     { name: "Abducciones en máquina" },{ name: "Gemelos en máquina" },
   ],
-  "Día 2 · Tren Superior + Core": [
+  "Día 2 · Torso A": [
     { name: "Jalón al pecho" },{ name: "Remo sentado" },{ name: "Press militar" },
     { name: "Elevaciones laterales" },{ name: "Curl bíceps" },{ name: "Curl de tríceps" },
   ],

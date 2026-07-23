@@ -10,7 +10,7 @@ const PLAN_DAYS = {
   threeDays: ["Día 1 · Cuádriceps","Día 2 · Torso","Día 3 · Glúteos + Pierna"],
   glutesOnly: ["Día 1 · Glúteos","Día 2 · Glúteos + Femoral","Día 3 · Glúteos unilaterales"],
   homeDays: ["Día 1 · Glúteos y Pierna","Día 2 · Tren Superior","Día 3 · Glúteos + Core"],
-  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Tren Superior + Core","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
+  fourDays: ["Día 1 · Cuádriceps y Glúteo","Día 2 · Torso A","Día 3 · Glúteo y Femoral","Día 4 · Torso B"],
 };
 
 const PLAN_LABELS = {
